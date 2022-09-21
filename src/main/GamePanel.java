@@ -39,7 +39,6 @@ public class GamePanel extends JPanel implements Runnable{
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
-        int drawCount = 0;
         while(gameThread != null) {
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime)/drawInterval;
@@ -58,7 +57,15 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g2 = (Graphics2D) gr;
-        tileM.drawMidMap(g2);
+        if(player.realX < screenWidth/2 - tileSize) {
+            tileM.draw(g2);
+
+            System.out.println(player.realX + " " + (maxScreenCol * tileSize - screenWidth/2 - tileSize));
+        } else if(player.realX >= player.endMapX) {
+            tileM.drawEnd(g2);
+        } else {
+            tileM.drawMidMap(g2);
+        }
         player.draw(g2);
         g2.dispose();
     }

@@ -21,6 +21,7 @@ public class Player extends Entity{
         getPlayerImage();
     }
     public void setDefaultValue() {
+        endMapX = 1080;
         worldX = gp.tileSize;
         worldY = gp.tileSize * 2;
         realX = gp.tileSize;
@@ -60,13 +61,13 @@ public class Player extends Entity{
             } else if (KeyHolder.leftPressed == true) {
                 direction = "left";
                 realX -=speed;
-                if(realX < gp.screenHeight/2) {
+                if(realX < gp.screenWidth/2 - gp.tileSize || realX >= endMapX) {
                     worldX -= speed;
                 }
             } else if (KeyHolder.rightPressed == true) {
                 direction = "right";
                 realX +=speed;
-                if(realX < gp.screenWidth/2) {
+                if(realX < gp.screenWidth/2 - gp.tileSize || realX >= endMapX) {
                     worldX += speed;
                 }
             }

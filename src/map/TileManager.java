@@ -88,6 +88,34 @@ public class TileManager {
         }
     }
 
+    public void drawEnd(Graphics2D g2) {
+        int col = 16;
+        int row = 0;
+        int x = 0;
+        int y = gp.tileSize;
+        while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
+            char obj = mapTileChar[col][row];
+            if(obj == '#') {
+                g2.drawImage(tile[1].image,x,y,gp.tileSize, gp.tileSize, null);
+            } else if(obj == ' ') {
+                g2.drawImage(tile[0].image,x,y,gp.tileSize, gp.tileSize, null);
+            } else if(obj == 'x') {
+                g2.drawImage(tile[2].image,x,y,gp.tileSize, gp.tileSize, null);
+            } else if(obj == '*') {
+                g2.drawImage(tile[2].image,x,y,gp.tileSize, gp.tileSize, null);
+            }
+            col++;
+            x += gp.tileSize;
+
+            if(col == gp.maxScreenCol) {
+                col = 16;
+                x = 1;
+                row++;
+                y += gp.tileSize;
+            }
+
+        }
+    }
 
     public void drawMidMap(Graphics2D g2) {
         int MapCol = 0;
@@ -98,7 +126,7 @@ public class TileManager {
 
             int mapX = MapCol * gp.tileSize;
             int mapY = MapRow * gp.tileSize;
-            int screenX = mapX - gp.player.realX + gp.tileSize;
+            int screenX = mapX - gp.player.realX + 310;
             int screenY = mapY - gp.player.realY + 3*gp.tileSize;
 
             if (obj == '#') {
