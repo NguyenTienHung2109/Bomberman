@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 public class GamePanel extends JPanel implements Runnable{
     public final int tileSize = 48;
     public final int maxScreenCol = 31;
-    public final int maxScreenRow = 13;
+    public final int maxScreenRow = 14;
     public final int defaultScreenRow = 14;
     public final int defaultScreenCol = 15;
 
@@ -20,6 +20,8 @@ public class GamePanel extends JPanel implements Runnable{
     TileManager tileM = new TileManager(this);
     Thread gameThread;
     KeyHolder keyR = new KeyHolder();
+
+    public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyR);
 
     public GamePanel() {
@@ -60,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable{
         if(player.realX < screenWidth/2 - tileSize) {
             tileM.draw(g2);
 
-            System.out.println(player.realX + " " + (maxScreenCol * tileSize - screenWidth/2 - tileSize));
+            //System.out.println(player.realX + " " + (maxScreenCol * tileSize - screenWidth/2 - tileSize));
         } else if(player.realX >= player.endMapX) {
             tileM.drawEnd(g2);
         } else {
