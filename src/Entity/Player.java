@@ -9,14 +9,15 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity {
-    GamePanel gp;
     KeyHolder KeyH;
     public final int screenX;
+    public final int screenY;
 
     public Player(GamePanel gp, KeyHolder keyH) {
-        this.gp = gp;
+        super(gp);
         this.KeyH = keyH;
         screenX = gp.screenWidth / 2;
+        screenY = gp.screenHeight / 2;
 
         solidArea = new Rectangle();
         solidArea.x = 8;

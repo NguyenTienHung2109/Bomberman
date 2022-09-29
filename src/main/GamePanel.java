@@ -1,5 +1,6 @@
 package main;
 
+import Entity.Entity;
 import Entity.Player;
 import map.TileManager;
 
@@ -14,12 +15,14 @@ public class GamePanel extends JPanel implements Runnable{
     public final int defaultScreenRow = 14;
     public final int defaultScreenCol = 15;
 
+    public AssertsSetter aSetter = new AssertsSetter(this);
     public final int screenWidth = tileSize * defaultScreenCol;
     public final int screenHeight = tileSize * defaultScreenRow;
     int FPS = 60;
     TileManager tileM = new TileManager(this);
     Thread gameThread;
     KeyHolder keyR = new KeyHolder();
+    public Entity balloom[] = new Entity[10];
 
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyR);
@@ -30,6 +33,9 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyR);
         this.setFocusable(true);
+    }
+    public void setupGame() {
+    aSetter.setBalloom();
     }
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -55,6 +61,11 @@ public class GamePanel extends JPanel implements Runnable{
     }
     public void update() {
         player.update();
+        for(int i=0; i<balloom.length; i++) {
+            if(balloom[i]!=null) {
+                balloom[i].update();
+            }
+        }
     }
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
@@ -69,6 +80,11 @@ public class GamePanel extends JPanel implements Runnable{
             tileM.drawMidMap(g2);
         }
         player.draw(g2);
+        for(int i=0; i<balloom.length; i++) {
+            if(balloom[i] != null) {
+                balloom[i].draw(g2);
+            }
+        }
         g2.dispose();
     }
 }
