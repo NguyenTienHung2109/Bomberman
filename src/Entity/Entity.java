@@ -6,6 +6,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
+    public int changeNum = 0;
+    public boolean collisionOn = false;
+    public boolean collisionBombUp = false;
+    public boolean collisionBombDown = false;
+    public boolean collisionBombRight = false;
+    public boolean collisionBombLeft = false;
     GamePanel gp;
     public int worldX, worldY;
     public int length = 1;
@@ -20,9 +26,8 @@ public class Entity {
     public String direction;
     public int spriteCounter = 0;
     public int spriteNum = 1;
-<<<<<<< Updated upstream
+
     public Rectangle solidArea = new Rectangle();
-    public boolean collisionOn = false;
     public int actionLockCounter = 0;
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -68,18 +73,9 @@ public class Entity {
         }
     }
     public void draw (Graphics2D g2) {
-        /*int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
         BufferedImage image = null;
-=======
-    public int changeNum = 0;
-    public Rectangle solidArea;
-    public boolean collisionOn = false;
-    public boolean collisionBombUp = false;
-    public boolean collisionBombDown = false;
-    public boolean collisionBombRight = false;
-    public boolean collisionBombLeft = false;
->>>>>>> Stashed changes
 
         switch (direction) {
             case "up":
@@ -119,7 +115,7 @@ public class Entity {
                 }
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);*/
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
 }

@@ -14,7 +14,9 @@ public class Bomb extends Entity{
     public boolean bombUnExploded = false;
     KeyHolder keyH;
     int playerRealX;
+
     public Bomb(GamePanel gp, KeyHolder keyH) {
+        super(gp);
         this.gp = gp;
         this.keyH = keyH;
         solidArea = new Rectangle();
