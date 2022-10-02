@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package Entity;
 
 import main.GamePanel;
@@ -94,4 +95,7 @@ public class Balloom extends Entity{
             actionLockCounter = 0;
         }
   }
+=======
+package Entity;public class Balloom {
+>>>>>>> Stashed changes
 }

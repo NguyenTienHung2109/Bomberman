@@ -22,11 +22,18 @@ public class Player extends Entity {
         solidArea = new Rectangle();
         solidArea.x = 8;
         solidArea.y = 8;
-        solidArea.width = 32;
+        solidArea.width = 24;
         solidArea.height = 32;
 
         setDefaultValue();
         getPlayerImage();
+    }
+
+    public int getWorldX(){
+        return this.worldX;
+    }
+    public int getWorldY(){
+        return this.worldY;
     }
 
     public void setDefaultValue() {

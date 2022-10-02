@@ -6,6 +6,9 @@ public class KeyHolder implements KeyListener {
     public static boolean downPressed;
     public static boolean leftPressed;
     public static boolean rightPressed;
+    public static boolean bombPlaced;
+    public static boolean unExploded = true;
+    public static boolean bombPresent = false;
     public void keyTyped(KeyEvent e) {
 
     }
@@ -25,6 +28,13 @@ public class KeyHolder implements KeyListener {
         if(code == KeyEvent.VK_D) {
             rightPressed = true;
         }
+        if(code == KeyEvent.VK_B) {
+            if(bombPresent == false) {
+                bombPlaced = true;
+                unExploded = true;
+                bombPresent = true;
+            }
+        }
     }
 
     @Override
@@ -41,6 +51,9 @@ public class KeyHolder implements KeyListener {
         }
         if(code == KeyEvent.VK_D) {
             rightPressed = false;
+        }
+        if(code == KeyEvent.VK_B) {
+            bombPlaced = false;
         }
     }
 

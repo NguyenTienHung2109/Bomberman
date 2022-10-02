@@ -1,6 +1,10 @@
 package main;
 
+<<<<<<< Updated upstream
 import Entity.Entity;
+=======
+import Entity.Bomb;
+>>>>>>> Stashed changes
 import Entity.Player;
 import map.TileManager;
 
@@ -26,6 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyR);
+    public Bomb bomb = new Bomb(this, keyR);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight ));
@@ -60,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
     public void update() {
+        bomb.update((int)((player.realX + bomb.solidArea.x)/tileSize)*tileSize, (int)((player.worldY + bomb.solidArea.y)/tileSize)*tileSize);
         player.update();
         for(int i=0; i<balloom.length; i++) {
             if(balloom[i]!=null) {
@@ -70,14 +76,21 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g2 = (Graphics2D) gr;
+
         if(player.realX < screenWidth/2 - tileSize) {
             tileM.draw(g2);
-
+            if(bomb.placed == true && bomb.bombUnExploded == true){bomb.draw(g2);}
             //System.out.println(player.realX + " " + (maxScreenCol * tileSize - screenWidth/2 - tileSize));
         } else if(player.realX >= player.endMapX) {
             tileM.drawEnd(g2);
+            if(bomb.placed == true && bomb.bombUnExploded == true){bomb.draw(g2);
+            }
         } else {
             tileM.drawMidMap(g2);
+            if(bomb.placed == true && bomb.bombUnExploded == true) {
+                bomb.setPlayerRealX(player.realX);
+                bomb.drawMidMap(g2);
+            }
         }
         player.draw(g2);
         for(int i=0; i<balloom.length; i++) {

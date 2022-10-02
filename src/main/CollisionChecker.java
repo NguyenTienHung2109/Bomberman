@@ -91,6 +91,58 @@ public class CollisionChecker {
                 break;
         }
     }
+    public void checkTileBomb(Entity entity) {
+        int entityLeftWorldX = entity.realX + entity.solidArea.x;
+        int entityRightWorldX = entity.realX + entity.solidArea.x + entity.solidArea.width;
+        int entityTopWorldY = entity.worldY + entity.solidArea.y;
+        int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
+
+        int entityLeftCol = entityLeftWorldX / gp.tileSize;
+        int entityRightCol = entityRightWorldX / gp.tileSize;
+        int entityTopRow = entityTopWorldY / gp.tileSize - 1;
+        int entityBottomRow = entityBottomWorldY / gp.tileSize - 1;
+
+        char tempTileNum1;
+        char tempTileNum2;
+        int tileNum1;
+        int tileNum2;
+
+        // checkBombUp
+        entityTopRow = (int) ((entityTopWorldY - entity.speed) / gp.tileSize) - 1;
+        tempTileNum1 = gp.tileM.mapTileChar[entityLeftCol][entityTopRow - 1];
+        tileNum1 = convertTile(tempTileNum1);
+
+        if (gp.tileM.tile[tileNum1].collision == true) {
+            entity.collisionBombUp = true;
+
+        }
+
+        //checkBombDown
+        entityBottomRow = (int) ((entityBottomWorldY + entity.speed) / gp.tileSize) - 1;
+        tempTileNum1 = gp.tileM.mapTileChar[entityLeftCol][entityBottomRow + 1];
+        tileNum1 = convertTile(tempTileNum1);
+        System.out.println(gp.tileM.tile[tileNum1].collision);
+        if (gp.tileM.tile[tileNum1].collision == true) {
+            entity.collisionBombDown = true;
+
+        }
+
+        //checkBombLeft
+        entityLeftCol = (int) ((entityLeftWorldX - entity.speed) / gp.tileSize);
+        tempTileNum1 = gp.tileM.mapTileChar[entityLeftCol - 1][entityTopRow];
+        tileNum1 = convertTile(tempTileNum1);
+        if (gp.tileM.tile[tileNum1].collision == true) {
+            entity.collisionBombLeft = true;
+        }
+
+        //checkBombRight
+        entityRightCol = (int) ((entityRightWorldX + entity.speed) / gp.tileSize);
+        tempTileNum1 = gp.tileM.mapTileChar[entityRightCol + 1][entityTopRow];
+        tileNum1 = convertTile(tempTileNum1);
+        if (gp.tileM.tile[tileNum1].collision == true) {
+            entity.collisionBombRight = true;
+        }
+    }
 }
 
 

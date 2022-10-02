@@ -59,6 +59,7 @@ public class TileManager {
             tile[2].image = ImageIO.read(getClass().getResourceAsStream("/map/brick.png"));
             tile[2].collision = true;
 
+
         } catch(IOException e) {
             e.printStackTrace();
         }
