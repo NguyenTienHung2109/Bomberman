@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenWidth = tileSize * defaultScreenCol;
     public final int screenHeight = tileSize * defaultScreenRow;
     int FPS = 60;
-    TileManager tileM = new TileManager(this);
+    public TileManager tileM = new TileManager(this);
     Thread gameThread;
     KeyHolder keyR = new KeyHolder();
     public Entity balloom[] = new Entity[10];
@@ -59,8 +59,9 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
     public void update() {
-        bomb.update((int)((player.realX + bomb.solidArea.x)/tileSize)*tileSize, (int)((player.worldY + bomb.solidArea.y)/tileSize)*tileSize);
+        if(bomb.placed == false)bomb.updateBombPosition((int)((player.realX + bomb.solidArea.x)/tileSize)*tileSize, (int)((player.worldY + bomb.solidArea.y)/tileSize)*tileSize);
         player.update();
+        bomb.update();
         for(int i=0; i<balloom.length; i++) {
             if(balloom[i]!=null) {
                 balloom[i].update();
@@ -77,8 +78,7 @@ public class GamePanel extends JPanel implements Runnable{
             //System.out.println(player.realX + " " + (maxScreenCol * tileSize - screenWidth/2 - tileSize));
         } else if(player.realX >= player.endMapX) {
             tileM.drawEnd(g2);
-            if(bomb.placed == true && bomb.bombUnExploded == true){bomb.draw(g2);
-            }
+            if(bomb.placed == true && bomb.bombUnExploded == true){bomb.drawMidMap(g2);}
         } else {
             tileM.drawMidMap(g2);
             if(bomb.placed == true && bomb.bombUnExploded == true) {

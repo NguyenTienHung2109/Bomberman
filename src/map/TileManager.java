@@ -14,13 +14,16 @@ public class TileManager {
     GamePanel gp;
     public Tile[]  tile;
     public static char mapTileChar[][];
+    public static char alterMap[][];
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[10];
         mapTileChar = new char[gp.maxScreenCol][gp.maxScreenRow];
+        alterMap = new char[gp.maxScreenCol][gp.maxScreenRow];
         getTileImage();
         loadMap();
     }
+
     public void loadMap() {
         try {
             InputStream is = getClass().getResourceAsStream("/levels/level1.txt");
@@ -32,6 +35,7 @@ public class TileManager {
                 String line = br.readLine();
                 while(col < gp.maxScreenCol) {
                     mapTileChar[col][row] = line.charAt(col);
+                    alterMap[col][row] = line.charAt(col);
                     col++;
                 }
                 if(col == gp.maxScreenCol) {
@@ -45,6 +49,12 @@ public class TileManager {
         }catch (Exception e) {
 
         }
+    }
+    public void setMaxTileChar(int maxScreenCol, int maxScreenRow, char x) {
+        mapTileChar[maxScreenCol][maxScreenRow] = x;
+    }
+    public void setAlterMap(int maxScreenCol, int maxScreenRow, char x) {
+        alterMap[maxScreenCol][maxScreenRow] = x;
     }
     public void getTileImage() {
         try {

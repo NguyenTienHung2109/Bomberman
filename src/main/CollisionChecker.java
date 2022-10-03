@@ -109,38 +109,49 @@ public class CollisionChecker {
 
         // checkBombUp
         entityTopRow = (int) ((entityTopWorldY - entity.speed) / gp.tileSize) - 1;
-        tempTileNum1 = gp.tileM.mapTileChar[entityLeftCol][entityTopRow - 1];
+        tempTileNum1 = gp.tileM.alterMap[entityLeftCol][entityTopRow - 1];
         tileNum1 = convertTile(tempTileNum1);
 
         if (gp.tileM.tile[tileNum1].collision == true) {
             entity.collisionBombUp = true;
+            if(tileNum1 != 1 && tileNum1 != 0) {
+                entity.explodeUp = true;
+            }
 
         }
 
         //checkBombDown
         entityBottomRow = (int) ((entityBottomWorldY + entity.speed) / gp.tileSize) - 1;
-        tempTileNum1 = gp.tileM.mapTileChar[entityLeftCol][entityBottomRow + 1];
+        tempTileNum1 = gp.tileM.alterMap[entityLeftCol][entityBottomRow + 1];
         tileNum1 = convertTile(tempTileNum1);
-        System.out.println(gp.tileM.tile[tileNum1].collision);
         if (gp.tileM.tile[tileNum1].collision == true) {
             entity.collisionBombDown = true;
-
+            if(tileNum1 != 1 && tileNum1 != 0) {
+                entity.explodeDown = true;
+            }
         }
 
         //checkBombLeft
         entityLeftCol = (int) ((entityLeftWorldX - entity.speed) / gp.tileSize);
-        tempTileNum1 = gp.tileM.mapTileChar[entityLeftCol - 1][entityTopRow];
+        tempTileNum1 = gp.tileM.alterMap[entityLeftCol - 1][entityTopRow];
         tileNum1 = convertTile(tempTileNum1);
         if (gp.tileM.tile[tileNum1].collision == true) {
             entity.collisionBombLeft = true;
+            if(tileNum1 != 1 && tileNum1 != 0) {
+                entity.explodeLeft = true;
+            }
         }
 
         //checkBombRight
         entityRightCol = (int) ((entityRightWorldX + entity.speed) / gp.tileSize);
-        tempTileNum1 = gp.tileM.mapTileChar[entityRightCol + 1][entityTopRow];
+        tempTileNum1 = gp.tileM.alterMap[entityRightCol + 1][entityTopRow];
         tileNum1 = convertTile(tempTileNum1);
         if (gp.tileM.tile[tileNum1].collision == true) {
             entity.collisionBombRight = true;
+            if(tileNum1 != 1 && tileNum1 != 0) {
+                entity.explodeRight = true;
+            }
+            //System.out.println(entity.explodeRight);
         }
     }
 }

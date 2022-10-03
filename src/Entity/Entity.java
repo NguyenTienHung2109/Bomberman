@@ -12,6 +12,10 @@ public class Entity {
     public boolean collisionBombDown = false;
     public boolean collisionBombRight = false;
     public boolean collisionBombLeft = false;
+    public boolean explodeRight = false;
+    public boolean explodeLeft = false;
+    public boolean explodeUp = false;
+    public boolean explodeDown = false;
     GamePanel gp;
     public int worldX, worldY;
     public int length = 1;
@@ -23,6 +27,7 @@ public class Entity {
     public BufferedImage horizontal, horizontal1, horizontal2, vertical, vertical1, vertical2;
     public BufferedImage left_last, left_last1, left_last2, right_last, right_last1, right_last2;
     public BufferedImage down_last, down_last1, down_last2, up_last, up_last1, up_last2;
+    public BufferedImage brickExploded, brickExploded1, brickExploded2;
     public String direction;
     public int spriteCounter = 0;
     public int spriteNum = 1;
