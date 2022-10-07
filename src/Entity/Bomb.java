@@ -70,9 +70,8 @@ public class Bomb extends Entity{
             this.worldY = realY;
         }
     }
-    public void update(){
+    public void update(Player player){
         if(placed == true) {
-            System.out.println(realX);
             spriteCounter++;
             if (spriteCounter > 10) {
                 if(changeNum <= 3) {
@@ -90,16 +89,20 @@ public class Bomb extends Entity{
                     }
                 } else {
                     if(spriteNum == 4) {
-                        if(explodeRight) {
-                            gp.tileM.setMaxTileChar(realX/gp.tileSize + 1, worldY/gp.tileSize - 1 , ' ');
-                        }
+                        if(explodeRight) gp.tileM.setMaxTileChar(realX/gp.tileSize + 1, worldY/gp.tileSize - 1 , ' ');
                         if(explodeLeft) gp.tileM.setMaxTileChar(realX/gp.tileSize - 1, worldY/ gp.tileSize - 1, ' ');
                         if(explodeUp) gp.tileM.setMaxTileChar(realX/gp.tileSize, worldY/ gp.tileSize - 2, ' ');
                         if(explodeDown) gp.tileM.setMaxTileChar(realX/gp.tileSize, worldY/ gp.tileSize, ' ');
+                        gp.cChecker.checkBombOnPlayer(this, player);
+                        System.out.println(playerOnBomb);
                         spriteNum = 5;
                     } else if (spriteNum == 5) {
+                        gp.cChecker.checkBombOnPlayer(this, player);
+                        System.out.println(playerOnBomb);
                         spriteNum = 6;
                     } else if (spriteNum == 6) {
+                        gp.cChecker.checkBombOnPlayer(this, player);
+                        System.out.println(playerOnBomb);
                         keyH.unExploded = false;
                         bombUnExploded = false;
                         spriteNum = 1;
@@ -110,6 +113,7 @@ public class Bomb extends Entity{
                         if(explodeLeft) gp.tileM.setAlterMap(realX/gp.tileSize - 1, worldY/ gp.tileSize - 1, ' ');
                         if(explodeUp) gp.tileM.setAlterMap(realX/gp.tileSize, worldY/ gp.tileSize - 2, ' ');
                         if(explodeDown) gp.tileM.setAlterMap(realX/gp.tileSize, worldY/ gp.tileSize, ' ');
+                        playerOnBomb = false;
                     }
                 }
                 spriteCounter = 0;

@@ -60,8 +60,9 @@ public class GamePanel extends JPanel implements Runnable{
     }
     public void update() {
         if(bomb.placed == false)bomb.updateBombPosition((int)((player.realX + bomb.solidArea.x)/tileSize)*tileSize, (int)((player.worldY + bomb.solidArea.y)/tileSize)*tileSize);
+        bomb.update(player);
+        player.getPlayerOnBomb(bomb.playerOnBomb);
         player.update();
-        bomb.update();
         for(int i=0; i<balloom.length; i++) {
             if(balloom[i]!=null) {
                 balloom[i].update();

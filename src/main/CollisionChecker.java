@@ -154,6 +154,39 @@ public class CollisionChecker {
             //System.out.println(entity.explodeRight);
         }
     }
+
+    public void checkBombOnPlayer(Entity bomb, Entity player) {
+        int bombX = bomb.realX + bomb.solidArea.x;
+        int bombY = bomb.worldY + bomb.solidArea.y;
+
+        int bombMidCol = bombX/gp.tileSize;
+        int bombMidRow = bombY/gp.tileSize;
+        int bombLeftCol = bombMidCol - 1;
+        int bombRightCol = bombMidCol + 1;
+        int bombTopRow = bombMidRow - 1;
+        int bombBottomRow = bombMidRow + 1;
+
+        int playerLeftWorldX = player.realX + player.solidArea.x;
+        int playerRightWorldX = player.realX + player.solidArea.x + player.solidArea.width;
+        int playerTopWorldY = player.worldY + player.solidArea.y;
+        int playerBottomWorldY = player.worldY + player.solidArea.y + player.solidArea.height;
+
+        int playerLeftCol = playerLeftWorldX / gp.tileSize;
+        int playerRightCol = playerRightWorldX / gp.tileSize;
+        int playerTopRow = playerTopWorldY / gp.tileSize;
+        int playerBottomRow = playerBottomWorldY / gp.tileSize;
+        System.out.println(playerBottomRow + " " + bombY);
+        if((playerLeftCol == bombRightCol || playerRightCol == bombLeftCol) && (playerBottomRow == bombMidRow || playerTopRow == bombMidRow)) {
+            bomb.playerOnBomb = true;
+        }
+        if((playerLeftCol == bombMidCol || playerRightCol == bombMidCol) && (playerBottomRow == bombMidRow || playerTopRow == bombMidRow)) {
+            bomb.playerOnBomb = true;
+        }
+        if((playerBottomRow == bombTopRow || playerTopRow == bombBottomRow) && (playerLeftCol == bombMidCol || playerRightCol == bombMidCol)) {
+            bomb.playerOnBomb = true;
+        }
+
+    }
 }
 
 

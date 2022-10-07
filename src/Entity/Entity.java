@@ -16,13 +16,14 @@ public class Entity {
     public boolean explodeLeft = false;
     public boolean explodeUp = false;
     public boolean explodeDown = false;
+    public boolean playerOnBomb = false;
     GamePanel gp;
     public int worldX, worldY;
     public int length = 1;
     public int realX, realY;
     public int endMapX;
     public double speed;
-    public BufferedImage up, up1, up2, down, down1, down2, left, left1, left2, right, right1, right2;
+    public BufferedImage up, up1, up2, down, down1, down2, left, left1, left2, right, right1, right2, dead, dead1, dead2;
     public BufferedImage bomb1, bomb2, bomb3, bombExploded1, bombExploded2, bombExploded3;
     public BufferedImage horizontal, horizontal1, horizontal2, vertical, vertical1, vertical2;
     public BufferedImage left_last, left_last1, left_last2, right_last, right_last1, right_last2;
@@ -31,6 +32,7 @@ public class Entity {
     public String direction;
     public int spriteCounter = 0;
     public int spriteNum = 1;
+    public int spriteNumDead = 1;
 
     public Rectangle solidArea = new Rectangle();
     public int actionLockCounter = 0;
