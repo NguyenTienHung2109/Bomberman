@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int maxScreenCol = 31;
     public final int maxScreenRow = 14;
     public final int defaultScreenRow = 14;
-    public final int defaultScreenCol = 15;
+    public final int defaultScreenCol = 31;
 
     public final int screenWidth = tileSize * defaultScreenCol;
     public final int screenHeight = tileSize * defaultScreenRow;
@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
     public void update() {
-        if(bomb.placed == false)bomb.updateBombPosition((int)((player.realX + bomb.solidArea.x)/tileSize)*tileSize, (int)((player.worldY + bomb.solidArea.y)/tileSize)*tileSize);
+        if(bomb.placed == false)bomb.updateBombPosition((int)((player.worldX + bomb.solidArea.x)/tileSize)*tileSize, (int)((player.worldY + bomb.solidArea.y)/tileSize)*tileSize);
         bomb.update(player);
         player.getPlayerOnBomb(bomb.playerOnBomb);
         player.update();
@@ -72,21 +72,8 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g2 = (Graphics2D) gr;
-
-        if(player.realX < screenWidth/2 - tileSize) {
-            tileM.draw(g2);
-            if(bomb.placed == true && bomb.bombUnExploded == true){bomb.draw(g2);}
-            //System.out.println(player.realX + " " + (maxScreenCol * tileSize - screenWidth/2 - tileSize));
-        } else if(player.realX >= player.endMapX) {
-            tileM.drawEnd(g2);
-            if(bomb.placed == true && bomb.bombUnExploded == true){bomb.drawMidMap(g2);}
-        } else {
-            tileM.drawMidMap(g2);
-            if(bomb.placed == true && bomb.bombUnExploded == true) {
-                bomb.setPlayerRealX(player.realX);
-                bomb.drawMidMap(g2);
-            }
-        }
+        tileM.draw(g2);
+        if(bomb.placed == true && bomb.bombUnExploded == true){bomb.draw(g2);}
         player.draw(g2);
         g2.dispose();
     }

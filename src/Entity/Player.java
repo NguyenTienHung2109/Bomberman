@@ -32,12 +32,6 @@ public class Player extends Entity {
     public void getPlayerOnBomb(boolean onBomb) {
         this.playerOnBomb = onBomb;
     }
-    public int getWorldX(){
-        return this.worldX;
-    }
-    public int getWorldY(){
-        return this.worldY;
-    }
 
     public void setDefaultValue() {
         endMapX = 1080;
@@ -109,16 +103,10 @@ public class Player extends Entity {
                         case "up": worldY -= speed; break;
                         case "down": worldY += speed; break;
                         case "left":
-                            realX -= speed;
-                            if (realX < gp.screenWidth / 2 - gp.tileSize || realX >= endMapX) {
-                                worldX -= speed;
-                            }
+                            worldX -= speed;
                             break;
                         case "right":
-                            realX += speed;
-                            if (realX < gp.screenWidth / 2 - gp.tileSize || realX >= endMapX) {
-                                worldX += speed;
-                            }
+                            worldX += speed;
                             break;
                     }
                 }

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class Entity {
     public int changeNum = 0;
+    public int bombLength = 4;
     public boolean collisionOn = false;
     public boolean collisionBombUp = false;
     public boolean collisionBombDown = false;
@@ -19,10 +20,10 @@ public class Entity {
     public boolean playerOnBomb = false;
     GamePanel gp;
     public int worldX, worldY;
-    public int length = 1;
     public int realX, realY;
     public int endMapX;
     public double speed;
+    public int brickXUp = 0, brickXDown = 0, brickXLeft = 0, brickXRight = 0, brickYUp = 0, brickYDown = 0, brickYLeft = 0, brickYRight = 0;
     public BufferedImage up, up1, up2, down, down1, down2, left, left1, left2, right, right1, right2, dead, dead1, dead2;
     public BufferedImage bomb1, bomb2, bomb3, bombExploded1, bombExploded2, bombExploded3;
     public BufferedImage horizontal, horizontal1, horizontal2, vertical, vertical1, vertical2;
@@ -53,16 +54,10 @@ public class Entity {
                 case "up": worldY -= speed; break;
                 case "down": worldY += speed; break;
                 case "left":
-                    realX -= speed;
-                    if (realX < gp.screenWidth / 2 - gp.tileSize || realX >= endMapX) {
-                        worldX -= speed;
-                    }
+                    worldX -= speed;
                     break;
                 case "right":
-                    realX += speed;
-                    if (realX < gp.screenWidth / 2 - gp.tileSize || realX >= endMapX) {
-                        worldX += speed;
-                    }
+                    worldX += speed;
                     break;
             }
         }

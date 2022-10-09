@@ -23,8 +23,8 @@ public class CollisionChecker {
     }
 
     public void checkTile(Entity entity) {
-        int entityLeftWorldX = entity.realX + entity.solidArea.x;
-        int entityRightWorldX = entity.realX + entity.solidArea.x + entity.solidArea.width;
+        int entityLeftWorldX = entity.worldX + entity.solidArea.x;
+        int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopWorldY = entity.worldY + entity.solidArea.y;
         int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
 
@@ -47,9 +47,7 @@ public class CollisionChecker {
                 tileNum2 = convertTile(tempTileNum2);
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.collisionOn = true;
-                    System.out.println("up");
-                    System.out.println("up -- " + entityLeftWorldX + "***" + entityRightWorldX + "***" + entityTopWorldY + "***" + entityBottomWorldY);
-                    System.out.println(tileNum1 + " " + tileNum2 + " " + entityLeftCol + " " + entityRightCol + " " + entityTopRow + " " + entityBottomRow);
+
                 }
 
                 break;
@@ -61,8 +59,7 @@ public class CollisionChecker {
                 tileNum2 = convertTile(tempTileNum2);
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.collisionOn = true;
-                    System.out.println("down -- " + entityLeftWorldX + "***" + entityRightWorldX + "***" + entityTopWorldY + "***" + entityBottomWorldY);
-                    System.out.println(tileNum1 + " " + tileNum2 + " " + entityLeftCol + " " + entityRightCol + " " + entityTopRow + " " + entityBottomRow);
+
                 }
                 break;
             case "left":
@@ -73,8 +70,7 @@ public class CollisionChecker {
                 tileNum2 = convertTile(tempTileNum2);
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.collisionOn = true;
-                    System.out.println("left -- " + entityLeftWorldX + "***" + entityRightWorldX + "***" + entityTopWorldY + "***" + entityBottomWorldY);
-                    System.out.println(tileNum1 + " " + tileNum2 + " " + entityLeftCol + " " + entityRightCol + " " + entityTopRow + " " + entityBottomRow);
+
                 }
                 break;
             case "right":
@@ -85,104 +81,110 @@ public class CollisionChecker {
                 tileNum2 = convertTile(tempTileNum2);
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.collisionOn = true;
-                    System.out.println("right -- " + entityLeftWorldX + "***" + entityRightWorldX + "***" + entityTopWorldY + "***" + entityBottomWorldY);
-                    System.out.println(tileNum1 + " " + tileNum2 + " " + entityLeftCol + " " + entityRightCol + " " + entityTopRow + " " + entityBottomRow);
+
                 }
                 break;
         }
     }
-    public void checkTileBomb(Entity entity) {
-        int entityLeftWorldX = entity.realX + entity.solidArea.x;
-        int entityRightWorldX = entity.realX + entity.solidArea.x + entity.solidArea.width;
-        int entityTopWorldY = entity.worldY + entity.solidArea.y;
-        int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
-
-        int entityLeftCol = entityLeftWorldX / gp.tileSize;
-        int entityRightCol = entityRightWorldX / gp.tileSize;
-        int entityTopRow = entityTopWorldY / gp.tileSize - 1;
-        int entityBottomRow = entityBottomWorldY / gp.tileSize - 1;
-
-        char tempTileNum1;
-        char tempTileNum2;
-        int tileNum1;
-        int tileNum2;
-
-        // checkBombUp
-        entityTopRow = (int) ((entityTopWorldY - entity.speed) / gp.tileSize) - 1;
-        tempTileNum1 = gp.tileM.alterMap[entityLeftCol][entityTopRow - 1];
-        tileNum1 = convertTile(tempTileNum1);
-
-        if (gp.tileM.tile[tileNum1].collision == true) {
+    public void checkTileBombUp(Entity entity, int x, int y) {
+        char tempTileNum;
+        int tileNum;
+        int Row = (int) y / gp.tileSize - 1;
+        int Col = (int) x / gp.tileSize;
+        tempTileNum = gp.tileM.alterMap[Col][Row];
+        tileNum = convertTile(tempTileNum);
+        if (gp.tileM.tile[tileNum].collision == true) {
             entity.collisionBombUp = true;
-            if(tileNum1 != 1 && tileNum1 != 0) {
+            if (tileNum != 1 && tileNum != 0) {
                 entity.explodeUp = true;
             }
-
         }
+    }
+    public void checkTileBombDown(Entity entity, int x, int y) {
+        char tempTileNum;
+        int tileNum;
+        int Row = (int) y / gp.tileSize - 1;
+        int Col = (int) x / gp.tileSize;
+        tempTileNum = gp.tileM.alterMap[Col][Row];
+        tileNum = convertTile(tempTileNum);
 
-        //checkBombDown
-        entityBottomRow = (int) ((entityBottomWorldY + entity.speed) / gp.tileSize) - 1;
-        tempTileNum1 = gp.tileM.alterMap[entityLeftCol][entityBottomRow + 1];
-        tileNum1 = convertTile(tempTileNum1);
-        if (gp.tileM.tile[tileNum1].collision == true) {
+        if (gp.tileM.tile[tileNum].collision == true) {
             entity.collisionBombDown = true;
-            if(tileNum1 != 1 && tileNum1 != 0) {
+            if (tileNum != 1 && tileNum != 0) {
                 entity.explodeDown = true;
             }
         }
+    }
 
-        //checkBombLeft
-        entityLeftCol = (int) ((entityLeftWorldX - entity.speed) / gp.tileSize);
-        tempTileNum1 = gp.tileM.alterMap[entityLeftCol - 1][entityTopRow];
-        tileNum1 = convertTile(tempTileNum1);
-        if (gp.tileM.tile[tileNum1].collision == true) {
+    public void checkTileBombRight(Entity entity, int x, int y) {
+        char tempTileNum;
+        int tileNum;
+        int Row = (int) y / gp.tileSize - 1;
+        int Col = (int) x / gp.tileSize;
+        tempTileNum = gp.tileM.alterMap[Col][Row];
+        tileNum = convertTile(tempTileNum);
+
+        if (gp.tileM.tile[tileNum].collision == true) {
+            entity.collisionBombRight = true;
+            if (tileNum != 1 && tileNum != 0) {
+                entity.explodeRight = true;
+            }
+        }
+    }
+    public void checkTileBombLeft(Entity entity, int x, int y) {
+        char tempTileNum;
+        int tileNum;
+        int Row = (int) y / gp.tileSize - 1;
+        int Col = (int) x / gp.tileSize;
+        tempTileNum = gp.tileM.alterMap[Col][Row];
+        tileNum = convertTile(tempTileNum);
+
+        if (gp.tileM.tile[tileNum].collision == true) {
             entity.collisionBombLeft = true;
-            if(tileNum1 != 1 && tileNum1 != 0) {
+            if (tileNum != 1 && tileNum != 0) {
                 entity.explodeLeft = true;
             }
         }
-
-        //checkBombRight
-        entityRightCol = (int) ((entityRightWorldX + entity.speed) / gp.tileSize);
-        tempTileNum1 = gp.tileM.alterMap[entityRightCol + 1][entityTopRow];
-        tileNum1 = convertTile(tempTileNum1);
-        if (gp.tileM.tile[tileNum1].collision == true) {
-            entity.collisionBombRight = true;
-            if(tileNum1 != 1 && tileNum1 != 0) {
-                entity.explodeRight = true;
-            }
-            //System.out.println(entity.explodeRight);
-        }
     }
-
     public void checkBombOnPlayer(Entity bomb, Entity player) {
+
         int bombX = bomb.realX + bomb.solidArea.x;
         int bombY = bomb.worldY + bomb.solidArea.y;
 
         int bombMidCol = bombX/gp.tileSize;
-        int bombMidRow = bombY/gp.tileSize;
-        int bombLeftCol = bombMidCol - 1;
-        int bombRightCol = bombMidCol + 1;
-        int bombTopRow = bombMidRow - 1;
-        int bombBottomRow = bombMidRow + 1;
+        int bombMidRow = bombY/gp.tileSize - 1;
+        int bombLeftCol, bombRightCol, bombTopRow, bombBottomRow;
 
-        int playerLeftWorldX = player.realX + player.solidArea.x;
-        int playerRightWorldX = player.realX + player.solidArea.x + player.solidArea.width;
+        if(bomb.brickXLeft == 0) {bombLeftCol = bombMidCol - bomb.bombLength;}
+        else {bombLeftCol = bomb.brickXLeft/gp.tileSize;}
+        if(bomb.brickXRight == 0) {bombRightCol = bombMidCol + bomb.bombLength;}
+        else {bombRightCol = bomb.brickXRight/gp.tileSize;}
+        if(bomb.brickYUp == 0) {bombTopRow = bombMidRow - bomb.bombLength;}
+        else {bombTopRow = bomb.brickYUp/gp.tileSize;}
+        if(bomb.brickYDown == 0) {bombBottomRow = bombMidRow + bomb.bombLength;}
+        else {bombBottomRow = bomb.brickYDown/gp.tileSize;}
+
+        int playerLeftWorldX = player.worldX + player.solidArea.x;
+        int playerRightWorldX = player.worldX + player.solidArea.x + player.solidArea.width;
         int playerTopWorldY = player.worldY + player.solidArea.y;
         int playerBottomWorldY = player.worldY + player.solidArea.y + player.solidArea.height;
 
         int playerLeftCol = playerLeftWorldX / gp.tileSize;
         int playerRightCol = playerRightWorldX / gp.tileSize;
-        int playerTopRow = playerTopWorldY / gp.tileSize;
-        int playerBottomRow = playerBottomWorldY / gp.tileSize;
-        System.out.println(playerBottomRow + " " + bombY);
-        if((playerLeftCol == bombRightCol || playerRightCol == bombLeftCol) && (playerBottomRow == bombMidRow || playerTopRow == bombMidRow)) {
+        int playerTopRow = playerTopWorldY / gp.tileSize - 1;
+        int playerBottomRow = playerBottomWorldY / gp.tileSize - 1;
+
+        if((playerLeftCol <= bombRightCol || playerRightCol >= bombLeftCol) && (playerBottomRow == bombMidRow || playerTopRow == bombMidRow)) {
+            System.out.println(playerLeftCol + " " + playerRightCol + " " + playerBottomRow + " " + bombMidRow);
             bomb.playerOnBomb = true;
         }
-        if((playerLeftCol == bombMidCol || playerRightCol == bombMidCol) && (playerBottomRow == bombMidRow || playerTopRow == bombMidRow)) {
+        /*if((playerLeftCol == bombMidCol || playerRightCol == bombMidCol) && (playerBottomRow == bombMidRow || playerTopRow == bombMidRow)) {
             bomb.playerOnBomb = true;
+        }*/
+        if(playerBottomRow >= bombTopRow || playerTopRow <= bombBottomRow) {
+            //.out.println(playerLeftCol + " " + playerRightCol + " " + bombMidCol);
         }
-        if((playerBottomRow == bombTopRow || playerTopRow == bombBottomRow) && (playerLeftCol == bombMidCol || playerRightCol == bombMidCol)) {
+        if((playerBottomRow >= bombTopRow || playerTopRow <= bombBottomRow) && (playerLeftCol == bombMidCol || playerRightCol == bombMidCol)) {
             bomb.playerOnBomb = true;
         }
 
