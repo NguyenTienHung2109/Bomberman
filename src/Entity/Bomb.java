@@ -74,6 +74,9 @@ public class Bomb extends Entity{
     public void update(Player player){
         if(placed == true) {
             spriteCounter++;
+            if((player.worldX + player.solidArea.x)/gp.tileSize != realX/gp.tileSize || (player.worldY + player.solidArea.y)/gp.tileSize != worldY/gp.tileSize) {
+                gp.tileM.setMaxTileChar(realX/gp.tileSize , worldY/gp.tileSize - 1 , 'b');
+            }
             if (spriteCounter > 10) {
                 if(changeNum <= 3) {
                     if (spriteNum == 1) {
@@ -113,6 +116,7 @@ public class Bomb extends Entity{
                         if(explodeUp) gp.tileM.setAlterMap(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, ' ');
                         if(explodeDown) gp.tileM.setAlterMap(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, ' ');
                         brickYRight = 0; brickXRight = 0; brickXDown = 0; brickYDown = 0; brickYUp = 0; brickXUp = 0; brickXLeft = 0; brickYLeft = 0;
+                        gp.tileM.setMaxTileChar(realX/gp.tileSize , worldY/gp.tileSize - 1 , ' ');
                         playerOnBomb = false;
                     }
                 }
