@@ -83,7 +83,7 @@ public class TileManager {
             char obj = mapTileChar[col][row];
             if(obj == '#') {
                 g2.drawImage(tile[1].image,x,y,gp.tileSize, gp.tileSize, null);
-            } else if(obj == ' ') {
+            } else if(obj == ' ' || obj == 'b') {
                 g2.drawImage(tile[0].image,x,y,gp.tileSize, gp.tileSize, null);
             } else if(obj == 'x') {
                 g2.drawImage(tile[2].image,x,y,gp.tileSize, gp.tileSize, null);

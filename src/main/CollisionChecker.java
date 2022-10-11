@@ -148,7 +148,7 @@ public class CollisionChecker {
     }
     public void checkBombOnPlayer(Entity bomb, Entity player) {
 
-        int bombX = bomb.realX + bomb.solidArea.x;
+        int bombX = bomb.worldX + bomb.solidArea.x;
         int bombY = bomb.worldY + bomb.solidArea.y;
 
         int bombMidCol = bombX/gp.tileSize;

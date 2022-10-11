@@ -15,7 +15,6 @@ public class Bomb extends Entity{
 
     public boolean bombUnExploded = false;
     KeyHolder keyH;
-    int playerRealX;
 
     public Bomb(GamePanel gp, KeyHolder keyH) {
         super(gp);
@@ -63,17 +62,20 @@ public class Bomb extends Entity{
         }
     }
 
-    public void updateBombPosition(int realX, int realY) {
+    public void updateBombPosition(int worldX, int worldY) {
         if (keyH.bombPlaced == true) {
             placed = true;
             bombUnExploded = true;
-            this.realX = realX;
-            this.worldY = realY;
+            this.worldX = worldX;
+            this.worldY = worldY;
         }
     }
     public void update(Player player){
         if(placed == true) {
             spriteCounter++;
+            if((player.worldX + player.solidArea.x)/gp.tileSize != worldX/gp.tileSize || (player.worldY + player.solidArea.y)/gp.tileSize != worldY/gp.tileSize) {
+                gp.tileM.setMaxTileChar(worldX/gp.tileSize , worldY/gp.tileSize - 1 , 'b');
+            }
             if (spriteCounter > 10) {
                 if(changeNum <= 3) {
                     if (spriteNum == 1) {
@@ -113,6 +115,7 @@ public class Bomb extends Entity{
                         if(explodeUp) gp.tileM.setAlterMap(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, ' ');
                         if(explodeDown) gp.tileM.setAlterMap(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, ' ');
                         brickYRight = 0; brickXRight = 0; brickXDown = 0; brickYDown = 0; brickYUp = 0; brickXUp = 0; brickXLeft = 0; brickYLeft = 0;
+                        gp.tileM.setMaxTileChar(worldX/gp.tileSize , worldY/gp.tileSize - 1 , ' ');
                         playerOnBomb = false;
                     }
                 }
@@ -199,16 +202,16 @@ public class Bomb extends Entity{
         explodeRight = false;
 
         //checkTileUp
-        g2.drawImage(image, realX, worldY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
         for(int i = 0; i < bombLength; i++) {
-            gp.cChecker.checkTileBombUp(this, realX, worldY - (i+1) * gp.tileSize);
+            gp.cChecker.checkTileBombUp(this, worldX, worldY - (i+1) * gp.tileSize);
             if(!collisionBombUp) {
-                g2.drawImage(up[i], realX, worldY - (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(up[i], worldX, worldY - (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
             } else {
                 if(explodeUp) {
-                    brickXUp = realX;
+                    brickXUp = worldX;
                     brickYUp = worldY - (i+1) * gp.tileSize;
-                    g2.drawImage(brick, realX, worldY - (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(brick, worldX, worldY - (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
                 }
                 break;
             }
@@ -216,14 +219,14 @@ public class Bomb extends Entity{
 
         //checkTileDown
         for(int i = 0; i < bombLength; i++) {
-            gp.cChecker.checkTileBombDown(this, realX, worldY + (i+1) * gp.tileSize);
+            gp.cChecker.checkTileBombDown(this, worldX, worldY + (i+1) * gp.tileSize);
             if(!collisionBombDown) {
-                g2.drawImage(down[i], realX, worldY + (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(down[i], worldX, worldY + (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
             } else {
                 if(explodeDown) {
-                    brickXDown = realX;
+                    brickXDown = worldX;
                     brickYDown = worldY + (i+1) * gp.tileSize;
-                    g2.drawImage(brick, realX, worldY + (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(brick, worldX, worldY + (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
                 }
                 break;
             }
@@ -231,14 +234,14 @@ public class Bomb extends Entity{
 
         //checkTileRight
         for(int i = 0; i < bombLength; i++) {
-            gp.cChecker.checkTileBombRight(this,realX + (i+1) * gp.tileSize, worldY);
+            gp.cChecker.checkTileBombRight(this,worldX + (i+1) * gp.tileSize, worldY);
             if(!collisionBombRight) {
-                g2.drawImage(right[i], realX + (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
+                g2.drawImage(right[i], worldX + (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
             } else {
                 if(explodeRight) {
-                    brickXRight = realX + (i+1) * gp.tileSize;
+                    brickXRight = worldX + (i+1) * gp.tileSize;
                     brickYRight = worldY;
-                    g2.drawImage(brick,realX + (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(brick,worldX + (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
                 }
                 break;
             }
@@ -246,14 +249,14 @@ public class Bomb extends Entity{
 
         // checkTileLeft
         for(int i = 0; i < bombLength; i++) {
-            gp.cChecker.checkTileBombLeft(this,realX - (i+1) * gp.tileSize, worldY);
+            gp.cChecker.checkTileBombLeft(this,worldX - (i+1) * gp.tileSize, worldY);
             if(!collisionBombLeft) {
-                g2.drawImage(left[i], realX - (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
+                g2.drawImage(left[i], worldX - (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
             } else {
                 if(explodeLeft) {
-                    brickXLeft = realX - (i+1) * gp.tileSize;
+                    brickXLeft = worldX - (i+1) * gp.tileSize;
                     brickYLeft = worldY;
-                    g2.drawImage(brick,realX - (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(brick,worldX - (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
                 }
                 break;
             }

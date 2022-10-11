@@ -1,4 +1,5 @@
 package main;
+import javax.security.auth.kerberos.KeyTab;
 import java.awt.event.KeyEvent;
 import  java.awt.event.KeyListener;
 public class KeyHolder implements KeyListener {
@@ -28,7 +29,7 @@ public class KeyHolder implements KeyListener {
         if(code == KeyEvent.VK_D) {
             rightPressed = true;
         }
-        if(code == KeyEvent.VK_B) {
+        if(code == KeyEvent.VK_B || code == KeyEvent.VK_SPACE) {
             if(bombPresent == false) {
                 bombPlaced = true;
                 unExploded = true;
@@ -52,7 +53,7 @@ public class KeyHolder implements KeyListener {
         if(code == KeyEvent.VK_D) {
             rightPressed = false;
         }
-        if(code == KeyEvent.VK_B) {
+        if(code == KeyEvent.VK_B || code == KeyEvent.VK_SPACE) {
             bombPlaced = false;
         }
     }

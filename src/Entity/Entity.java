@@ -20,7 +20,6 @@ public class Entity {
     public boolean playerOnBomb = false;
     GamePanel gp;
     public int worldX, worldY;
-    public int realX, realY;
     public int endMapX;
     public double speed;
     public int brickXUp = 0, brickXDown = 0, brickXLeft = 0, brickXRight = 0, brickYUp = 0, brickYDown = 0, brickYLeft = 0, brickYRight = 0;

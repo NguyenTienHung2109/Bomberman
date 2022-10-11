@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int defaultScreenRow = 14;
     public final int defaultScreenCol = 31;
 
+    public AssertsSetter aSetter = new AssertsSetter(this);
     public final int screenWidth = tileSize * defaultScreenCol;
     public final int screenHeight = tileSize * defaultScreenRow;
     int FPS = 60;
@@ -34,6 +35,9 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyR);
         this.setFocusable(true);
+    }
+    public void setupGame() {
+        aSetter.setBalloom();
     }
 
     public void startGameThread() {
@@ -75,6 +79,11 @@ public class GamePanel extends JPanel implements Runnable{
         tileM.draw(g2);
         if(bomb.placed == true && bomb.bombUnExploded == true){bomb.draw(g2);}
         player.draw(g2);
+        for(int i=0; i<balloom.length; i++) {
+            if(balloom[i] != null) {
+                balloom[i].draw(g2);
+            }
+        }
         g2.dispose();
     }
 }
