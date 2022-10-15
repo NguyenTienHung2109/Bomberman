@@ -129,8 +129,10 @@ public class Bomb extends Entity{
                         keyH.bombPresent = false;
                         placed = false;
                         done = false;
-                        if (explodeRight)
+                        if (explodeRight) {
+
                             gp.tileM.setAlterMap(brickXRight / gp.tileSize, brickYRight / gp.tileSize - 1, ' ');
+                        }
                         if (explodeLeft)
                             gp.tileM.setAlterMap(brickXLeft / gp.tileSize, brickYLeft / gp.tileSize - 1, ' ');
                         if (explodeUp) gp.tileM.setAlterMap(brickXUp / gp.tileSize, brickYUp / gp.tileSize - 1, ' ');

@@ -107,6 +107,8 @@ public class Balloom extends Entity{
                 image = dead3;
             } else if (spriteNumDead == 5) {
                 image = null;
+                worldX = gp.tileSize;
+                worldY = gp.tileSize;
             }
         }
         g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
@@ -130,8 +132,6 @@ public class Balloom extends Entity{
                     spriteNumDead = 4;
                 } else if (spriteNumDead == 4) {
                     spriteNumDead = 5;
-                    worldX = 0;
-                    worldY = 0;
                 }
                 spriteCounter = 0;
             }
