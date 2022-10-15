@@ -3,6 +3,8 @@ import javax.security.auth.kerberos.KeyTab;
 import java.awt.event.KeyEvent;
 import  java.awt.event.KeyListener;
 public class KeyHolder implements KeyListener {
+
+    GamePanel gp;
     public static boolean upPressed;
     public static boolean downPressed;
     public static boolean leftPressed;
@@ -10,6 +12,9 @@ public class KeyHolder implements KeyListener {
     public static boolean bombPlaced;
     public static boolean unExploded = true;
     public static boolean bombPresent = false;
+    public KeyHolder(GamePanel gp) {
+        this.gp = gp;
+    }
     public void keyTyped(KeyEvent e) {
 
     }
@@ -17,6 +22,29 @@ public class KeyHolder implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+        //menu
+        if(gp.gameState == gp.menuState) {
+            if(code == KeyEvent.VK_W) {
+                gp.menu.commandNumber--;
+                if(gp.menu.commandNumber<0) {
+                    gp.menu.commandNumber = 1;
+                }
+            }
+            if(code == KeyEvent.VK_S) {
+                gp.menu.commandNumber++;
+                if(gp.menu.commandNumber>2) {
+                    gp.menu.commandNumber = 0;
+                }
+            }
+            if(code == KeyEvent.VK_ENTER) {
+                if(gp.menu.commandNumber == 0) {
+                    gp.gameState = gp.playState;
+                }
+                if(gp.menu.commandNumber ==1) {
+                    System.exit(0);
+                }
+            }
+        }
         if(code == KeyEvent.VK_W) {
             upPressed = true;
         }
@@ -34,6 +62,14 @@ public class KeyHolder implements KeyListener {
                 bombPlaced = true;
                 unExploded = true;
                 bombPresent = true;
+            }
+        }
+        if(code == KeyEvent.VK_P) {
+            if(gp.gameState == gp.playState) {
+                gp.gameState = gp.pauseState;
+            }
+            else if(gp.gameState == gp.pauseState) {
+                gp.gameState = gp.playState;
             }
         }
     }
