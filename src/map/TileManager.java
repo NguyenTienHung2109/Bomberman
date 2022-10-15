@@ -15,11 +15,13 @@ public class TileManager {
     public Tile[]  tile;
     public static char mapTileChar[][];
     public static char alterMap[][];
+    public char newBombMap[][];
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[10];
         mapTileChar = new char[gp.maxScreenCol][gp.maxScreenRow];
         alterMap = new char[gp.maxScreenCol][gp.maxScreenRow];
+        newBombMap = new char[gp.maxScreenCol][gp.maxScreenRow];
         getTileImage();
         loadMap();
     }
@@ -36,6 +38,7 @@ public class TileManager {
                 while(col < gp.maxScreenCol) {
                     mapTileChar[col][row] = line.charAt(col);
                     alterMap[col][row] = line.charAt(col);
+                    newBombMap[col][row] = line.charAt(col);
                     col++;
                 }
                 if(col == gp.maxScreenCol) {
@@ -53,6 +56,9 @@ public class TileManager {
     public void setMaxTileChar(int maxScreenCol, int maxScreenRow, char x) {
         mapTileChar[maxScreenCol][maxScreenRow] = x;
     }
+    public void setNewBombMap(int maxScreenCol, int maxScreenRow, char x) {
+        newBombMap[maxScreenCol][maxScreenRow] = x;
+    }
     public void setAlterMap(int maxScreenCol, int maxScreenRow, char x) {
         alterMap[maxScreenCol][maxScreenRow] = x;
     }
@@ -68,6 +74,9 @@ public class TileManager {
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(getClass().getResourceAsStream("/map/brick.png"));
             tile[2].collision = true;
+
+            tile[3] = new Tile();
+            tile[3].collision = true;
 
 
         } catch(IOException e) {

@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Bomb extends Entity{
     GamePanel gp;
     public boolean placed = false;
-
+    public boolean done = true;
     public boolean bombUnExploded = false;
     KeyHolder keyH;
     int playerRealX;
@@ -67,15 +67,16 @@ public class Bomb extends Entity{
         if (keyH.bombPlaced == true) {
             placed = true;
             bombUnExploded = true;
-            this.realX = realX;
+            this.worldX = realX;
             this.worldY = realY;
         }
     }
-    public void update(Player player){
+    public void update(Entity player){
         if(placed == true) {
             spriteCounter++;
-            if((player.worldX + player.solidArea.x)/gp.tileSize != realX/gp.tileSize || (player.worldY + player.solidArea.y)/gp.tileSize != worldY/gp.tileSize) {
-                gp.tileM.setMaxTileChar(realX/gp.tileSize , worldY/gp.tileSize - 1 , 'b');
+            if((player.worldX + player.solidArea.x)/gp.tileSize != worldX/gp.tileSize || (player.worldY + player.solidArea.y)/gp.tileSize != worldY/gp.tileSize) {
+                gp.tileM.setMaxTileChar(worldX / gp.tileSize, worldY / gp.tileSize - 1, 'b');
+                gp.tileM.setAlterMap(worldX / gp.tileSize, worldY / gp.tileSize - 1, 'b');
             }
             if (spriteCounter > 10) {
                 if(changeNum <= 3) {
@@ -93,12 +94,12 @@ public class Bomb extends Entity{
                     }
                 } else {
                     if(spriteNum == 4) {
-                        //System.out.println(brickX/gp.tileSize + " " + brickY/gp.tileSize);
                         if(explodeRight) gp.tileM.setMaxTileChar(brickXRight/gp.tileSize , brickYRight/gp.tileSize - 1 , ' ');
                         if(explodeLeft) gp.tileM.setMaxTileChar(brickXLeft/gp.tileSize , brickYLeft/ gp.tileSize - 1, ' ');
                         if(explodeUp) gp.tileM.setMaxTileChar(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, ' ');
                         if(explodeDown) gp.tileM.setMaxTileChar(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, ' ');
                         gp.cChecker.checkBombOnPlayer(this, player);
+                        System.out.println("ditme");
                         spriteNum = 5;
                     } else if (spriteNum == 5) {
                         gp.cChecker.checkBombOnPlayer(this, player);
@@ -111,13 +112,28 @@ public class Bomb extends Entity{
                         changeNum = 0;
                         keyH.bombPresent = false;
                         placed = false;
-                        if(explodeRight) gp.tileM.setAlterMap(brickXRight/gp.tileSize , brickYRight/gp.tileSize - 1 , ' ');
-                        if(explodeLeft) gp.tileM.setAlterMap(brickXLeft/gp.tileSize , brickYLeft/ gp.tileSize - 1, ' ');
-                        if(explodeUp) gp.tileM.setAlterMap(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, ' ');
-                        if(explodeDown) gp.tileM.setAlterMap(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, ' ');
-                        brickYRight = 0; brickXRight = 0; brickXDown = 0; brickYDown = 0; brickYUp = 0; brickXUp = 0; brickXLeft = 0; brickYLeft = 0;
-                        gp.tileM.setMaxTileChar(realX/gp.tileSize , worldY/gp.tileSize - 1 , ' ');
+                        done = false;
+                        if (explodeRight)
+                            gp.tileM.setAlterMap(brickXRight / gp.tileSize, brickYRight / gp.tileSize - 1, ' ');
+                        if (explodeLeft)
+                            gp.tileM.setAlterMap(brickXLeft / gp.tileSize, brickYLeft / gp.tileSize - 1, ' ');
+                        if (explodeUp) gp.tileM.setAlterMap(brickXUp / gp.tileSize, brickYUp / gp.tileSize - 1, ' ');
+                        if (explodeDown)
+                            gp.tileM.setAlterMap(brickXDown / gp.tileSize, brickYDown / gp.tileSize - 1, ' ');
+                        brickYRight = 0;
+                        brickXRight = 0;
+                        brickXDown = 0;
+                        brickYDown = 0;
+                        brickYUp = 0;
+                        brickXUp = 0;
+                        brickXLeft = 0;
+                        brickYLeft = 0;
+                        gp.tileM.setMaxTileChar(worldX / gp.tileSize, worldY / gp.tileSize - 1, ' ');
+                        gp.tileM.setAlterMap(worldX / gp.tileSize, worldY / gp.tileSize - 1, ' ');
+                        gp.tileM.setNewBombMap(worldX / gp.tileSize, worldY / gp.tileSize - 1, ' ');
                         playerOnBomb = false;
+                        //System.out.println(realX/gp.tileSize + " " + worldY/gp.tileSize);
+
                     }
                 }
                 spriteCounter = 0;
@@ -203,16 +219,16 @@ public class Bomb extends Entity{
         explodeRight = false;
 
         //checkTileUp
-        g2.drawImage(image, realX, worldY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
         for(int i = 0; i < bombLength; i++) {
-            gp.cChecker.checkTileBombUp(this, realX, worldY - (i+1) * gp.tileSize);
+            gp.cChecker.checkTileBombUp(this, worldX, worldY - (i+1) * gp.tileSize);
             if(!collisionBombUp) {
-                g2.drawImage(up[i], realX, worldY - (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(up[i], worldX, worldY - (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
             } else {
+                brickXUp = worldX;
+                brickYUp = worldY - (i+1) * gp.tileSize;
                 if(explodeUp) {
-                    brickXUp = realX;
-                    brickYUp = worldY - (i+1) * gp.tileSize;
-                    g2.drawImage(brick, realX, worldY - (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(brick, worldX, worldY - (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
                 }
                 break;
             }
@@ -220,14 +236,14 @@ public class Bomb extends Entity{
 
         //checkTileDown
         for(int i = 0; i < bombLength; i++) {
-            gp.cChecker.checkTileBombDown(this, realX, worldY + (i+1) * gp.tileSize);
+            gp.cChecker.checkTileBombDown(this, worldX, worldY + (i+1) * gp.tileSize);
             if(!collisionBombDown) {
-                g2.drawImage(down[i], realX, worldY + (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(down[i], worldX, worldY + (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
             } else {
+                brickXDown = worldX;
+                brickYDown = worldY + (i+1) * gp.tileSize;
                 if(explodeDown) {
-                    brickXDown = realX;
-                    brickYDown = worldY + (i+1) * gp.tileSize;
-                    g2.drawImage(brick, realX, worldY + (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(brick, worldX, worldY + (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
                 }
                 break;
             }
@@ -235,14 +251,14 @@ public class Bomb extends Entity{
 
         //checkTileRight
         for(int i = 0; i < bombLength; i++) {
-            gp.cChecker.checkTileBombRight(this,realX + (i+1) * gp.tileSize, worldY);
+            gp.cChecker.checkTileBombRight(this,worldX + (i+1) * gp.tileSize, worldY);
             if(!collisionBombRight) {
-                g2.drawImage(right[i], realX + (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
+                g2.drawImage(right[i], worldX + (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
             } else {
+                brickXRight = worldX + (i+1) * gp.tileSize;
+                brickYRight = worldY;
                 if(explodeRight) {
-                    brickXRight = realX + (i+1) * gp.tileSize;
-                    brickYRight = worldY;
-                    g2.drawImage(brick,realX + (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(brick,worldX + (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
                 }
                 break;
             }
@@ -250,14 +266,14 @@ public class Bomb extends Entity{
 
         // checkTileLeft
         for(int i = 0; i < bombLength; i++) {
-            gp.cChecker.checkTileBombLeft(this,realX - (i+1) * gp.tileSize, worldY);
+            gp.cChecker.checkTileBombLeft(this,worldX - (i+1) * gp.tileSize, worldY);
             if(!collisionBombLeft) {
-                g2.drawImage(left[i], realX - (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
+                g2.drawImage(left[i], worldX - (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
             } else {
+                brickXLeft = worldX - (i+1) * gp.tileSize;
+                brickYLeft = worldY;
                 if(explodeLeft) {
-                    brickXLeft = realX - (i+1) * gp.tileSize;
-                    brickYLeft = worldY;
-                    g2.drawImage(brick,realX - (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(brick,worldX - (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
                 }
                 break;
             }

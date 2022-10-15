@@ -54,6 +54,7 @@ public class KeyHolder implements KeyListener {
         }
         if(code == KeyEvent.VK_B) {
             bombPlaced = false;
+            bombPresent = false;
         }
     }
 

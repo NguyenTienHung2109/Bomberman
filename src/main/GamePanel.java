@@ -7,7 +7,10 @@ import map.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class GamePanel extends JPanel implements Runnable{
     public final int tileSize = 48;
@@ -15,18 +18,23 @@ public class GamePanel extends JPanel implements Runnable{
     public final int maxScreenRow = 14;
     public final int defaultScreenRow = 14;
     public final int defaultScreenCol = 31;
+    public int bombCount = 0;
+    public int bombMax = 3;
 
+    public boolean playerExploded = true;
+    KeyHolder keyR = new KeyHolder();
+    public AssertsSetter aSetter = new AssertsSetter(this, keyR);
     public final int screenWidth = tileSize * defaultScreenCol;
     public final int screenHeight = tileSize * defaultScreenRow;
+
+    public List<Bomb> bomb = new ArrayList<Bomb>();
     int FPS = 60;
     public TileManager tileM = new TileManager(this);
     Thread gameThread;
-    KeyHolder keyR = new KeyHolder();
     public Entity balloom[] = new Entity[10];
 
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyR);
-    public Bomb bomb = new Bomb(this, keyR);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight ));
@@ -35,6 +43,13 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(keyR);
         this.setFocusable(true);
     }
+    public void setupGame() {
+        aSetter.setBalloom();
+        for(int i = 0; i < 20; i++) {
+            aSetter.setBomb();
+        }
+    }
+    boolean moreBomb = true;
 
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -59,10 +74,20 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
     public void update() {
-        if(bomb.placed == false)bomb.updateBombPosition((int)((player.worldX + bomb.solidArea.x)/tileSize)*tileSize, (int)((player.worldY + bomb.solidArea.y)/tileSize)*tileSize);
-        bomb.update(player);
-        player.getPlayerOnBomb(bomb.playerOnBomb);
-        player.update();
+        if(keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x)/tileSize][(player.worldY + bomb.get(bombCount).solidArea.y)/tileSize - 1] != 'b') {
+            bomb.get(bombCount).updateBombPosition((int)((player.worldX + bomb.get(bombCount).solidArea.x)/tileSize)*tileSize, (int)((player.worldY + bomb.get(bombCount).solidArea.y)/tileSize)*tileSize);
+            this.tileM.setNewBombMap((player.worldX + bomb.get(bombCount).solidArea.x)/tileSize,(player.worldY + bomb.get(bombCount).solidArea.y)/tileSize - 1, 'b');
+            bombCount++;
+            keyR.bombPresent = false;
+        }
+        for(int i = 0; i < bombCount; i++) {
+            if(bomb.get(i) != null) {
+                bomb.get(i).update(player);
+                player.getPlayerOnBomb(bomb.get(i).playerOnBomb);
+            }
+        }
+         player.update();
+
         for(int i=0; i<balloom.length; i++) {
             if(balloom[i]!=null) {
                 balloom[i].update();
@@ -73,8 +98,24 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(gr);
         Graphics2D g2 = (Graphics2D) gr;
         tileM.draw(g2);
-        if(bomb.placed == true && bomb.bombUnExploded == true){bomb.draw(g2);}
+        for(int i = 0; i < bombCount; i++) {
+            if(bomb.get(i) != null && bomb.get(i).placed == true && bomb.get(i).bombUnExploded == true){
+                bomb.get(i).draw(g2);
+            }
+            if(!bomb.get(i).done) {
+                Bomb newB = new Bomb(this, keyR);
+                bomb.set(i, newB);
+                if(i == bombCount - 1) {
+                    bombCount = 0;
+                }
+            }
+        }
         player.draw(g2);
+        for(int i=0; i<balloom.length; i++) {
+            if(balloom[i] != null) {
+                balloom[i].draw(g2);
+            }
+        }
         g2.dispose();
     }
 }
