@@ -58,9 +58,10 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if(gp.tileM.mapTileChar[(worldX + solidArea.x)/gp.tileSize][(worldY + solidArea.y)/ gp.tileSize] == 'l') {
+        System.out.println((worldX + 24)/gp.tileSize + " " + ((worldY + 24)/ gp.tileSize -1));
+        if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'l') {
             gp.bombLength++;
-            gp.tileM.setMaxTileChar((worldX + solidArea.x)/gp.tileSize, (worldY + solidArea.y)/ gp.tileSize, ' ');
+            gp.tileM.setMaxTileChar((worldX + 24)/gp.tileSize, (worldY + 24)/ gp.tileSize - 1, ' ');
         }
         if(playerOnBomb) {
             spriteCounter++;
