@@ -88,25 +88,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-<<<<<<< Updated upstream
-        if (keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x) / tileSize][(player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1] != 'b') {
-            bomb.get(bombCount).updateBombPosition((int) ((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize) * tileSize, (int) ((player.worldY + bomb.get(bombCount).solidArea.y) / tileSize) * tileSize);
-            this.tileM.setNewBombMap((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize, (player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1, 'b');
-            bombCount++;
-            keyR.bombPresent = false;
-        }
-        for (int i = 0; i < bombCount; i++) {
-            if (bomb.get(i) != null) {
-                bomb.get(i).update(player, balloom);
-            }
-        }
-        player.update();
-
-        for (int i = 0; i < balloom.length; i++) {
-            if (balloom[i] != null) {
-                balloom[i].update();
-=======
-        if(gameState == playState) {
+        if (gameState == playState) {
             if (keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x) / tileSize][(player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1] != 'b') {
                 bomb.get(bombCount).updateBombPosition((int) ((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize) * tileSize, (int) ((player.worldY + bomb.get(bombCount).solidArea.y) / tileSize) * tileSize);
                 this.tileM.setNewBombMap((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize, (player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1, 'b');
@@ -115,74 +97,49 @@ public class GamePanel extends JPanel implements Runnable {
             }
             for (int i = 0; i < bombCount; i++) {
                 if (bomb.get(i) != null) {
-                    bomb.get(i).update(player);
-                    player.getPlayerOnBomb(bomb.get(i).playerOnBomb);
+                    bomb.get(i).update(player, balloom);
                 }
             }
-            if (gameState == playState) {
-                player.update();
-            }
+            player.update();
 
             for (int i = 0; i < balloom.length; i++) {
                 if (balloom[i] != null) {
                     balloom[i].update();
                 }
->>>>>>> Stashed changes
             }
         }
-        if(gameState == pauseState) {
+        if (gameState == pauseState) {
 
         }
+
     }
 
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g2 = (Graphics2D) gr;
-<<<<<<< Updated upstream
-        tileM.draw(g2);
-        for (int i = 0; i < bombCount; i++) {
-            if (bomb.get(i) != null && bomb.get(i).placed == true && bomb.get(i).bombUnExploded == true) {
-                bomb.get(i).draw(g2);
-            }
-            if (!bomb.get(i).done) {
-                Bomb newB = new Bomb(this, keyR);
-                bomb.set(i, newB);
-                if (i == bombCount - 1) {
-                    bombCount = 0;
-                }
-            }
-        }
-        player.draw(g2);
-        for (int i = 0; i < balloom.length; i++) {
-            if (balloom[i] != null) {
-                balloom[i].draw(g2);
-=======
-
         if(gameState == menuState) {
             menu.draw(g2);
         }
         else {
             tileM.draw(g2);
-            for(int i = 0; i < bombCount; i++) {
-                if(bomb.get(i) != null && bomb.get(i).placed == true && bomb.get(i).bombUnExploded == true){
+            for (int i = 0; i < bombCount; i++) {
+                if (bomb.get(i) != null && bomb.get(i).placed == true && bomb.get(i).bombUnExploded == true) {
                     bomb.get(i).draw(g2);
                 }
-                if(!bomb.get(i).done) {
+                if (!bomb.get(i).done) {
                     Bomb newB = new Bomb(this, keyR);
                     bomb.set(i, newB);
-                    if(i == bombCount - 1) {
+                    if (i == bombCount - 1) {
                         bombCount = 0;
                     }
                 }
             }
             player.draw(g2);
-            for(int i=0; i<balloom.length; i++) {
-                if(balloom[i] != null) {
+            for (int i = 0; i < balloom.length; i++) {
+                if (balloom[i] != null) {
                     balloom[i].draw(g2);
                 }
->>>>>>> Stashed changes
             }
-            menu.draw(g2);
         }
         g2.dispose();
     }
