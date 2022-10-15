@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
     public final int tileSize = 48;
     public final int maxScreenCol = 31;
     public final int maxScreenRow = 14;
@@ -38,18 +38,20 @@ public class GamePanel extends JPanel implements Runnable{
     public Player player = new Player(this, keyR);
 
     public GamePanel() {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight ));
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyR);
         this.setFocusable(true);
     }
+
     public void setupGame() {
         aSetter.setBalloom();
-        for(int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++) {
             aSetter.setBomb();
         }
     }
+
     boolean moreBomb = true;
 
     public void startGameThread() {
@@ -61,72 +63,64 @@ public class GamePanel extends JPanel implements Runnable{
         balloom[0].
     }*/
     public void run() {
-        double drawInterval = 1000000000/FPS;
+        double drawInterval = 1000000000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
-        while(gameThread != null) {
+        while (gameThread != null) {
             currentTime = System.nanoTime();
-            delta += (currentTime - lastTime)/drawInterval;
+            delta += (currentTime - lastTime) / drawInterval;
             timer += (currentTime - lastTime);
             lastTime = currentTime;
-            if(delta >= 1) {
+            if (delta >= 1) {
                 update();
                 repaint();
                 delta--;
             }
         }
     }
+
     public void update() {
-        if(keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x)/tileSize][(player.worldY + bomb.get(bombCount).solidArea.y)/tileSize - 1] != 'b') {
-            bomb.get(bombCount).updateBombPosition((int)((player.worldX + bomb.get(bombCount).solidArea.x)/tileSize)*tileSize, (int)((player.worldY + bomb.get(bombCount).solidArea.y)/tileSize)*tileSize);
-            this.tileM.setNewBombMap((player.worldX + bomb.get(bombCount).solidArea.x)/tileSize,(player.worldY + bomb.get(bombCount).solidArea.y)/tileSize - 1, 'b');
+        if (keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x) / tileSize][(player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1] != 'b') {
+            bomb.get(bombCount).updateBombPosition((int) ((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize) * tileSize, (int) ((player.worldY + bomb.get(bombCount).solidArea.y) / tileSize) * tileSize);
+            this.tileM.setNewBombMap((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize, (player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1, 'b');
             bombCount++;
             keyR.bombPresent = false;
         }
-        for(int i = 0; i < bombCount; i++) {
-            if(bomb.get(i) != null) {
-                bomb.get(i).update(player);
-                if(!bomb.get(i).bombUnExploded) {
-                    for(int j = 0; j < 6; j++) {
-                        if(balloom[j] != null) {
-                            bomb.get(i).update(balloom[j]);
-                            if(balloom[j].playerOnBomb) {
-                                System.out.println("alo");
-                            }
-                        }
-                    }
-                }
+        for (int i = 0; i < bombCount; i++) {
+            if (bomb.get(i) != null) {
+                bomb.get(i).update(player, balloom);
             }
         }
-         player.update();
+        player.update();
 
-        for(int i=0; i<balloom.length; i++) {
-            if(balloom[i]!=null) {
+        for (int i = 0; i < balloom.length; i++) {
+            if (balloom[i] != null) {
                 balloom[i].update();
             }
         }
     }
+
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g2 = (Graphics2D) gr;
         tileM.draw(g2);
-        for(int i = 0; i < bombCount; i++) {
-            if(bomb.get(i) != null && bomb.get(i).placed == true && bomb.get(i).bombUnExploded == true){
+        for (int i = 0; i < bombCount; i++) {
+            if (bomb.get(i) != null && bomb.get(i).placed == true && bomb.get(i).bombUnExploded == true) {
                 bomb.get(i).draw(g2);
             }
-            if(!bomb.get(i).done) {
+            if (!bomb.get(i).done) {
                 Bomb newB = new Bomb(this, keyR);
                 bomb.set(i, newB);
-                if(i == bombCount - 1) {
+                if (i == bombCount - 1) {
                     bombCount = 0;
                 }
             }
         }
         player.draw(g2);
-        for(int i=0; i<balloom.length; i++) {
-            if(balloom[i] != null) {
+        for (int i = 0; i < balloom.length; i++) {
+            if (balloom[i] != null) {
                 balloom[i].draw(g2);
             }
         }

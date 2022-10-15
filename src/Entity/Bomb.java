@@ -72,7 +72,7 @@ public class Bomb extends Entity{
 
         }
     }
-    public void update(Entity player){
+    public void update(Entity player, Balloom[] balloom){
         if(placed == true) {
             spriteCounter++;
             if((player.worldX + player.solidArea.x)/gp.tileSize != worldX/gp.tileSize || (player.worldY + player.solidArea.y)/gp.tileSize != worldY/gp.tileSize) {
@@ -101,15 +101,27 @@ public class Bomb extends Entity{
                         if(explodeUp) gp.tileM.setMaxTileChar(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, ' ');
                         if(explodeDown) gp.tileM.setMaxTileChar(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, ' ');
                         gp.cChecker.checkBombOnPlayer(this, player);
-                        if(player instanceof Balloom) {
-                            System.out.println(player.playerOnBomb);
+                        for(int i = 0; i < balloom.length; i++) {
+                            if(balloom[i] != null) {
+                                gp.cChecker.checkBombOnPlayer(this, balloom[i]);
+                            }
                         }
                         spriteNum = 5;
                     } else if (spriteNum == 5) {
                         gp.cChecker.checkBombOnPlayer(this, player);
+                        for(int i = 0; i < balloom.length; i++) {
+                            if(balloom[i] != null) {
+                                gp.cChecker.checkBombOnPlayer(this, balloom[i]);
+                            }
+                        }
                         spriteNum = 6;
                     } else if (spriteNum == 6) {
                         gp.cChecker.checkBombOnPlayer(this, player);
+                        for(int i = 0; i < balloom.length; i++) {
+                            if(balloom[i] != null) {
+                                gp.cChecker.checkBombOnPlayer(this, balloom[i]);
+                            }
+                        }
                         keyH.unExploded = false;
                         bombUnExploded = false;
                         spriteNum = 1;
@@ -137,7 +149,7 @@ public class Bomb extends Entity{
                         gp.tileM.setNewBombMap(worldX / gp.tileSize, worldY / gp.tileSize - 1, ' ');
 
                         gp.tileM.setMaxTileChar(worldX/gp.tileSize , worldY/gp.tileSize - 1 , ' ');
-
+                        player.playerOnBomb = false;
                         playerOnBomb = false;
                         //System.out.println(realX/gp.tileSize + " " + worldY/gp.tileSize);
 
