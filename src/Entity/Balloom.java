@@ -47,10 +47,7 @@ public class Balloom extends Entity{
             }
     }
     public void draw (Graphics2D g2) {
-        //int screenX = 100;
-        //int screenY = 100;
-       // int screenX = realX - gp.player.realX + gp.player.screenX;
-       // int screenY = realY - gp.player.realY + gp.player.screenY;
+
         BufferedImage image = null;
         switch (direction) {
             case "up":

@@ -15,7 +15,6 @@ public class Bomb extends Entity{
     public boolean done = true;
     public boolean bombUnExploded = false;
     KeyHolder keyH;
-    int playerRealX;
 
     public Bomb(GamePanel gp, KeyHolder keyH) {
         super(gp);
@@ -63,12 +62,14 @@ public class Bomb extends Entity{
         }
     }
 
-    public void updateBombPosition(int realX, int realY) {
+    public void updateBombPosition(int worldX, int worldY) {
         if (keyH.bombPlaced == true) {
             placed = true;
             bombUnExploded = true;
-            this.worldX = realX;
-            this.worldY = realY;
+
+            this.worldX = worldX;
+            this.worldY = worldY;
+
         }
     }
     public void update(Entity player){
@@ -77,6 +78,7 @@ public class Bomb extends Entity{
             if((player.worldX + player.solidArea.x)/gp.tileSize != worldX/gp.tileSize || (player.worldY + player.solidArea.y)/gp.tileSize != worldY/gp.tileSize) {
                 gp.tileM.setMaxTileChar(worldX / gp.tileSize, worldY / gp.tileSize - 1, 'b');
                 gp.tileM.setAlterMap(worldX / gp.tileSize, worldY / gp.tileSize - 1, 'b');
+
             }
             if (spriteCounter > 10) {
                 if(changeNum <= 3) {
@@ -131,6 +133,9 @@ public class Bomb extends Entity{
                         gp.tileM.setMaxTileChar(worldX / gp.tileSize, worldY / gp.tileSize - 1, ' ');
                         gp.tileM.setAlterMap(worldX / gp.tileSize, worldY / gp.tileSize - 1, ' ');
                         gp.tileM.setNewBombMap(worldX / gp.tileSize, worldY / gp.tileSize - 1, ' ');
+
+                        gp.tileM.setMaxTileChar(worldX/gp.tileSize , worldY/gp.tileSize - 1 , ' ');
+
                         playerOnBomb = false;
                         //System.out.println(realX/gp.tileSize + " " + worldY/gp.tileSize);
 
@@ -228,6 +233,9 @@ public class Bomb extends Entity{
                 brickXUp = worldX;
                 brickYUp = worldY - (i+1) * gp.tileSize;
                 if(explodeUp) {
+
+                    brickXUp = worldX;
+                    brickYUp = worldY - (i+1) * gp.tileSize;
                     g2.drawImage(brick, worldX, worldY - (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
                 }
                 break;
@@ -243,6 +251,9 @@ public class Bomb extends Entity{
                 brickXDown = worldX;
                 brickYDown = worldY + (i+1) * gp.tileSize;
                 if(explodeDown) {
+
+                    brickXDown = worldX;
+                    brickYDown = worldY + (i+1) * gp.tileSize;
                     g2.drawImage(brick, worldX, worldY + (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
                 }
                 break;
@@ -258,6 +269,10 @@ public class Bomb extends Entity{
                 brickXRight = worldX + (i+1) * gp.tileSize;
                 brickYRight = worldY;
                 if(explodeRight) {
+
+                    brickXRight = worldX + (i+1) * gp.tileSize;
+                    brickYRight = worldY;
+
                     g2.drawImage(brick,worldX + (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
                 }
                 break;
@@ -273,6 +288,10 @@ public class Bomb extends Entity{
                 brickXLeft = worldX - (i+1) * gp.tileSize;
                 brickYLeft = worldY;
                 if(explodeLeft) {
+
+                    brickXLeft = worldX - (i+1) * gp.tileSize;
+                    brickYLeft = worldY;
+
                     g2.drawImage(brick,worldX - (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
                 }
                 break;

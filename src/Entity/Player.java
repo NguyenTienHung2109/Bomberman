@@ -37,8 +37,6 @@ public class Player extends Entity {
         endMapX = 1080;
         worldX = gp.tileSize;
         worldY = gp.tileSize * 2;
-        realX = gp.tileSize;
-        realY = gp.tileSize * 2;
         speed = 2;
         direction = "down";
     }
