@@ -3,6 +3,7 @@ package main;
 import Entity.Entity;
 import Entity.Bomb;
 import Entity.Player;
+import Entity.Balloom;
 import map.TileManager;
 
 import javax.swing.*;
@@ -31,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 60;
     public TileManager tileM = new TileManager(this);
     Thread gameThread;
-    public Entity balloom[] = new Entity[10];
+    public Balloom balloom[] = new Balloom[10];
 
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyR);
@@ -55,6 +56,10 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread = new Thread(this);
         gameThread.start();
     }
+
+    /*public void setListBalloom() {
+        balloom[0].
+    }*/
     public void run() {
         double drawInterval = 1000000000/FPS;
         double delta = 0;
@@ -83,7 +88,16 @@ public class GamePanel extends JPanel implements Runnable{
         for(int i = 0; i < bombCount; i++) {
             if(bomb.get(i) != null) {
                 bomb.get(i).update(player);
-                player.getPlayerOnBomb(bomb.get(i).playerOnBomb);
+                if(!bomb.get(i).bombUnExploded) {
+                    for(int j = 0; j < 6; j++) {
+                        if(balloom[j] != null) {
+                            bomb.get(i).update(balloom[j]);
+                            if(balloom[j].playerOnBomb) {
+                                System.out.println("alo");
+                            }
+                        }
+                    }
+                }
             }
         }
          player.update();

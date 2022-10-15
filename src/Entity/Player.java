@@ -10,14 +10,10 @@ import java.io.IOException;
 
 public class Player extends Entity {
     KeyHolder KeyH;
-    public final int screenX;
-    public final int screenY;
 
     public Player(GamePanel gp, KeyHolder keyH) {
         super(gp);
         this.KeyH = keyH;
-        screenX = gp.screenWidth / 2;
-        screenY = gp.screenHeight / 2;
 
         solidArea = new Rectangle();
         solidArea.x = 4;
@@ -29,9 +25,6 @@ public class Player extends Entity {
         getPlayerImage();
     }
 
-    public void getPlayerOnBomb(boolean onBomb) {
-        this.playerOnBomb = onBomb;
-    }
 
     public void setDefaultValue() {
         endMapX = 1080;

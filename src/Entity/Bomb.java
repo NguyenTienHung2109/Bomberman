@@ -101,7 +101,9 @@ public class Bomb extends Entity{
                         if(explodeUp) gp.tileM.setMaxTileChar(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, ' ');
                         if(explodeDown) gp.tileM.setMaxTileChar(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, ' ');
                         gp.cChecker.checkBombOnPlayer(this, player);
-                        System.out.println("ditme");
+                        if(player instanceof Balloom) {
+                            System.out.println(player.playerOnBomb);
+                        }
                         spriteNum = 5;
                     } else if (spriteNum == 5) {
                         gp.cChecker.checkBombOnPlayer(this, player);

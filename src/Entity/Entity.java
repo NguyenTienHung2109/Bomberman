@@ -1,6 +1,7 @@
 package Entity;
 
 import main.GamePanel;
+import org.w3c.dom.Node;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -23,7 +24,7 @@ public class Entity {
     public int endMapX;
     public double speed;
     public int brickXUp = 0, brickXDown = 0, brickXLeft = 0, brickXRight = 0, brickYUp = 0, brickYDown = 0, brickYLeft = 0, brickYRight = 0;
-    public BufferedImage up, up1, up2, down, down1, down2, left, left1, left2, right, right1, right2, dead, dead1, dead2;
+    public BufferedImage up, up1, up2, down, down1, down2, left, left1, left2, right, right1, right2, dead, dead1, dead2, dead3;
     public BufferedImage bomb1, bomb2, bomb3, bombExploded1, bombExploded2, bombExploded3;
     public BufferedImage horizontal, horizontal1, horizontal2, vertical, vertical1, vertical2;
     public BufferedImage left_last, left_last1, left_last2, right_last, right_last1, right_last2;
@@ -48,34 +49,52 @@ public class Entity {
     collisionOn = false;
     gp.cChecker.checkTile(this);
 
-        if (collisionOn == false) {
-            switch (direction) {
-                case "up": worldY -= speed; break;
-                case "down": worldY += speed; break;
-                case "left":
-                    worldX -= speed;
-                    break;
-                case "right":
-                    worldX += speed;
-                    break;
+        if(playerOnBomb) {
+            spriteCounter++;
+            if (spriteCounter > 10) {
+                if (spriteNumDead == 1) {
+                    spriteNumDead = 2;
+                } else if (spriteNumDead == 2) {
+                    spriteNumDead = 3;
+                } else if (spriteNumDead == 3) {
+                    spriteNumDead = 1;
+                }
+                spriteCounter = 0;
             }
-        }
+        } else {
+            if (collisionOn == false) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
+            }
 
-        spriteCounter++;
-        if (spriteCounter > 10) {
-            if (spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 3;
-            } else if (spriteNum == 3) {
-                spriteNum = 1;
+            spriteCounter++;
+            if (spriteCounter > 10) {
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 3;
+                } else if (spriteNum == 3) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
             }
-            spriteCounter = 0;
         }
     }
     public void draw (Graphics2D g2) {
-        int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        //int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        //int screenY = worldY - gp.player.worldY + gp.player.screenY;
         BufferedImage image = null;
 
         switch (direction) {
@@ -116,7 +135,6 @@ public class Entity {
                 }
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
     }
-
 }

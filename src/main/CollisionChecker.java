@@ -178,14 +178,13 @@ public class CollisionChecker {
 
         if(((playerLeftCol <= bombRightCol && playerLeftCol >= bombMidCol) || (playerRightCol >= bombLeftCol && playerRightCol <= bombMidCol)) && (playerBottomRow == bombMidRow || playerTopRow == bombMidRow)) {
             player.playerOnBomb = true;
-            bomb.playerOnBomb = true;
         }
         if(((playerBottomRow >= bombTopRow && playerBottomRow <= bombMidRow) || (playerTopRow <= bombBottomRow && playerTopRow >= bombMidRow)) && (playerLeftCol == bombMidCol || playerRightCol == bombMidCol)) {
             player.playerOnBomb = true;
-            bomb.playerOnBomb = true;
         }
 
     }
+
 }
 
 
