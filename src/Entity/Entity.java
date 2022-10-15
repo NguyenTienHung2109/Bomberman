@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Entity {
     public int changeNum = 0;
-    public int bombLength = 4;
+
     public boolean collisionOn = false;
     public boolean collisionBombUp = false;
     public boolean collisionBombDown = false;

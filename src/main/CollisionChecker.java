@@ -14,11 +14,13 @@ public class CollisionChecker {
     public int convertTile(char tempTileNum) {
         if (tempTileNum == '#') {
             return 1;
-        } else if (tempTileNum == ' ') {
+        } else if (tempTileNum == ' ' || tempTileNum == '1' || tempTileNum == '2') {
             return 0;
         } else if (tempTileNum == 'b') {
             return 3;
-        } else {
+        } else if (tempTileNum == 'l') {
+            return 4;
+        }else {
             return 2;
         }
 
@@ -156,13 +158,13 @@ public class CollisionChecker {
         int bombMidRow = bombY/gp.tileSize - 1;
         int bombLeftCol, bombRightCol, bombTopRow, bombBottomRow;
 
-        if(bomb.brickXLeft == 0) {bombLeftCol = bombMidCol - bomb.bombLength;}
+        if(bomb.brickXLeft == 0) {bombLeftCol = bombMidCol - gp.bombLength;}
         else { bombLeftCol = bomb.brickXLeft/gp.tileSize;}
-        if(bomb.brickXRight == 0) {bombRightCol = bombMidCol + bomb.bombLength;}
+        if(bomb.brickXRight == 0) {bombRightCol = bombMidCol + gp.bombLength;}
         else {bombRightCol = bomb.brickXRight/gp.tileSize;}
-        if(bomb.brickYUp == 0) {bombTopRow = bombMidRow - bomb.bombLength;}
+        if(bomb.brickYUp == 0) {bombTopRow = bombMidRow - gp.bombLength;}
         else {bombTopRow = bomb.brickYUp/gp.tileSize;}
-        if(bomb.brickYDown == 0) {bombBottomRow = bombMidRow + bomb.bombLength;}
+        if(bomb.brickYDown == 0) {bombBottomRow = bombMidRow + gp.bombLength;}
         else {bombBottomRow = bomb.brickYDown/gp.tileSize - 1;}
 
         int playerLeftWorldX = player.worldX + player.solidArea.x;

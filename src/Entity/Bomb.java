@@ -96,10 +96,37 @@ public class Bomb extends Entity{
                     }
                 } else {
                     if(spriteNum == 4) {
-                        if(explodeRight) gp.tileM.setMaxTileChar(brickXRight/gp.tileSize , brickYRight/gp.tileSize - 1 , ' ');
-                        if(explodeLeft) gp.tileM.setMaxTileChar(brickXLeft/gp.tileSize , brickYLeft/ gp.tileSize - 1, ' ');
-                        if(explodeUp) gp.tileM.setMaxTileChar(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, ' ');
-                        if(explodeDown) gp.tileM.setMaxTileChar(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, ' ');
+                        if(explodeRight) {
+                            if(gp.tileM.mapTileChar[brickXRight/gp.tileSize][brickYRight/gp.tileSize - 1] == 'f') {
+                                gp.tileM.setMaxTileChar(brickXRight/gp.tileSize , brickYRight/gp.tileSize - 1 , 'l');
+                            }
+                            else {
+                                gp.tileM.setMaxTileChar(brickXRight/gp.tileSize , brickYRight/gp.tileSize - 1 , ' ');
+                            }
+                        }
+                        if(explodeLeft) {
+                            if(gp.tileM.mapTileChar[brickXLeft/gp.tileSize][brickYLeft/ gp.tileSize - 1] == 'f') {
+                                gp.tileM.setMaxTileChar(brickXLeft/gp.tileSize , brickYLeft/ gp.tileSize - 1, 'l');
+                            }
+                            else {
+                                gp.tileM.setMaxTileChar(brickXLeft/gp.tileSize , brickYLeft/ gp.tileSize - 1, ' ');
+                            }
+                        }
+                        if(explodeUp)
+                        {
+                            if(gp.tileM.mapTileChar[brickXUp/gp.tileSize][brickYUp/ gp.tileSize - 1] == 'f') {
+                                gp.tileM.setMaxTileChar(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, 'l');
+                            } else {
+                                gp.tileM.setMaxTileChar(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, ' ');
+                            }
+                        }
+                        if(explodeDown) {
+                            if(gp.tileM.mapTileChar[brickXDown/gp.tileSize][brickYDown/ gp.tileSize - 1] == 'f') {
+                                gp.tileM.setMaxTileChar(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, 'l');
+                            } else {
+                                gp.tileM.setMaxTileChar(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, ' ');
+                            }
+                        }
                         gp.cChecker.checkBombOnPlayer(this, player);
                         for(int i = 0; i < balloom.length; i++) {
                             if(balloom[i] != null) {
@@ -166,10 +193,10 @@ public class Bomb extends Entity{
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         BufferedImage brick = null;
-        BufferedImage[] up = new BufferedImage[bombLength];
-        BufferedImage[] left = new BufferedImage[bombLength];
-        BufferedImage[] down = new BufferedImage[bombLength];
-        BufferedImage[] right = new BufferedImage[bombLength];
+        BufferedImage[] up = new BufferedImage[gp.bombLength];
+        BufferedImage[] left = new BufferedImage[gp.bombLength];
+        BufferedImage[] down = new BufferedImage[gp.bombLength];
+        BufferedImage[] right = new BufferedImage[gp.bombLength];
         if (spriteNum == 1) {
             image = bomb1;
         } else if (spriteNum == 2) {
@@ -180,8 +207,8 @@ public class Bomb extends Entity{
 
             image = bombExploded1;
             brick = brickExploded;
-            for(int i = 0; i < bombLength; i++) {
-                if(i == bombLength - 1) {
+            for(int i = 0; i < gp.bombLength; i++) {
+                if(i == gp.bombLength - 1) {
                     up[i] = up_last;
                     left[i] = left_last;
                     right[i] = right_last;
@@ -196,8 +223,8 @@ public class Bomb extends Entity{
         } else if (spriteNum == 5) {
             image = bombExploded2;
             brick = brickExploded1;
-            for(int i = 0; i < bombLength; i++) {
-                if (i == bombLength - 1) {
+            for(int i = 0; i < gp.bombLength; i++) {
+                if (i == gp.bombLength - 1) {
                     up[i] = up_last1;
                     left[i] = left_last1;
                     right[i] = right_last1;
@@ -213,8 +240,8 @@ public class Bomb extends Entity{
         } else if (spriteNum == 6) {
             image = bombExploded3;
             brick = brickExploded2;
-            for(int i = 0; i < bombLength; i++) {
-                if (i == bombLength - 1) {
+            for(int i = 0; i < gp.bombLength; i++) {
+                if (i == gp.bombLength - 1) {
                     up[i] = up_last2;
                     left[i] = left_last2;
                     right[i] = right_last2;
@@ -241,7 +268,7 @@ public class Bomb extends Entity{
 
         //checkTileUp
         g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
-        for(int i = 0; i < bombLength; i++) {
+        for(int i = 0; i < gp.bombLength; i++) {
             gp.cChecker.checkTileBombUp(this, worldX, worldY - (i+1) * gp.tileSize);
             if(!collisionBombUp) {
                 g2.drawImage(up[i], worldX, worldY - (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
@@ -259,7 +286,7 @@ public class Bomb extends Entity{
         }
 
         //checkTileDown
-        for(int i = 0; i < bombLength; i++) {
+        for(int i = 0; i < gp.bombLength; i++) {
             gp.cChecker.checkTileBombDown(this, worldX, worldY + (i+1) * gp.tileSize);
             if(!collisionBombDown) {
                 g2.drawImage(down[i], worldX, worldY + (i+1) * gp.tileSize, gp.tileSize, gp.tileSize, null);
@@ -277,7 +304,7 @@ public class Bomb extends Entity{
         }
 
         //checkTileRight
-        for(int i = 0; i < bombLength; i++) {
+        for(int i = 0; i < gp.bombLength; i++) {
             gp.cChecker.checkTileBombRight(this,worldX + (i+1) * gp.tileSize, worldY);
             if(!collisionBombRight) {
                 g2.drawImage(right[i], worldX + (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);
@@ -296,7 +323,7 @@ public class Bomb extends Entity{
         }
 
         // checkTileLeft
-        for(int i = 0; i < bombLength; i++) {
+        for(int i = 0; i < gp.bombLength; i++) {
             gp.cChecker.checkTileBombLeft(this,worldX - (i+1) * gp.tileSize, worldY);
             if(!collisionBombLeft) {
                 g2.drawImage(left[i], worldX - (i+1) * gp.tileSize, worldY ,gp.tileSize, gp.tileSize, null);

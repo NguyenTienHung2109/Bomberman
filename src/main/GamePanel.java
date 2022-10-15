@@ -20,7 +20,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int defaultScreenRow = 14;
     public final int defaultScreenCol = 31;
     public int bombCount = 0;
-    public int bombMax = 3;
+    public int bombMax = 1;
+    public int bombLength = 1;
 
     public boolean playerExploded = true;
     KeyHolder keyR = new KeyHolder(this);

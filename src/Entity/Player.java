@@ -58,6 +58,10 @@ public class Player extends Entity {
     }
 
     public void update() {
+        if(gp.tileM.mapTileChar[(worldX + solidArea.x)/gp.tileSize][(worldY + solidArea.y)/ gp.tileSize] == 'l') {
+            gp.bombLength++;
+            gp.tileM.setMaxTileChar((worldX + solidArea.x)/gp.tileSize, (worldY + solidArea.y)/ gp.tileSize, ' ');
+        }
         if(playerOnBomb) {
             spriteCounter++;
             if (spriteCounter > 10) {

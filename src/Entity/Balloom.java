@@ -50,10 +50,6 @@ public class Balloom extends Entity{
             }
     }
 
-    public void getPlayerOnBomb(boolean onBomb) {
-        this.playerOnBomb = onBomb;
-    }
-
     public void draw (Graphics2D g2) {
 
         BufferedImage image = null;

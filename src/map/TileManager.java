@@ -78,6 +78,9 @@ public class TileManager {
             tile[3] = new Tile();
             tile[3].collision = true;
 
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/map/powerup_flames.png"));
+
 
         } catch(IOException e) {
             e.printStackTrace();
@@ -92,12 +95,14 @@ public class TileManager {
             char obj = mapTileChar[col][row];
             if(obj == '#') {
                 g2.drawImage(tile[1].image,x,y,gp.tileSize, gp.tileSize, null);
-            } else if(obj == ' ' || obj == 'b') {
+            } else if(obj == ' ' || obj == 'b' || obj == '1' || obj == '2') {
                 g2.drawImage(tile[0].image,x,y,gp.tileSize, gp.tileSize, null);
-            } else if(obj == 'x') {
+            } else if(obj == 'x' || obj == 'f') {
                 g2.drawImage(tile[2].image,x,y,gp.tileSize, gp.tileSize, null);
             } else if(obj == '*') {
                 g2.drawImage(tile[2].image,x,y,gp.tileSize, gp.tileSize, null);
+            } else if(obj == 'l') {
+                g2.drawImage(tile[4].image,x,y,gp.tileSize, gp.tileSize, null);
             }
             col++;
             x += gp.tileSize;
