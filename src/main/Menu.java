@@ -1,6 +1,8 @@
 package main;
 
 
+import Entity.Player;
+
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,8 +10,9 @@ import java.io.InputStream;
 public class Menu {
     GamePanel gp;
     Graphics2D g2;
-    Font fip, retro, minecratf;
+    Font fip;
     public int commandNumber= 0;
+
     public  Menu(GamePanel gp){
         this.gp = gp;
         try {
@@ -25,12 +28,37 @@ public class Menu {
         this.g2 = g2;
         g2.setFont(fip);
         g2.setColor(Color.white);
+
         if(gp.gameState == gp.menuState) {
             drawMenuScreen();
         }
         if(gp.gameState == gp.pauseState) {
             drawPauseScreen();
         }
+    }
+
+    public void getScore(Graphics2D g2) {
+        this.g2 = g2;
+        g2.setFont(fip);
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(30F));
+        String text = "Score: " + gp.player.score;
+        int x = 0;
+        int y = gp.tileSize;
+        g2.drawString(text,x,y);
+    }
+    public void drawLevel(Graphics2D g2) {
+        this.g2= g2;
+        g2.setColor(new Color(70,120,80));
+        g2.fillRect(0,0, gp.screenWidth, gp.screenHeight);
+        g2.setFont(fip);
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,40F));
+        String text = "STATE 1";
+        int x = getXforCenter(text);
+        int y = gp.screenHeight/2;
+        g2.drawString(text, x, y);
+        g2.drawString(text, x, y);
     }
     public void drawPauseScreen() {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,90F));

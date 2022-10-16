@@ -8,6 +8,8 @@ import map.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +26,9 @@ public class GamePanel extends JPanel implements Runnable {
     public int bombLength = 1;
 
     public boolean playerExploded = true;
+
+    public boolean message = true;
+    int counter = 0;
     KeyHolder keyR = new KeyHolder(this);
     public AssertsSetter aSetter = new AssertsSetter(this, keyR);
     public Menu menu = new Menu(this);
@@ -42,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int menuState = 0;
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyR);
+    Font fip = null;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -110,11 +116,9 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         if (gameState == pauseState) {
-
         }
 
     }
-
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g2 = (Graphics2D) gr;
@@ -139,6 +143,16 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < balloom.length; i++) {
                 if (balloom[i] != null) {
                     balloom[i].draw(g2);
+                }
+            }
+            menu.getScore(g2);
+            if(message == true)
+            {
+                menu.drawLevel(g2);
+                counter++;
+                if (counter > 100) {
+                    counter = 0;
+                    message = false;
                 }
             }
         }
