@@ -20,6 +20,8 @@ public class CollisionChecker {
             return 3;
         } else if (tempTileNum == 'l') {
             return 4;
+        } else if (tempTileNum == 'X') {
+            return 5;
         }else {
             return 2;
         }

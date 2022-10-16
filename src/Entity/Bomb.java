@@ -99,16 +99,18 @@ public class Bomb extends Entity{
                         if(explodeRight) {
                             if(gp.tileM.mapTileChar[brickXRight/gp.tileSize][brickYRight/gp.tileSize - 1] == 'f') {
                                 gp.tileM.setMaxTileChar(brickXRight/gp.tileSize , brickYRight/gp.tileSize - 1 , 'l');
-                            }
-                            else {
+                            } else if (gp.tileM.mapTileChar[brickXRight/gp.tileSize][brickYRight/gp.tileSize - 1] == 'x'){
+                                gp.tileM.setMaxTileChar(brickXRight/gp.tileSize , brickYRight/gp.tileSize - 1 , 'X');
+                            } else {
                                 gp.tileM.setMaxTileChar(brickXRight/gp.tileSize , brickYRight/gp.tileSize - 1 , ' ');
                             }
                         }
                         if(explodeLeft) {
                             if(gp.tileM.mapTileChar[brickXLeft/gp.tileSize][brickYLeft/ gp.tileSize - 1] == 'f') {
                                 gp.tileM.setMaxTileChar(brickXLeft/gp.tileSize , brickYLeft/ gp.tileSize - 1, 'l');
-                            }
-                            else {
+                            } else if (gp.tileM.mapTileChar[brickXLeft/gp.tileSize][brickYLeft/ gp.tileSize - 1] == 'x'){
+                                gp.tileM.setMaxTileChar(brickXLeft/gp.tileSize , brickYLeft/ gp.tileSize - 1, 'X');
+                            } else {
                                 gp.tileM.setMaxTileChar(brickXLeft/gp.tileSize , brickYLeft/ gp.tileSize - 1, ' ');
                             }
                         }
@@ -116,6 +118,8 @@ public class Bomb extends Entity{
                         {
                             if(gp.tileM.mapTileChar[brickXUp/gp.tileSize][brickYUp/ gp.tileSize - 1] == 'f') {
                                 gp.tileM.setMaxTileChar(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, 'l');
+                            } else if(gp.tileM.mapTileChar[brickXUp/gp.tileSize][brickYUp/ gp.tileSize - 1] == 'x') {
+                                gp.tileM.setMaxTileChar(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, 'X');
                             } else {
                                 gp.tileM.setMaxTileChar(brickXUp/gp.tileSize, brickYUp/ gp.tileSize - 1, ' ');
                             }
@@ -123,7 +127,9 @@ public class Bomb extends Entity{
                         if(explodeDown) {
                             if(gp.tileM.mapTileChar[brickXDown/gp.tileSize][brickYDown/ gp.tileSize - 1] == 'f') {
                                 gp.tileM.setMaxTileChar(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, 'l');
-                            } else {
+                            } else if( gp.tileM.mapTileChar[brickXDown/gp.tileSize][brickYDown/ gp.tileSize - 1] == 'x'){
+                                gp.tileM.setMaxTileChar(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, 'X');
+                            }else {
                                 gp.tileM.setMaxTileChar(brickXDown/gp.tileSize, brickYDown/ gp.tileSize - 1, ' ');
                             }
                         }
