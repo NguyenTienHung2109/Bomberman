@@ -86,6 +86,9 @@ public class TileManager {
 
             tile[6] = new Tile();
             tile[6].image = ImageIO.read(getClass().getResourceAsStream("/map/powerup_bombs.png"));
+
+            tile[7] = new Tile();
+            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/map/powerup_speed.png"));
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -99,9 +102,9 @@ public class TileManager {
             char obj = mapTileChar[col][row];
             if(obj == '#') {
                 g2.drawImage(tile[1].image,x,y,gp.tileSize, gp.tileSize, null);
-            } else if(obj == ' ' || obj == 'b' || obj == '1' || obj == '2') {
+            } else if(obj == ' ' || obj == 'b' || obj == '1' || obj == '2' || obj == 'p') {
                 g2.drawImage(tile[0].image,x,y,gp.tileSize, gp.tileSize, null);
-            } else if(obj == 'x' || obj == 'f') {
+            } else if(obj == 'x' || obj == 'f' || obj == 'n' || obj == 's') {
                 g2.drawImage(tile[2].image,x,y,gp.tileSize, gp.tileSize, null);
             } else if(obj == '*') {
                 g2.drawImage(tile[2].image,x,y,gp.tileSize, gp.tileSize, null);
@@ -109,6 +112,10 @@ public class TileManager {
                 g2.drawImage(tile[4].image,x,y,gp.tileSize, gp.tileSize, null);
             } else if(obj == 'X') {
                 g2.drawImage(tile[5].image,x,y,gp.tileSize, gp.tileSize, null);
+            } else if(obj == 'N') {
+                g2.drawImage(tile[6].image,x,y,gp.tileSize, gp.tileSize, null);
+            } else if(obj == 'S') {
+                g2.drawImage(tile[7].image, x, y, gp.tileSize, gp.tileSize, null);
             }
             col++;
             x += gp.tileSize;

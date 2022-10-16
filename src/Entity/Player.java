@@ -11,6 +11,7 @@ import java.io.IOException;
 public class Player extends Entity {
     KeyHolder KeyH;
     public int score = 0;
+    long createdMillis = 0;
     public Player(GamePanel gp, KeyHolder keyH) {
         super(gp);
         this.KeyH = keyH;
@@ -27,9 +28,7 @@ public class Player extends Entity {
 
 
     public void setDefaultValue() {
-        endMapX = 1080;
-        worldX = gp.tileSize;
-        worldY = gp.tileSize * 2;
+
         speed = 2;
         direction = "down";
     }
@@ -58,10 +57,25 @@ public class Player extends Entity {
     }
 
     public void update() {
-       // System.out.println((worldX + 24)/gp.tileSize + " " + ((worldY + 24)/ gp.tileSize -1));
+
         if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'l') {
             gp.bombLength++;
             gp.tileM.setMaxTileChar((worldX + 24)/gp.tileSize, (worldY + 24)/ gp.tileSize - 1, ' ');
+        }
+        if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'N') {
+            gp.bombMax++;
+            gp.tileM.setMaxTileChar((worldX + 24)/gp.tileSize, (worldY + 24)/ gp.tileSize - 1, ' ');
+        }
+        if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'S') {
+            speed += 1;
+            createdMillis = System.currentTimeMillis();
+            gp.tileM.setMaxTileChar((worldX + 24)/gp.tileSize, (worldY + 24)/ gp.tileSize - 1, ' ');
+        }
+        if(speed == 3) {
+            long nowMillis = System.currentTimeMillis();
+            if((nowMillis - createdMillis)/1000 == 5) {
+                speed = 2;
+            }
         }
         if(playerOnBomb) {
             spriteCounter++;

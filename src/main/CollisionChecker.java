@@ -14,7 +14,7 @@ public class CollisionChecker {
     public int convertTile(char tempTileNum) {
         if (tempTileNum == '#') {
             return 1;
-        } else if (tempTileNum == ' ' || tempTileNum == '1' || tempTileNum == '2') {
+        } else if (tempTileNum == ' ' || tempTileNum == '1' || tempTileNum == '2' || tempTileNum == 'p') {
             return 0;
         } else if (tempTileNum == 'b') {
             return 3;
@@ -22,7 +22,11 @@ public class CollisionChecker {
             return 4;
         } else if (tempTileNum == 'X') {
             return 5;
-        }else {
+        } else if(tempTileNum == 'N') {
+            return 6;
+        } else if(tempTileNum == 'S') {
+            return 7;
+        } else {
             return 2;
         }
 

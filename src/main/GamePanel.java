@@ -72,9 +72,6 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    /*public void setListBalloom() {
-        balloom[0].
-    }*/
     public void run() {
         double drawInterval = 1000000000 / FPS;
         double delta = 0;

@@ -27,6 +27,10 @@ public class AssertsSetter {
                 gp.balloom[demBalloom].worldY = y;
                 demBalloom++;
             }
+            if(obj == 'p') {
+                gp.player.worldX = x - 1;
+                gp.player.worldY = y;
+            }
             col++;
             x += gp.tileSize;
 
