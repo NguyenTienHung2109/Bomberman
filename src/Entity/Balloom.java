@@ -16,7 +16,7 @@ public class Balloom extends Entity{
     public Balloom(GamePanel gp) {
         super(gp);
         direction = "left";
-        speed = 2;
+        speed = 1;
         solidArea.x = 4;
         solidArea.y = 4;
         solidArea.width = 40;
@@ -53,7 +53,7 @@ public class Balloom extends Entity{
     public void draw (Graphics2D g2) {
 
         BufferedImage image = null;
-        if (!playerOnBomb) {
+        if (!isDead) {
             switch (direction) {
                 case "up":
                     if (spriteNum == 1) {
@@ -116,8 +116,9 @@ public class Balloom extends Entity{
 
         collisionOn = false;
         gp.cChecker.checkTile(this);
+        gp.cChecker.checkPlayer(this);
 
-        if(playerOnBomb) {
+        if(isDead) {
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNumDead == 1) {
@@ -164,9 +165,7 @@ public class Balloom extends Entity{
         }
     }
     public void setAction() {
-        if (playerOnBomb) {
-
-        } else {
+        if(!isDead) {
             if (worldX % gp.tileSize == 0 && worldY % gp.tileSize == 0) {
                 List<String> lead = new ArrayList<String>();
                 char balloomChar = gp.tileM.mapTileChar[worldX / gp.tileSize - 1][worldY / gp.tileSize - 1];

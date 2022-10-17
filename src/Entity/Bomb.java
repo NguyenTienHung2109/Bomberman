@@ -72,7 +72,7 @@ public class Bomb extends Entity{
 
         }
     }
-    public void update(Entity player, Balloom[] balloom){
+    public void update(Entity player, Entity[] balloom){
         if(placed == true) {
             spriteCounter++;
             if((player.worldX + player.solidArea.x)/gp.tileSize != worldX/gp.tileSize || (player.worldY + player.solidArea.y)/gp.tileSize != worldY/gp.tileSize) {

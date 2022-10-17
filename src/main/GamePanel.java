@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     public TileManager tileM = new TileManager(this);
     Thread gameThread;
-    public Balloom balloom[] = new Balloom[10];
+    public Entity balloom[] = new Balloom[10];
 
     public int gameState;
     public final int playState = 1;

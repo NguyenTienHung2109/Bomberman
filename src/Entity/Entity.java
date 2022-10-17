@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 
 public class Entity {
     public int changeNum = 0;
-
     public boolean collisionOn = false;
     public boolean collisionBombUp = false;
     public boolean collisionBombDown = false;
@@ -19,6 +18,7 @@ public class Entity {
     public boolean explodeUp = false;
     public boolean explodeDown = false;
     public boolean playerOnBomb = false;
+    public boolean isDead = false;
     GamePanel gp;
     public int worldX, worldY;
     public int endMapX;
@@ -44,12 +44,14 @@ public class Entity {
 
     }
     public void update() {
-    setAction();
+        setAction();
 
-    collisionOn = false;
-    gp.cChecker.checkTile(this);
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+        gp.cChecker.checkPlayer(this);
 
-        if(playerOnBomb) {
+        if(isDead) {
+            System.out.println("dead");
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNumDead == 1) {

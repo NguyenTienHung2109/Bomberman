@@ -77,7 +77,7 @@ public class Player extends Entity {
                 speed = 2;
             }
         }
-        if(playerOnBomb) {
+        if(isDead) {
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNumDead == 1) {
@@ -106,6 +106,10 @@ public class Player extends Entity {
 
                 collisionOn = false;
                 gp.cChecker.checkTile(this);
+
+                // CHECK NPC COLLISION
+                int npcIndex = gp.cChecker.checkEntity(this, gp.balloom);
+                interactNPC(npcIndex);
 
                 // IF COLLISION IS FALSE, PLAYER CAN MOVE
                 if (collisionOn == false) {
@@ -136,11 +140,17 @@ public class Player extends Entity {
         }
     }
 
+    public void interactNPC(int i) {
+        if (i != 999) {
+            System.out.println("hitting");
+        }
+    }
+
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
 
-        if(!playerOnBomb) {
+        if(!isDead) {
             switch (direction) {
                 case "up":
                     if (spriteNum == 1) {
