@@ -38,7 +38,6 @@ public class GamePanel extends JPanel implements Runnable {
     public List<Bomb> bomb = new ArrayList<Bomb>();
     int FPS = 60;
     public TileManager tileM = new TileManager(this);
-    Thread gameThread;
     public Entity balloom[] = new Balloom[10];
 
     public int gameState;
@@ -49,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyR);
     Font fip = null;
     Sound sound = new Sound();
+    Thread gameThread;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
             aSetter.setBomb();
         }
         gameState = menuState;
-        //playMusic(0);
+       // playMusic(0);
     }
 
     boolean moreBomb = true;
@@ -157,7 +157,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
-    /*public void playMusic(int i) {
+    public void playMusic(int i) {
         sound.setFile(i);
         sound.play();
         sound.loop();
@@ -168,6 +168,5 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSE(int i) {
         sound.setFile(i);
         sound.play();
-    }*/
-
+    }
 }
