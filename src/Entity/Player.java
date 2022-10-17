@@ -77,7 +77,10 @@ public class Player extends Entity {
                 speed = 2;
             }
         }
+        int npcIndex = gp.cChecker.checkEntity(this, gp.balloom);
+        interactNPC(npcIndex);
         if(isDead) {
+            System.out.println("oke" + direction);
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNumDead == 1) {
@@ -108,8 +111,7 @@ public class Player extends Entity {
                 gp.cChecker.checkTile(this);
 
                 // CHECK NPC COLLISION
-                int npcIndex = gp.cChecker.checkEntity(this, gp.balloom);
-                interactNPC(npcIndex);
+
 
                 // IF COLLISION IS FALSE, PLAYER CAN MOVE
                 if (collisionOn == false) {

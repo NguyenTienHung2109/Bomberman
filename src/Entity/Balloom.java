@@ -116,7 +116,7 @@ public class Balloom extends Entity{
 
         collisionOn = false;
         gp.cChecker.checkTile(this);
-        gp.cChecker.checkPlayer(this);
+        //gp.cChecker.checkPlayer(this);
 
         if(isDead) {
             spriteCounter++;

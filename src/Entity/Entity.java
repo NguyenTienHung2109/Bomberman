@@ -48,7 +48,6 @@ public class Entity {
 
         collisionOn = false;
         gp.cChecker.checkTile(this);
-        gp.cChecker.checkPlayer(this);
 
         if(isDead) {
             System.out.println("dead");
@@ -64,20 +63,12 @@ public class Entity {
                 spriteCounter = 0;
             }
         } else {
-            if (collisionOn == false) {
+            if (!collisionOn) {
                 switch (direction) {
-                    case "up":
-                        worldY -= speed;
-                        break;
-                    case "down":
-                        worldY += speed;
-                        break;
-                    case "left":
-                        worldX -= speed;
-                        break;
-                    case "right":
-                        worldX += speed;
-                        break;
+                    case "up" -> worldY -= speed;
+                    case "down" -> worldY += speed;
+                    case "left" -> worldX -= speed;
+                    case "right" -> worldX += speed;
                 }
             }
 
@@ -95,8 +86,6 @@ public class Entity {
         }
     }
     public void draw (Graphics2D g2) {
-        //int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        //int screenY = worldY - gp.player.worldY + gp.player.screenY;
         BufferedImage image = null;
 
         switch (direction) {

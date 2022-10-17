@@ -48,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyR);
     Font fip = null;
+    Sound sound = new Sound();
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -63,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
             aSetter.setBomb();
         }
         gameState = menuState;
+        //playMusic(0);
     }
 
     boolean moreBomb = true;
@@ -154,4 +156,18 @@ public class GamePanel extends JPanel implements Runnable {
         }
         g2.dispose();
     }
+
+    /*public void playMusic(int i) {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic() {
+        sound.stop();
+    }
+    public void playSE(int i) {
+        sound.setFile(i);
+        sound.play();
+    }*/
+
 }
