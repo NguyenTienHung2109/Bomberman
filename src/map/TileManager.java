@@ -23,12 +23,20 @@ public class TileManager {
         alterMap = new char[gp.maxScreenCol][gp.maxScreenRow];
         newBombMap = new char[gp.maxScreenCol][gp.maxScreenRow];
         getTileImage();
-        loadMap();
+        loadMap(gp.currentLevel);
     }
 
-    public void loadMap() {
+    public void loadMap(int level) {
         try {
-            InputStream is = getClass().getResourceAsStream("/levels/level1.txt");
+            String curLevel = " ";
+            if(level == 1) {
+                curLevel = "/levels/level1.txt";
+            } else if(level == 2) {
+                curLevel = "/levels/level2.txt";
+            } else if(level == 3) {
+                curLevel = "/levels/level3.txt";
+            }
+            InputStream is = getClass().getResourceAsStream(curLevel);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;

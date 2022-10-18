@@ -11,7 +11,10 @@ import java.io.IOException;
 public class Player extends Entity {
     KeyHolder KeyH;
     public int score = 0;
+    public boolean message = false;
     long createdMillis = 0;
+    public long deadCounter = 0;
+    long deadCounter2 = 0;
     public Player(GamePanel gp, KeyHolder keyH) {
         super(gp);
         this.KeyH = keyH;
@@ -71,6 +74,20 @@ public class Player extends Entity {
             createdMillis = System.currentTimeMillis();
             gp.tileM.setMaxTileChar((worldX + 24)/gp.tileSize, (worldY + 24)/ gp.tileSize - 1, ' ');
         }
+        if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'X'  && gp.demMonsterKilled == gp.aSetter.demBalloom) {
+            if(gp.currentLevel == 1) {
+                gp.scoreLevel2 = score;
+            } else if(gp.currentLevel == 2) {
+                gp.scoreLevel3 = score;
+            }
+            gp.currentLevel++;
+            gp.tileM.loadMap(gp.currentLevel);
+            gp.aSetter.setBalloom();
+            gp.demMonsterKilled = 0;
+            gp.aSetter.demBalloom = 0;
+            gp.bombMax = 1;
+            gp.bombLength = 1;
+        }
         if(speed == 3) {
             long nowMillis = System.currentTimeMillis();
             if((nowMillis - createdMillis)/1000 == 5) {
@@ -80,7 +97,6 @@ public class Player extends Entity {
         int npcIndex = gp.cChecker.checkEntity(this, gp.balloom);
         interactNPC(npcIndex);
         if(isDead) {
-            System.out.println("oke" + direction);
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNumDead == 1) {
@@ -88,7 +104,7 @@ public class Player extends Entity {
                 } else if (spriteNumDead == 2) {
                     spriteNumDead = 3;
                 } else if (spriteNumDead == 3) {
-                    spriteNumDead = 1;
+                    spriteNumDead = 4;
                 }
                 spriteCounter = 0;
             }
@@ -198,6 +214,34 @@ public class Player extends Entity {
                 image = dead1;
             } else if (spriteNumDead == 3) {
                 image = dead2;
+            } else if (spriteNumDead == 4) {
+                image = null;
+                deadCounter++;
+                if(deadCounter == 50) {
+
+                    message = true;
+                    for(int i = 0; i < gp.balloom.length; i++) {
+                        gp.balloom[i] = null;
+                    }
+                    deadCounter = 0;
+                }
+                if(message == true) {
+                    gp.menu.drawLevel(g2);
+                    deadCounter2++;
+                    if(deadCounter2 == 100) {
+                        gp.tileM.loadMap(gp.currentLevel);
+                        gp.aSetter.demBalloom = 0;
+                        gp.demMonsterKilled = 0;
+                        gp.aSetter.setBalloom();
+                        message = false;
+                        isDead = false;
+                        deadCounter2 = 0;
+                        spriteNumDead = 1;
+                        deadCounter = 0;
+                        gp.bombLength = 1;
+                        gp.bombMax = 1;
+                    }
+                }
             }
         }
         g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);

@@ -247,6 +247,41 @@ public class CollisionChecker {
             }
         return index;
     }
+    public void checkPlayer(Entity entity) {
+        entity.solidArea.x = entity.worldX + entity.solidArea.x;
+        entity.solidArea.y = entity.worldY + entity.solidArea.y;
+
+        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+
+        switch (entity.direction) {
+            case "up":
+                entity.solidArea.y -= entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                }
+                break;
+            case "down":
+                entity.solidArea.y += entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                }
+                break;
+            case "left":
+                entity.solidArea.x -= entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                }
+                break;
+            case "right":
+                entity.solidArea.x += entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                }
+                break;
+        }
+        entity.solidArea.x = 4;
+        entity.solidArea.y = 4;
+        gp.player.solidArea.x = 4;
+        gp.player.solidArea.y = 4;
+    }
+
 }
 
 

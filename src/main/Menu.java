@@ -28,7 +28,7 @@ public class Menu {
         this.g2 = g2;
         g2.setFont(fip);
         g2.setColor(Color.white);
-        drawScore();
+
         if(gp.gameState == gp.menuState) {
             drawMenuScreen();
         }
@@ -43,8 +43,8 @@ public class Menu {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(30F));
         String text = "Score: " + gp.player.score;
-        int x = 0;
-        int y = gp.tileSize;
+        int x = gp.tileSize;
+        int y = gp.tileSize - 10;
         g2.drawString(text,x,y);
     }
     public void drawLevel(Graphics2D g2) {
@@ -54,18 +54,19 @@ public class Menu {
         g2.setFont(fip);
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
-        String text = "STATE 1";
+        String text = "";
+        if(gp.currentLevel == 1) {
+            text = "STAGE 1";
+        } else if(gp.currentLevel == 2){
+            text = "STAGE 2";
+        } else {
+            text = "STAGE 3";
+        }
         int x = getXforCenter(text);
         int y = gp.screenHeight / 2;
         g2.drawString(text, x, y);
     }
-        public void drawScore() {
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,90F));
-        String text = "Score:";
-        int x = getXforCenter(text);
-        int y = gp.screenHeight/2;
-        g2.drawString(text,x,y);
-    }
+
     public void drawPauseScreen() {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,90F));
         String text = "PAUSED";

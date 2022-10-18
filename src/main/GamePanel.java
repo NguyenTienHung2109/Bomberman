@@ -21,12 +21,12 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxScreenRow = 14;
     public final int defaultScreenRow = 14;
     public final int defaultScreenCol = 31;
+    public int scoreLevel1 = 0, scoreLevel2, scoreLevel3;
     public int bombCount = 0;
     public int bombMax = 1;
     public int bombLength = 1;
-
-    public boolean playerExploded = true;
-
+    public int currentLevel = 1;
+    public int demMonsterKilled = 0;
     public boolean message = true;
     int counter = 0;
     KeyHolder keyR = new KeyHolder(this);
@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int pauseState = 2;
     public final int menuState = 0;
+
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyR);
     Font fip = null;
@@ -100,6 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
                 this.tileM.setNewBombMap((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize, (player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1, 'b');
                 bombCount++;
                 keyR.bombPresent = false;
+
             }
             for (int i = 0; i < bombCount; i++) {
                 if (bomb.get(i) != null) {
@@ -120,7 +122,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g2 = (Graphics2D) gr;
-        if(gameState == menuState) {
+        if(gameState == menuState || gameState == pauseState) {
             menu.draw(g2);
         }
         else {
@@ -143,7 +145,17 @@ public class GamePanel extends JPanel implements Runnable {
                     balloom[i].draw(g2);
                 }
             }
-            menu.getScore(g2);
+            if(!player.message) {
+                menu.getScore(g2);
+            } else {
+                if(currentLevel == 1) {
+                    player.score = scoreLevel1;
+                } else if(currentLevel == 2) {
+                    player.score = scoreLevel2;
+                } else if(currentLevel == 3) {
+                    player.score = scoreLevel3;
+                }
+            }
             if(message == true)
             {
                 menu.drawLevel(g2);
@@ -151,6 +163,7 @@ public class GamePanel extends JPanel implements Runnable {
                 if (counter > 100) {
                     counter = 0;
                     message = false;
+                    gameState = playState;
                 }
             }
         }

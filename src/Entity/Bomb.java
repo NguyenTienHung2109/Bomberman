@@ -75,9 +75,20 @@ public class Bomb extends Entity{
     public void update(Entity player, Entity[] balloom){
         if(placed == true) {
             spriteCounter++;
-            if((player.worldX + player.solidArea.x)/gp.tileSize != worldX/gp.tileSize || (player.worldY + player.solidArea.y)/gp.tileSize != worldY/gp.tileSize) {
-                gp.tileM.setMaxTileChar(worldX / gp.tileSize, worldY / gp.tileSize - 1, 'b');
-                gp.tileM.setAlterMap(worldX / gp.tileSize, worldY / gp.tileSize - 1, 'b');
+            if((player.worldX + 24)/gp.tileSize != worldX/gp.tileSize || (player.worldY + 24)/gp.tileSize != worldY/gp.tileSize) {
+                boolean monsterInBomb = false;
+                for(int i = 0; i < balloom.length; i++) {
+                    if(balloom[i] != null) {
+                        if((balloom[i].worldX + balloom[i].solidArea.x)/gp.tileSize == worldX/gp.tileSize && (balloom[i].worldY + balloom[i].solidArea.y)/gp.tileSize == worldY/gp.tileSize) {
+                            monsterInBomb = true;
+                            System.out.println("alo");
+                        }
+                    }
+                }
+                if(!monsterInBomb) {
+                    gp.tileM.setMaxTileChar(worldX / gp.tileSize, worldY / gp.tileSize - 1, 'b');
+                    gp.tileM.setAlterMap(worldX / gp.tileSize, worldY / gp.tileSize - 1, 'b');
+                }
 
             }
             if (spriteCounter > 10) {

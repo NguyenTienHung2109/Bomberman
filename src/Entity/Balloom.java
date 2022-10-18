@@ -16,7 +16,7 @@ public class Balloom extends Entity{
     public Balloom(GamePanel gp) {
         super(gp);
         direction = "left";
-        speed = 1;
+        speed = 2;
         solidArea.x = 4;
         solidArea.y = 4;
         solidArea.width = 40;
@@ -27,11 +27,22 @@ public class Balloom extends Entity{
     public int convertTile(char tempTileNum) {
         if (tempTileNum == '#') {
             return 1;
-        } else if (tempTileNum == ' ') {
+        } else if (tempTileNum == ' ' || tempTileNum == '1' || tempTileNum == '2' || tempTileNum == 'p') {
             return 0;
+        } else if (tempTileNum == 'b') {
+            return 3;
+        } else if (tempTileNum == 'l') {
+            return 4;
+        } else if (tempTileNum == 'X') {
+            return 5;
+        } else if(tempTileNum == 'N') {
+            return 6;
+        } else if(tempTileNum == 'S') {
+            return 7;
         } else {
             return 2;
         }
+
     }
     public void getBallommImage(){
             try {
@@ -122,7 +133,7 @@ public class Balloom extends Entity{
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNumDead == 1) {
-                    gp.player.score++;
+                    gp.player.score += 200;
                     spriteNumDead = 2;
                 } else if (spriteNumDead == 2) {
                     spriteNumDead = 3;
@@ -130,6 +141,7 @@ public class Balloom extends Entity{
                     spriteNumDead = 4;
                 } else if (spriteNumDead == 4) {
                     spriteNumDead = 5;
+                    gp.demMonsterKilled++;
                 }
                 spriteCounter = 0;
             }
@@ -167,6 +179,7 @@ public class Balloom extends Entity{
     public void setAction() {
         if(!isDead) {
             if (worldX % gp.tileSize == 0 && worldY % gp.tileSize == 0) {
+
                 List<String> lead = new ArrayList<String>();
                 char balloomChar = gp.tileM.mapTileChar[worldX / gp.tileSize - 1][worldY / gp.tileSize - 1];
                 int balloomLeft = convertTile(balloomChar);
@@ -176,6 +189,7 @@ public class Balloom extends Entity{
                 int balloomDown = convertTile(balloomChar);
                 balloomChar = gp.tileM.mapTileChar[worldX / gp.tileSize + 1][worldY / gp.tileSize - 1];
                 int balloomRight = convertTile(balloomChar);
+                //System.out.println(gp.tileM.mapTileChar[worldX / gp.tileSize][worldY / gp.tileSize - 2] + " " + worldX / gp.tileSize + " " + (worldY / gp.tileSize - 2) + " " + gp.tileM.tile[balloomUp].collision);
                 if (!gp.tileM.tile[balloomUp].collision) lead.add("up");
                 if (!gp.tileM.tile[balloomDown].collision) lead.add("down");
                 if (!gp.tileM.tile[balloomLeft].collision) lead.add("left");

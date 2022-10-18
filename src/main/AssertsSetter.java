@@ -6,6 +6,7 @@ import Entity.Bomb;
 public class AssertsSetter {
     GamePanel gp;
     KeyHolder keyR;
+    public int demBalloom = 0;
     public AssertsSetter(GamePanel gp, KeyHolder keyR) {
         this.gp = gp;
         this.keyR = keyR;
@@ -16,7 +17,6 @@ public class AssertsSetter {
 
         int col = 0;
         int row = 0;
-        int demBalloom = 0;
         int x = 0;
         int y = gp.tileSize;
         while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
