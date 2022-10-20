@@ -179,8 +179,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
         g2.dispose();
     }
-
-
     public void playMusic() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         sound.setMusic("D:/Bomberman/res/sound/music_game2.wav");
         sound.play();
