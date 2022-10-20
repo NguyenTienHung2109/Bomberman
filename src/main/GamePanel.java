@@ -6,6 +6,8 @@ import Entity.Player;
 import Entity.Balloom;
 import map.TileManager;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -65,7 +67,15 @@ public class GamePanel extends JPanel implements Runnable {
             aSetter.setBomb();
         }
         gameState = menuState;
-       // playMusic(0);
+        try {
+            playMusic();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     boolean moreBomb = true;
@@ -170,16 +180,17 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
-    public void playMusic(int i) {
-        sound.setFile(i);
+
+    public void playMusic() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        sound.setMusic("D:/Bomberman/res/sound/music_game2.wav");
         sound.play();
         sound.loop();
     }
     public void stopMusic() {
         sound.stop();
     }
-    public void playSE(int i) {
-        sound.setFile(i);
+    public void playSE() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        sound.setMusic("D:/Bomberman/res/sound/music_game2.wav");
         sound.play();
     }
 }
