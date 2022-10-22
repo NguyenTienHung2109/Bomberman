@@ -3,6 +3,7 @@ package main;
 import Entity.Entity;
 import Entity.Bomb;
 import Entity.Player;
+import Entity.Kondoria;
 import Entity.Balloom;
 import map.TileManager;
 
@@ -41,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     public TileManager tileM = new TileManager(this);
     public Entity balloom[] = new Balloom[10];
-
+    public Entity kondoria[] = new Kondoria[10];
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
@@ -125,6 +126,12 @@ public class GamePanel extends JPanel implements Runnable {
                     balloom[i].update();
                 }
             }
+            for (int i = 0; i < kondoria.length; i++) {
+                if (kondoria[i] != null) {
+                    kondoria[i].update();
+                }
+            }
+
         }
         if (gameState == pauseState) {
         }
@@ -153,6 +160,11 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < balloom.length; i++) {
                 if (balloom[i] != null) {
                     balloom[i].draw(g2);
+                }
+            }
+            for (int i = 0; i < kondoria.length; i++) {
+                if (kondoria[i] != null) {
+                    kondoria[i].draw(g2);
                 }
             }
             if(!player.message) {

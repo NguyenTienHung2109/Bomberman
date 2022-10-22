@@ -27,7 +27,7 @@ public class Balloom extends Entity{
     public int convertTile(char tempTileNum) {
         if (tempTileNum == '#') {
             return 1;
-        } else if (tempTileNum == ' ' || tempTileNum == '1' || tempTileNum == '2' || tempTileNum == 'p') {
+        } else if (tempTileNum == ' ' || tempTileNum == '1' || tempTileNum == '2' || tempTileNum == 'p' || tempTileNum == '3') {
             return 0;
         } else if (tempTileNum == 'b') {
             return 3;

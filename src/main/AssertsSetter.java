@@ -2,11 +2,13 @@ package main;
 
 import Entity.Balloom;
 import Entity.Bomb;
+import Entity.Kondoria;
 
 public class AssertsSetter {
     GamePanel gp;
     KeyHolder keyR;
     public int demBalloom = 0;
+    public int demKondoria = 0;
     public AssertsSetter(GamePanel gp, KeyHolder keyR) {
         this.gp = gp;
         this.keyR = keyR;
@@ -27,6 +29,12 @@ public class AssertsSetter {
                 gp.balloom[demBalloom].worldY = y;
                 demBalloom++;
             }
+            if(obj == '3') {
+                gp.kondoria[demKondoria] = new Kondoria(gp);
+                gp.kondoria[demKondoria].worldX = x - 1;
+                gp.kondoria[demKondoria].worldY = y;
+                demKondoria++;
+            }
             if(obj == 'p') {
                 gp.player.worldX = x - 1;
                 gp.player.worldY = y;
@@ -42,6 +50,7 @@ public class AssertsSetter {
             }
         }
     }
+
 
     public void setBomb() {
         Bomb b = new Bomb(gp, keyR);

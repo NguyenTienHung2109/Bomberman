@@ -166,6 +166,11 @@ public class Bomb extends Entity{
                                 gp.cChecker.checkBombOnPlayer(this, balloom[i]);
                             }
                         }
+                        for(int i = 0; i < gp.kondoria.length; i++) {
+                            if(gp.kondoria[i] != null) {
+                                gp.cChecker.checkBombOnPlayer(this, gp.kondoria[i]);
+                            }
+                        }
                         spriteNum = 5;
                     } else if (spriteNum == 5) {
                         gp.cChecker.checkBombOnPlayer(this, player);
@@ -174,12 +179,22 @@ public class Bomb extends Entity{
                                 gp.cChecker.checkBombOnPlayer(this, balloom[i]);
                             }
                         }
+                        for(int i = 0; i < gp.kondoria.length; i++) {
+                            if(gp.kondoria[i] != null) {
+                                gp.cChecker.checkBombOnPlayer(this, gp.kondoria[i]);
+                            }
+                        }
                         spriteNum = 6;
                     } else if (spriteNum == 6) {
                         gp.cChecker.checkBombOnPlayer(this, player);
                         for(int i = 0; i < balloom.length; i++) {
                             if(balloom[i] != null) {
                                 gp.cChecker.checkBombOnPlayer(this, balloom[i]);
+                            }
+                        }
+                        for(int i = 0; i < gp.kondoria.length; i++) {
+                            if(gp.kondoria[i] != null) {
+                                gp.cChecker.checkBombOnPlayer(this, gp.kondoria[i]);
                             }
                         }
                         keyH.unExploded = false;

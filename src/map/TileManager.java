@@ -110,7 +110,7 @@ public class TileManager {
             char obj = mapTileChar[col][row];
             if(obj == '#') {
                 g2.drawImage(tile[1].image,x,y,gp.tileSize, gp.tileSize, null);
-            } else if(obj == ' ' || obj == 'b' || obj == '1' || obj == '2' || obj == 'p') {
+            } else if(obj == ' ' || obj == 'b' || obj == '1' || obj == '2' || obj == 'p' || obj == '3') {
                 g2.drawImage(tile[0].image,x,y,gp.tileSize, gp.tileSize, null);
             } else if(obj == 'x' || obj == 'f' || obj == 'n' || obj == 's') {
                 g2.drawImage(tile[2].image,x,y,gp.tileSize, gp.tileSize, null);
