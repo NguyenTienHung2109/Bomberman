@@ -1,6 +1,7 @@
 package main;
 
 import Entity.Balloom;
+<<<<<<< Updated upstream
 
 public class AssertsSetter {
     GamePanel gp;
@@ -11,5 +12,63 @@ public class AssertsSetter {
         gp.balloom[0] = new Balloom(gp);
         gp.balloom[0].worldX = gp.tileSize*11;
         gp.balloom[0].worldY = gp.tileSize*2;
+=======
+import Entity.Bomb;
+import Entity.Kondoria;
+import Entity.Oneal;
+
+public class AssertsSetter {
+    GamePanel gp;
+    KeyHolder keyR;
+    public int demBalloom = 0;
+    public int demKondoria = 0;
+    public int demOneal = 0;
+
+    public AssertsSetter(GamePanel gp, KeyHolder keyR) {
+        this.gp = gp;
+        this.keyR = keyR;
+
+    }
+    public  void setBalloom() {
+
+        int col = 0;
+        int row = 0;
+        int x = 0;
+        int y = gp.tileSize;
+        while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
+            char obj = gp.tileM.mapTileChar[col][row];
+            if(obj == '1') {
+                gp.balloom[demBalloom] = new Balloom(gp);
+                gp.balloom[demBalloom].worldX = x - 1;
+                gp.balloom[demBalloom].worldY = y;
+                demBalloom++;
+            }
+            if(obj == '3') {
+                gp.kondoria[demKondoria] = new Kondoria(gp);
+                gp.kondoria[demKondoria].worldX = x - 1;
+                gp.kondoria[demKondoria].worldY = y;
+                demKondoria++;
+            }
+            if(obj == 'o') {
+                gp.oneal[demOneal] = new Oneal(gp);
+                gp.oneal[demOneal].worldX = x - 1;
+                gp.oneal[demOneal].worldY = y;
+                demOneal++;
+            }
+            if(obj == 'p') {
+                gp.player.worldX = x - 1;
+                gp.player.worldY = y;
+            }
+            col++;
+            x += gp.tileSize;
+
+            if(col == gp.maxScreenCol) {
+                col = 0;
+                x = 1;
+                row++;
+                y += gp.tileSize;
+            }
+        }
+>>>>>>> Stashed changes
     }
 }
