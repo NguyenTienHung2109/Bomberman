@@ -5,15 +5,14 @@ import main.GamePanel;
 import java.util.*;
 
 public class point {
-    Oneal oneal;
     GamePanel gp;
     private int x;
     private int y;
-    public int [][] d = new int [gp.maxScreenRow][gp.maxScreenCol];
-    public boolean [][] visit = new boolean[gp.maxScreenRow][gp.maxScreenCol];
+    public int [][] d = new int [14][31];
+    public boolean [][] visit = new boolean[10][10];
     static int[] moveX = {0, 0, 1, -1};
     static int[] moveY = {1, -1, 0, 0};
-    public point [][]par= new point[gp.maxScreenRow][gp.maxScreenCol];
+    public point [][]par= new point[10][10];
 
     public point() {
 
@@ -21,9 +20,6 @@ public class point {
     public point(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-    public point(Oneal oneal) {
-        this.oneal = oneal;
     }
     public int getX() {
         return x;

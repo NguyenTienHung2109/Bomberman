@@ -1,5 +1,6 @@
 package Entity;
 
+import Entity.AI.AI;
 import main.GamePanel;
 import org.w3c.dom.Node;
 
@@ -34,6 +35,7 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public int spriteNumDead = 1;
+    protected AI ai;
 
     public Rectangle solidArea = new Rectangle();
     public int actionLockCounter = 0;

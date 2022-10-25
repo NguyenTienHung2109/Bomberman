@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Balloom extends Entity{
 
-
     public Balloom(GamePanel gp) {
         super(gp);
         direction = "left";

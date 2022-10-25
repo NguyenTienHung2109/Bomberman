@@ -1,5 +1,7 @@
 package Entity;
 
+import Entity.AI.AILow;
+import Entity.AI.AIMedium;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -12,7 +14,7 @@ import java.util.Random;
 import java.util.List;
 
 public class Oneal extends Entity{
-    public point point = new point(this);
+   // public point point = new point();
     public Oneal(GamePanel gp) {
         super(gp);
         direction = "left";
@@ -21,27 +23,8 @@ public class Oneal extends Entity{
         solidArea.y = 4;
         solidArea.width = 40;
         solidArea.height = 40;
+        ai = new AIMedium(gp.player, this);
         getOnealImage();
-    }
-    public int convertTile(char tempTileNum) {
-        if (tempTileNum == '#') {
-            return 1;
-        } else if (tempTileNum == ' ' || tempTileNum == '1' || tempTileNum == '2' || tempTileNum == 'p' || tempTileNum == '3') {
-            return 0;
-        } else if (tempTileNum == 'b') {
-            return 3;
-        } else if (tempTileNum == 'l') {
-            return 4;
-        } else if (tempTileNum == 'X') {
-            return 5;
-        } else if(tempTileNum == 'N') {
-            return 6;
-        } else if(tempTileNum == 'S') {
-            return 7;
-        } else {
-            return 2;
-        }
-
     }
     public void getOnealImage(){
         try {
@@ -175,11 +158,26 @@ public class Oneal extends Entity{
     }
     public void setAction() {
         if(!isDead) {
-            int sx = 0, sy= 0;
+            int dir = ai.calculateDirection();
+            if(dir == 0) {
+                direction = "down";
+            }
+            if(dir == 1) {
+                direction = "right";
+            }
+            if(dir == 2) {
+                direction = "left";
+            }
+            if(dir == 3) {
+                direction = "up";
+            }
+            System.out.println(dir);
+        }
+           /* int sx = 0, sy= 0;
             int tx = gp.player.worldX;
             int ty = gp.player.worldY;
 
-            point.bfs(worldX,worldY);
+            point.bfs(1,1);
 
             List<point> path = new ArrayList<>();
             if(!point.visit[tx][ty]) {
@@ -211,7 +209,7 @@ public class Oneal extends Entity{
                     direction = "down";
                 }
             }
-        }
+        }*/
     }
 
 }
