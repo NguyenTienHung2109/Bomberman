@@ -5,6 +5,7 @@ import Entity.Bomb;
 import Entity.Player;
 import Entity.Kondoria;
 import Entity.Balloom;
+import Entity.Oneal;
 import map.TileManager;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -43,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManager tileM = new TileManager(this);
     public Entity balloom[] = new Balloom[10];
     public Entity kondoria[] = new Kondoria[10];
+    public Entity oneal[] = new Oneal[10];
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
@@ -67,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
         for (int i = 0; i < 20; i++) {
             aSetter.setBomb();
         }
+
         gameState = menuState;
         try {
             playMusic();
@@ -131,6 +134,12 @@ public class GamePanel extends JPanel implements Runnable {
                     kondoria[i].update();
                 }
             }
+            for (int i = 0; i < oneal.length; i++) {
+                if (oneal[i] != null) {
+                    oneal[i].update();
+                }
+            }
+
 
         }
         if (gameState == pauseState) {
@@ -165,6 +174,11 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < kondoria.length; i++) {
                 if (kondoria[i] != null) {
                     kondoria[i].draw(g2);
+                }
+            }
+            for (int i = 0; i < oneal.length; i++) {
+                if (oneal[i] != null) {
+                    oneal[i].draw(g2);
                 }
             }
             if(!player.message) {

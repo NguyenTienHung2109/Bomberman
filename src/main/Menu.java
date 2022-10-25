@@ -68,7 +68,7 @@ public class Menu {
     }
 
     public void drawPauseScreen() {
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,90F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,70F));
         String text = "PAUSED";
         int x = getXforCenter(text);
         int y = gp.screenHeight/2;

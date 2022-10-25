@@ -3,16 +3,18 @@ package main;
 import Entity.Balloom;
 import Entity.Bomb;
 import Entity.Kondoria;
+import Entity.Oneal;
 
 public class AssertsSetter {
     GamePanel gp;
     KeyHolder keyR;
     public int demBalloom = 0;
     public int demKondoria = 0;
+    public int demOneal = 0;
+
     public AssertsSetter(GamePanel gp, KeyHolder keyR) {
         this.gp = gp;
         this.keyR = keyR;
-
 
     }
     public  void setBalloom() {
@@ -34,6 +36,12 @@ public class AssertsSetter {
                 gp.kondoria[demKondoria].worldX = x - 1;
                 gp.kondoria[demKondoria].worldY = y;
                 demKondoria++;
+            }
+            if(obj == 'o') {
+                gp.oneal[demOneal] = new Oneal(gp);
+                gp.oneal[demOneal].worldX = x - 1;
+                gp.oneal[demOneal].worldY = y;
+                demOneal++;
             }
             if(obj == 'p') {
                 gp.player.worldX = x - 1;
