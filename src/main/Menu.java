@@ -12,6 +12,7 @@ public class Menu {
     Graphics2D g2;
     Font fip;
     public int commandNumber= 0;
+    public int pcommandNumber = 0;
 
     public  Menu(GamePanel gp){
         this.gp = gp;
@@ -68,11 +69,30 @@ public class Menu {
     }
 
     public void drawPauseScreen() {
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,70F));
+       // g2.setColor(new Color(70,120,80));
+       // g2.fillRect(0,0, gp.screenWidth, gp.screenHeight);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
         String text = "PAUSED";
         int x = getXforCenter(text);
         int y = gp.screenHeight/2;
         g2.drawString(text,x,y);
+
+        text = "CONTINUE";
+        x = getXforCenter(text);
+        y+=gp.tileSize;
+        g2.drawString(text,x,y);
+        if(pcommandNumber ==0) {
+            g2.drawString(">",x - gp.tileSize,y);
+        }
+        text = "QUIT";
+        x = getXforCenter(text);
+        y+=gp.tileSize *2;
+        g2.drawString(text,x,y);
+        if(pcommandNumber ==1) {
+            g2.drawString(">",x - gp.tileSize,y);
+        }
+
     }
     public void drawMenuScreen() {
         g2.setColor(new Color(70,120,80));

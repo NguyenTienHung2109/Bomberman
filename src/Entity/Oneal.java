@@ -1,5 +1,6 @@
 package Entity;
 
+import Entity.AI.AIHard;
 import Entity.AI.AILow;
 import Entity.AI.AIMedium;
 import main.GamePanel;
@@ -17,13 +18,13 @@ public class Oneal extends Entity{
    // public point point = new point();
     public Oneal(GamePanel gp) {
         super(gp);
-        direction = "left";
+        direction = "up";
         speed = 1;
         solidArea.x = 4;
         solidArea.y = 4;
         solidArea.width = 40;
         solidArea.height = 40;
-        ai = new AIMedium(gp.player, this);
+        ai = new AIHard(gp.player, this);
         getOnealImage();
     }
     public void getOnealImage(){
@@ -171,7 +172,6 @@ public class Oneal extends Entity{
             if(dir == 3) {
                 direction = "up";
             }
-            System.out.println(dir);
         }
            /* int sx = 0, sy= 0;
             int tx = gp.player.worldX;

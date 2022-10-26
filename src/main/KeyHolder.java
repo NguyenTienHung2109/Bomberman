@@ -45,6 +45,29 @@ public class KeyHolder implements KeyListener {
                 }
             }
         }
+        //pause
+        if(gp.gameState == gp.pauseState) {
+            if(code == KeyEvent.VK_W) {
+                gp.menu.pcommandNumber--;
+                if(gp.menu.pcommandNumber<0) {
+                    gp.menu.pcommandNumber = 1;
+                }
+            }
+            if(code == KeyEvent.VK_S) {
+                gp.menu.pcommandNumber++;
+                if(gp.menu.pcommandNumber>2) {
+                    gp.menu.pcommandNumber = 0;
+                }
+            }
+            if(code == KeyEvent.VK_ENTER) {
+                if(gp.menu.pcommandNumber == 0) {
+                    gp.gameState = gp.playState;
+                }
+                if(gp.menu.pcommandNumber ==1) {
+                    System.exit(0);
+                }
+            }
+        }
         if(code == KeyEvent.VK_W) {
             upPressed = true;
         }
@@ -68,9 +91,9 @@ public class KeyHolder implements KeyListener {
             if(gp.gameState == gp.playState) {
                 gp.gameState = gp.pauseState;
             }
-            else if(gp.gameState == gp.pauseState) {
+            /*else if(gp.gameState == gp.pauseState) {
                 gp.gameState = gp.playState;
-            }
+            }*/
         }
     }
 

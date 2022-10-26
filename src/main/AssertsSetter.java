@@ -37,7 +37,7 @@ public class AssertsSetter {
                 gp.kondoria[demKondoria].worldY = y;
                 demKondoria++;
             }
-            if(obj == 'o') {
+            if(obj == '2') {
                 gp.oneal[demOneal] = new Oneal(gp);
                 gp.oneal[demOneal].worldX = x - 1;
                 gp.oneal[demOneal].worldY = y;
