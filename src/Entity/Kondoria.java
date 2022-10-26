@@ -153,14 +153,15 @@ public class Kondoria extends Entity {
 
     public void setAction() {
         if(!isDead) {
-            if(worldX/gp.tileSize > gp.player.worldX/gp.tileSize && worldY % gp.tileSize == 0) {
+            if(worldX/gp.tileSize > (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize && worldY % gp.tileSize == 0) {
                 direction = "left";
-            } else if(worldX/ gp.tileSize < gp.player.worldX / gp.tileSize && worldY % gp.tileSize == 0){
+            } else if(worldX/ gp.tileSize <(gp.player.worldX + gp.player.solidArea.x) / gp.tileSize && worldY % gp.tileSize == 0){
                 direction = "right";
-            } else if(worldX/ gp.tileSize == gp.player.worldX / gp.tileSize && worldX % gp.tileSize == 0) {
-                if( worldY / gp.tileSize > gp.player.worldY/ gp.tileSize) {
+            } else if(worldX/ gp.tileSize == (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize && worldX % gp.tileSize == 0) {
+                if( worldY / gp.tileSize >= (gp.player.worldY + gp.player.solidArea.y)/ gp.tileSize) {
                     direction = "up";
                 } else {
+                    System.out.println(worldY / gp.tileSize + " " + (gp.player.worldY + gp.player.solidArea.y)/ gp.tileSize);
                     direction = "down";
                 }
             }

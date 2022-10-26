@@ -8,17 +8,14 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.List;
+
 
 public class Oneal extends Entity{
    // public point point = new point();
     public Oneal(GamePanel gp) {
         super(gp);
         direction = "left";
-        speed = 1;
+        speed = 2;
         solidArea.x = 4;
         solidArea.y = 4;
         solidArea.width = 40;

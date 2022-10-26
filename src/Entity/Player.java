@@ -217,6 +217,8 @@ public class Player extends Entity {
                 image = dead2;
             } else if (spriteNumDead == 4) {
                 image = null;
+                worldX = gp.tileSize * 12;
+                worldY = gp.tileSize * 12;
                 deadCounter++;
                 if(deadCounter == 50) {
 

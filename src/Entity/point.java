@@ -5,7 +5,9 @@ import main.GamePanel;
 import java.util.*;
 
 public class point {
+
     GamePanel gp;
+    Oneal oneal;
     private int x;
     private int y;
     public int [][] d = new int [14][31];
@@ -14,12 +16,13 @@ public class point {
     static int[] moveY = {1, -1, 0, 0};
     public point [][]par= new point[10][10];
 
-    public point() {
-
-    }
     public point(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public point(Oneal oneal) {
+        this.oneal = oneal;
     }
     public int getX() {
         return x;
@@ -53,7 +56,7 @@ public class point {
                 point cur = new point(u,v);
                 if(u > gp.maxScreenRow || u < 1) continue;
                 if(v > gp.maxScreenCol || v < 1) continue;
-                if(gp.tileM.mapTileChar[u][v] == '*' || gp.tileM.mapTileChar[u][v] == '#') continue;
+                if(gp.tileM.mapTileChar[u][v] == '*' || gp.tileM.mapTileChar[u][v] == '#' || gp.tileM.mapTileChar[u][v] == 'b') continue;
 
                 if(!visit[u][v]) {
                     d[u][v] = d[x][y] + 1;
