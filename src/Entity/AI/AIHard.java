@@ -11,48 +11,63 @@ public class AIHard extends AI {
     Player player;
     Oneal oneal;
 
-    public AIHard(Player player, Oneal oneal) {
+    public AIHard(Player player, Oneal oneal, GamePanel gp) {
         this.player = player;
         this.oneal = oneal;
+        this.gp = gp;
     }
-
-    public ArrayList<List<Integer>> d = new ArrayList<List<Integer>>();
-    public ArrayList<List<boolean>> visit = new ArrayList<List<Integer>>();
+    List<point> path = new ArrayList<>();
     static int[] moveX = {0, 0, 1, -1};
     static int[] moveY = {1, -1, 0, 0};
-    public Entity.AI.point[][] par = new Entity.AI.point[gp.maxScreenRow][gp.maxScreenCol];
 
     public void bfs(int sx, int sy) {
-        for (int i = 0; i < gp.maxScreenRow; i++) {
-            for (int j = 0; j < gp.maxScreenCol; j++) {
-                d.get(i).set(j,0);
-                visit.get(i).set(j,false);
+        ArrayList<ArrayList<Boolean>> visit = new ArrayList<>(20);
+        ArrayList<ArrayList<Integer>> d = new ArrayList<>(20);
+        ArrayList<ArrayList<point>> par = new ArrayList<>(20);
+
+        for (int i = 0; i < 14; i++) {
+            d.add(new ArrayList());
+            visit.add(new ArrayList());
+            par.add(new ArrayList());
+            for (int j = 0; j < 31; j++) {
+                d.get(i).add(0);
+                visit.get(i).add(false);
+                par.get(i).add(new point(0, 0));
             }
         }
         Queue<Entity.AI.point> q = new ArrayDeque<>();
-        q.add(new Entity.AI.point(sx, sy));
-        visit.get(sx).set(sy,true);
+        q.add(new point(sx, sy));
+        visit.get(sy).set(sx, true);
         while (!q.isEmpty()) {
-            int x = q.peek().getX();
-            int y = q.peek().getY();
+            int x = q.peek().x;
+            int y = q.peek().y;
             q.poll();
-
-            if (x == player.worldX && y == player.worldY) {
+            //System.out.println(x + " " + y + " " + (player.worldX + player.solidArea.x)/ gp.tileSize + " " + (player.worldY + player.solidArea.y)/ gp.tileSize);
+            if (x == (player.worldX + player.solidArea.x)/ gp.tileSize && y == (player.worldY + player.solidArea.y) / gp.tileSize - 1) {
+                point k = par.get(y).get(x);
+                path = new ArrayList<>();
+                while (x != sx || y != sy) {
+                    x = k.x;
+                    y = k.y;
+                    path.add(k);
+                    k = par.get(k.y).get(k.x);
+                }
                 return;
             }
             for (int i = 0; i < 4; i++) {
                 int u = x + moveX[i];
                 int v = y + moveY[i];
-                Entity.AI.point cur = new Entity.AI.point(u, v);
-                if (u > gp.maxScreenRow || u < 1) continue;
-                if (v > gp.maxScreenCol || v < 1) continue;
-                if (gp.tileM.mapTileChar[u][v] == '*' || gp.tileM.mapTileChar[u][v] == '#') continue;
+                if (u > 31 || u < 1) continue;
+                if (v > 14 || v < 1) continue;
+                if (gp.tileM.mapTileChar[u][v] == '*' || gp.tileM.mapTileChar[u][v] == '#' || gp.tileM.mapTileChar[u][v] == 'n'
+                || gp.tileM.mapTileChar[u][v] == 's' || gp.tileM.mapTileChar[u][v] == 'f' || gp.tileM.mapTileChar[u][v] == 'x')
+                    continue;
 
-                if (!visit.get(u).get(v)) {
-                    d[u][v] = d[x][y] + 1;
-                    par[u][v] = new Entity.AI.point(x, y);
-                    visit[u][v] = true;
-                    q.add(new Entity.AI.point(u, v));
+                if (!visit.get(v).get(u)) {
+                    d.get(v).set(u, d.get(y).get(x) + 1);
+                    par.get(v).set(u, new point(x, y));
+                    visit.get(v).set(u, true);
+                    q.add(new point(u, v));
                 }
             }
         }
@@ -60,35 +75,34 @@ public class AIHard extends AI {
 
     @Override
     public int calculateDirection() {
-        if (!visit[player.worldX][player.worldY]) {
-            return random.nextInt(4);
-        }
-        point target = new point(player.worldX, player.worldY);
-        List<point> path = new ArrayList<>();
-        while (target != null) {
-            int cx = target.getX();
-            int cy = target.getY();
-            path.add(new point(cx, cy));
-            target = par[cx][cy];
-        }
+
         Collections.reverse(path);
-        for (point i : path) {
-            int curx = i.getX();
-            int cury = i.getY();
-            if (curx == oneal.worldX - 1 && cury == oneal.worldY) {
-                return 3;
-            }
-            if (curx == oneal.worldX + 1 && cury == oneal.worldY) {
-                return 0;
-            }
-            if (curx == oneal.worldX && cury == oneal.worldY - 1) {
-                return 2;
-            }
-            if (curx == oneal.worldX && cury == oneal.worldY + 1) {
-                return 1;
-            }
+        int curx = player.worldX/ gp.tileSize;
+        int cury = player.worldY/ gp.tileSize - 1;
+        if(path.size() > 1) {
+            path.remove(0);
+            curx = path.get(0).x;
+            cury = path.get(0).y;
         }
+        for(point k : path) {
+            System.out.println(k.x + " " + k.y);
+        }
+
+        if (curx == oneal.worldX / gp.tileSize && cury == oneal.worldY / gp.tileSize - 2) {
+            return 3;
+        }
+        if (curx == oneal.worldX / gp.tileSize && cury == oneal.worldY / gp.tileSize) {
+            return 0;
+        }
+        if (curx == oneal.worldX / gp.tileSize - 1 && cury == oneal.worldY / gp.tileSize - 1) {
+            return 2;
+        }
+        if (curx == oneal.worldX / gp.tileSize + 1 && cury == oneal.worldY / gp.tileSize - 1) {
+            return 1;
+        }
+        System.out.println(curx + " " + cury + " " + oneal.worldX/ gp.tileSize + " " + (oneal.worldY/gp.tileSize - 1));
         return 0;
+
     }
 
 }

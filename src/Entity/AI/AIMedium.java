@@ -53,5 +53,8 @@ public class AIMedium extends AI {
             return 2;
         return -1;
     }
+    public void bfs(int i, int i1) {
+        System.out.println("hello");
+    }
 
 }

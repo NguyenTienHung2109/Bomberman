@@ -11,4 +11,6 @@ public abstract class AI {
      * @return hướng đi xuống/phải/trái/lên tương ứng với các giá trị 0/1/2/3
      */
     public abstract int calculateDirection();
+
+    public abstract void bfs(int i, int i1);
 }

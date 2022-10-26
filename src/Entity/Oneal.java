@@ -23,7 +23,7 @@ public class Oneal extends Entity{
         solidArea.y = 4;
         solidArea.width = 40;
         solidArea.height = 40;
-        ai = new AIHard(gp.player, this);
+        ai = new AIHard(gp.player, this, gp);
         getOnealImage();
     }
     public void getOnealImage(){
@@ -108,7 +108,6 @@ public class Oneal extends Entity{
         setAction();
         collisionOn = false;
         gp.cChecker.checkTile(this);
-        gp.cChecker.checkPlayer(this);
 
         if(isDead) {
             spriteCounter++;
@@ -158,57 +157,25 @@ public class Oneal extends Entity{
     }
     public void setAction() {
         if(!isDead) {
-            int dir = ai.calculateDirection();
-            if(dir == 0) {
-                direction = "down";
-            }
-            if(dir == 1) {
-                direction = "right";
-            }
-            if(dir == 2) {
-                direction = "left";
-            }
-            if(dir == 3) {
-                direction = "up";
-            }
-        }
-           /* int sx = 0, sy= 0;
-            int tx = gp.player.worldX;
-            int ty = gp.player.worldY;
 
-            point.bfs(1,1);
-
-            List<point> path = new ArrayList<>();
-            if(!point.visit[tx][ty]) {
-                System.out.println("No path!");
-            }
-            else {
-                point target = new point(tx,ty);
-                while(target!= null) {
-                    int cx = target.getX();
-                    int cy = target.getY();
-                    path.add(new point(cx,cy));
-                    target = point.par[cx][cy];
-                }
-            }
-            Collections.reverse(path);
-            for(point i : path) {
-                int curx = i.getX();
-                int cury = i.getY();
-                if(curx == worldX - 1 && cury == worldY) {
-                    direction = "up";
-                }
-                if(curx == worldX && cury == worldY - 1) {
-                    direction = "left";
-                }
-                if(curx == worldX && cury == worldY + 1) {
-                    direction = "right";
-                }
-                if(curx == worldX + 1 && cury == worldY) {
+            if(worldX % gp.tileSize == 0 && worldY % gp.tileSize == 0) {
+                ai.bfs(worldX / gp.tileSize, worldY / gp.tileSize - 1);
+                int dir = ai.calculateDirection();
+                if (dir == 0) {
                     direction = "down";
                 }
+                if (dir == 1) {
+                    direction = "right";
+                }
+                if (dir == 2) {
+                    direction = "left";
+                }
+                if (dir == 3) {
+                    direction = "up";
+                }
+                //System.out.println(direction);
             }
-        }*/
-    }
+        }
 
+    }
 }

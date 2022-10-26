@@ -74,7 +74,7 @@ public class Player extends Entity {
             createdMillis = System.currentTimeMillis();
             gp.tileM.setMaxTileChar((worldX + 24)/gp.tileSize, (worldY + 24)/ gp.tileSize - 1, ' ');
         }
-        if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'X'  && gp.demMonsterKilled == gp.aSetter.demBalloom + gp.aSetter.demKondoria) {
+        if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'X'  && gp.demMonsterKilled == gp.aSetter.demBalloom + gp.aSetter.demKondoria + gp.aSetter.demOneal) {
             if(gp.currentLevel == 1) {
                 gp.scoreLevel2 = score;
             } else if(gp.currentLevel == 2) {
@@ -96,6 +96,7 @@ public class Player extends Entity {
         }
         int npcIndex = gp.cChecker.checkEntity(this, gp.balloom);
         gp.cChecker.checkEntity(this, gp.kondoria);
+        gp.cChecker.checkEntity(this, gp.oneal);
         interactNPC(npcIndex);
         if(isDead) {
             spriteCounter++;
@@ -228,6 +229,9 @@ public class Player extends Entity {
                     }
                     for(int i = 0; i < gp.kondoria.length; i++) {
                         gp.kondoria[i] = null;
+                    }
+                    for(int i = 0; i < gp.oneal.length; i++) {
+                        gp.oneal[i] = null;
                     }
                     deadCounter = 0;
                 }
