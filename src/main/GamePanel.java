@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int bombCount = 0;
     public int bombMax = 1;
     public int bombLength = 1;
-    public int currentLevel = 3;
+    public int currentLevel = 1;
     public int demMonsterKilled = 0;
     public boolean message = true;
     int counter = 0;
@@ -76,7 +76,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        aSetter.setBalloom();
         for (int i = 0; i < 20; i++) {
             aSetter.setBomb();
         }

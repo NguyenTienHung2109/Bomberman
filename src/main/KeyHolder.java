@@ -13,6 +13,7 @@ public class KeyHolder implements KeyListener {
     public static boolean downPressed;
     public static boolean leftPressed;
     public static boolean rightPressed;
+    private int demSetBalloom = 0;
     public static boolean bombPlaced;
     public static boolean unExploded = true;
     public static boolean bombPresent = false;
@@ -44,7 +45,10 @@ public class KeyHolder implements KeyListener {
                 if(gp.menu.commandNumber == 0) {
                     gp.gameState = gp.playState;
                     gp.tileM.loadMap(gp.currentLevel);
-                    gp.aSetter.setBalloom();
+                    if(demSetBalloom == 0) {
+                        gp.aSetter.setBalloom();
+                        demSetBalloom++;
+                    }
                     try {
                         gp.playMusic(GamePanel.STAGE_START);
                     } catch (UnsupportedAudioFileException ex) {
@@ -81,6 +85,7 @@ public class KeyHolder implements KeyListener {
                     gp.player.worldX = gp.tileSize;
                     gp.player.worldY = gp.tileSize*2;
                     gp.isWin = false;
+                    demSetBalloom = 0;
                 }
                 if(gp.menu.winCommandNumber == 1) {
                     System.exit(0);
