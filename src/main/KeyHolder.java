@@ -43,6 +43,8 @@ public class KeyHolder implements KeyListener {
             if(code == KeyEvent.VK_ENTER) {
                 if(gp.menu.commandNumber == 0) {
                     gp.gameState = gp.playState;
+                    gp.tileM.loadMap(gp.currentLevel);
+                    gp.aSetter.setBalloom();
                     try {
                         gp.playMusic(GamePanel.STAGE_START);
                     } catch (UnsupportedAudioFileException ex) {
@@ -74,9 +76,11 @@ public class KeyHolder implements KeyListener {
             }
             if(code == KeyEvent.VK_ENTER) {
                 if(gp.menu.winCommandNumber == 0) {
-                    gp.currentLevel = 1;
                     gp.gameState = gp.menuState;
                     gp.currentLevel = 1;
+                    gp.player.worldX = gp.tileSize;
+                    gp.player.worldY = gp.tileSize*2;
+                    gp.isWin = false;
                 }
                 if(gp.menu.winCommandNumber == 1) {
                     System.exit(0);

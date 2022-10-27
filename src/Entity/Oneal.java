@@ -16,7 +16,7 @@ public class Oneal extends Entity{
     public Oneal(GamePanel gp) {
         super(gp);
 
-        direction = "left";
+        direction = "down";
         speed = 2;
 
         solidArea.x = 4;
@@ -157,9 +157,8 @@ public class Oneal extends Entity{
     }
     public void setAction() {
         if(!isDead) {
-
-            if(worldX % gp.tileSize == 0 && worldY % gp.tileSize == 0) {
-                ai.bfs(worldX / gp.tileSize, worldY / gp.tileSize - 1);
+            ai.bfs(worldX / gp.tileSize, worldY / gp.tileSize - 1);
+            if(worldX % gp.tileSize == 0 && (worldY - solidArea.y/2) % gp.tileSize == 0) {
                 int dir = ai.calculateDirection();
                 if (dir == 0) {
                     direction = "down";

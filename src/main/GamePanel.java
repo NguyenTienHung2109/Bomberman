@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int bombCount = 0;
     public int bombMax = 1;
     public int bombLength = 1;
-    public int currentLevel = 1;
+    public int currentLevel = 3;
     public int demMonsterKilled = 0;
     public boolean message = true;
     int counter = 0;
@@ -94,8 +94,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    boolean moreBomb = true;
-
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -129,41 +127,41 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        if (gameState == playState) {
-            if (keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x) / tileSize][(player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1] != 'b') {
-                bomb.get(bombCount).updateBombPosition((int) ((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize) * tileSize, (int) ((player.worldY + bomb.get(bombCount).solidArea.y) / tileSize) * tileSize);
-                this.tileM.setNewBombMap((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize, (player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1, 'b');
-                bombCount++;
-                keyR.bombPresent = false;
+        if(!isWin) {
+            if (gameState == playState) {
+                if (keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x) / tileSize][(player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1] != 'b') {
+                    bomb.get(bombCount).updateBombPosition((int) ((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize) * tileSize, (int) ((player.worldY + bomb.get(bombCount).solidArea.y) / tileSize) * tileSize);
+                    this.tileM.setNewBombMap((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize, (player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1, 'b');
+                    bombCount++;
+                    keyR.bombPresent = false;
 
-            }
-            for (int i = 0; i < bombCount; i++) {
-                if (bomb.get(i) != null) {
-                    bomb.get(i).update(player, balloom);
+                }
+                for (int i = 0; i < bombCount; i++) {
+                    if (bomb.get(i) != null) {
+                        bomb.get(i).update(player, balloom);
+                    }
+                }
+                player.update();
+
+                for (int i = 0; i < balloom.length; i++) {
+                    if (balloom[i] != null) {
+                        balloom[i].update();
+                    }
+                }
+                for (int i = 0; i < kondoria.length; i++) {
+                    if (kondoria[i] != null) {
+                        kondoria[i].update();
+                    }
+                }
+                for (int i = 0; i < oneal.length; i++) {
+                    if (oneal[i] != null) {
+                        oneal[i].update();
+                    }
                 }
             }
-            player.update();
-
-            for (int i = 0; i < balloom.length; i++) {
-                if (balloom[i] != null) {
-                    balloom[i].update();
-                }
+            if (gameState == pauseState) {
+                menu.drawPauseScreen();
             }
-            for (int i = 0; i < kondoria.length; i++) {
-                if (kondoria[i] != null) {
-                    kondoria[i].update();
-                }
-            }
-            for (int i = 0; i < oneal.length; i++) {
-                if (oneal[i] != null) {
-                    oneal[i].update();
-                }
-            }
-
-
-        }
-        if (gameState == pauseState) {
-            menu.drawPauseScreen();
         }
     }
     public void paintComponent(Graphics gr) {

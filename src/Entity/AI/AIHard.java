@@ -42,7 +42,6 @@ public class AIHard extends AI {
             int x = q.peek().x;
             int y = q.peek().y;
             q.poll();
-            //System.out.println(x + " " + y + " " + (player.worldX + player.solidArea.x)/ gp.tileSize + " " + (player.worldY + player.solidArea.y)/ gp.tileSize);
             if (x == (player.worldX + player.solidArea.x)/ gp.tileSize && y == (player.worldY + player.solidArea.y) / gp.tileSize - 1) {
                 point k = par.get(y).get(x);
                 path = new ArrayList<>();
@@ -84,9 +83,6 @@ public class AIHard extends AI {
             curx = path.get(0).x;
             cury = path.get(0).y;
         }
-        for(point k : path) {
-            System.out.println(k.x + " " + k.y);
-        }
 
         if (curx == oneal.worldX / gp.tileSize && cury == oneal.worldY / gp.tileSize - 2) {
             return 3;
@@ -100,7 +96,6 @@ public class AIHard extends AI {
         if (curx == oneal.worldX / gp.tileSize + 1 && cury == oneal.worldY / gp.tileSize - 1) {
             return 1;
         }
-        System.out.println(curx + " " + cury + " " + oneal.worldX/ gp.tileSize + " " + (oneal.worldY/gp.tileSize - 1));
         return 0;
 
     }

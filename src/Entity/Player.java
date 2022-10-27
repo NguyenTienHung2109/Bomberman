@@ -79,7 +79,7 @@ public class Player extends Entity {
             createdMillis = System.currentTimeMillis();
             gp.tileM.setMaxTileChar((worldX + 24)/gp.tileSize, (worldY + 24)/ gp.tileSize - 1, ' ');
         }
-        if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'X'  /*&& gp.demMonsterKilled == gp.aSetter.demBalloom + gp.aSetter.demKondoria + gp.aSetter.demOneal*/) {
+        if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'X'  && gp.demMonsterKilled == gp.aSetter.demBalloom + gp.aSetter.demKondoria + gp.aSetter.demOneal) {
             if (gp.currentLevel == 3) {
                 gp.isWin = true;
             } else {
@@ -251,6 +251,7 @@ public class Player extends Entity {
                         gp.tileM.loadMap(gp.currentLevel);
                         gp.aSetter.demBalloom = 0;
                         gp.aSetter.demKondoria = 0;
+                        gp.aSetter.demOneal = 0;
                         gp.demMonsterKilled = 0;
                         gp.aSetter.setBalloom();
                         message = false;
@@ -260,6 +261,7 @@ public class Player extends Entity {
                         deadCounter = 0;
                         gp.bombLength = 1;
                         gp.bombMax = 1;
+                        speed = 2;
                     }
                 }
             }
