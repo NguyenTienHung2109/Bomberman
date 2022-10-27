@@ -5,6 +5,8 @@ import main.GamePanel;
 import main.KeyHolder;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -62,8 +64,9 @@ public class Bomb extends Entity{
         }
     }
 
-    public void updateBombPosition(int worldX, int worldY) {
+    public void updateBombPosition(int worldX, int worldY) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if (keyH.bombPlaced == true) {
+            gp.playMusic(GamePanel.PLACE_BOMB);
             placed = true;
             bombUnExploded = true;
 
@@ -72,7 +75,7 @@ public class Bomb extends Entity{
 
         }
     }
-    public void update(Entity player, Entity[] balloom){
+    public void update(Entity player, Entity[] balloom) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if(placed == true) {
             spriteCounter++;
             if((player.worldX + 24)/gp.tileSize != worldX/gp.tileSize || (player.worldY + 24)/gp.tileSize != worldY/gp.tileSize) {
@@ -107,6 +110,7 @@ public class Bomb extends Entity{
                     }
                 } else {
                     if(spriteNum == 4) {
+                        gp.playMusic(GamePanel.EXPLOSION);
                         if(explodeRight) {
                             if(gp.tileM.mapTileChar[brickXRight/gp.tileSize][brickYRight/gp.tileSize - 1] == 'f') {
                                 gp.tileM.setMaxTileChar(brickXRight/gp.tileSize , brickYRight/gp.tileSize - 1 , 'l');

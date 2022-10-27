@@ -33,7 +33,9 @@ public class GamePanel extends JPanel implements Runnable {
     public int demMonsterKilled = 0;
     public boolean message = true;
     int counter = 0;
+    public boolean isWin = false;
     KeyHolder keyR = new KeyHolder(this);
+    Time time = new Time();
     public AssertsSetter aSetter = new AssertsSetter(this, keyR);
     public Menu menu = new Menu(this);
     public final int screenWidth = tileSize * defaultScreenCol;
@@ -49,6 +51,15 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int pauseState = 2;
     public final int menuState = 0;
+    public Sound[] sounds = new Sound[10];
+    public static int MUSIC = 0;
+    public static int PLAYER_DIE = 1;
+    public static int POWER_UP = 2;
+    public static int NEXT_LEVEL = 3;
+    public static int PLACE_BOMB = 4;
+    public static int ENDING = 5;
+    public static int EXPLOSION = 6;
+    public static int STAGE_START = 7;
 
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyR);
@@ -71,8 +82,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         gameState = menuState;
+        time.runTime();
         try {
-            playMusic();
+            playMusic(MUSIC);
         } catch (UnsupportedAudioFileException e) {
             throw new RuntimeException(e);
         } catch (LineUnavailableException e) {
@@ -101,14 +113,22 @@ public class GamePanel extends JPanel implements Runnable {
             timer += (currentTime - lastTime);
             lastTime = currentTime;
             if (delta >= 1) {
-                update();
+                try {
+                    update();
+                } catch (UnsupportedAudioFileException e) {
+                    throw new RuntimeException(e);
+                } catch (LineUnavailableException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 repaint();
                 delta--;
             }
         }
     }
 
-    public void update() {
+    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if (gameState == playState) {
             if (keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x) / tileSize][(player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1] != 'b') {
                 bomb.get(bombCount).updateBombPosition((int) ((player.worldX + bomb.get(bombCount).solidArea.x) / tileSize) * tileSize, (int) ((player.worldY + bomb.get(bombCount).solidArea.y) / tileSize) * tileSize);
@@ -184,6 +204,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
             if(!player.message) {
                 menu.getScore(g2);
+                menu.getTime(g2);
             } else {
                 if(currentLevel == 1) {
                     player.score = scoreLevel1;
@@ -204,18 +225,33 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
+        if (isWin) {
+            menu.drawWinScreen();
+        }
         g2.dispose();
     }
-    public void playMusic() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void playMusic(int i) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        for (int j = 0; j < 10; j++) {
+            sounds[j] = new Sound();
+        }
+        sounds[0].setMusic("D:/Bomberman/res/sound/music_game2.wav");
+        sounds[1].setMusic("D:/Bomberman/res/sound/player_die.wav");
+        sounds[2].setMusic("D:/Bomberman/res/sound/up.wav");
+        //sounds[3].setMusic("D:/Bomberman/res/sound/next_level.wav");
+        sounds[4].setMusic("D:/Bomberman/res/sound/place_bomb.wav");
+        //sounds[5].setMusic("D:/Bomberman/res/sound/ending.wav");
+        sounds[6].setMusic("D:/Bomberman/res/sound/explosion-5981.wav");
+        sounds[7].setMusic("D:/Bomberman/res/sound/stage_start.wav");
+        sounds[i].play();
+    }
+    public void setSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+
+    }
+    public void stopMusic(int i) {
+        sounds[i].stop();
+    }
+    /*public void playSE() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         sound.setMusic("D:/Bomberman/res/sound/music_game2.wav");
         sound.play();
-        sound.loop();
-    }
-    public void stopMusic() {
-        sound.stop();
-    }
-    public void playSE() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        sound.setMusic("D:/Bomberman/res/sound/music_game2.wav");
-        sound.play();
-    }
+    }*/
 }

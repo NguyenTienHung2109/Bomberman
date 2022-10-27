@@ -4,6 +4,8 @@ import main.GamePanel;
 import main.KeyHolder;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -59,39 +61,46 @@ public class Player extends Entity {
         }
     }
 
-    public void update() {
+    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
         if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'l') {
+            gp.playMusic(GamePanel.POWER_UP);
             gp.bombLength++;
             gp.tileM.setMaxTileChar((worldX + 24)/gp.tileSize, (worldY + 24)/ gp.tileSize - 1, ' ');
         }
         if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'N') {
+            gp.playMusic(GamePanel.POWER_UP);
             gp.bombMax++;
             gp.tileM.setMaxTileChar((worldX + 24)/gp.tileSize, (worldY + 24)/ gp.tileSize - 1, ' ');
         }
         if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'S') {
+            gp.playMusic(GamePanel.POWER_UP);
             speed += 1;
             createdMillis = System.currentTimeMillis();
             gp.tileM.setMaxTileChar((worldX + 24)/gp.tileSize, (worldY + 24)/ gp.tileSize - 1, ' ');
         }
-        if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'X'  && gp.demMonsterKilled == gp.aSetter.demBalloom + gp.aSetter.demKondoria + gp.aSetter.demOneal) {
-            if(gp.currentLevel == 1) {
-                gp.scoreLevel2 = score;
-            } else if(gp.currentLevel == 2) {
-                gp.scoreLevel3 = score;
+        if(gp.tileM.mapTileChar[(worldX + 24)/gp.tileSize][(worldY + 24)/ gp.tileSize - 1] == 'X'  /*&& gp.demMonsterKilled == gp.aSetter.demBalloom + gp.aSetter.demKondoria + gp.aSetter.demOneal*/) {
+            if (gp.currentLevel == 3) {
+                gp.isWin = true;
+            } else {
+                if (gp.currentLevel == 1) {
+                    gp.scoreLevel2 = score;
+                } else if (gp.currentLevel == 2) {
+                    gp.scoreLevel3 = score;
+                }
+                gp.currentLevel++;
+                gp.tileM.loadMap(gp.currentLevel);
+                gp.aSetter.setBalloom();
+                gp.demMonsterKilled = 0;
+                gp.aSetter.demBalloom = 0;
+                gp.bombMax = 1;
+                gp.bombLength = 1;
             }
-            gp.currentLevel++;
-            gp.tileM.loadMap(gp.currentLevel);
-            gp.aSetter.setBalloom();
-            gp.demMonsterKilled = 0;
-            gp.aSetter.demBalloom = 0;
-            gp.bombMax = 1;
-            gp.bombLength = 1;
-        }
-        if(speed == 3) {
-            long nowMillis = System.currentTimeMillis();
-            if((nowMillis - createdMillis)/1000 == 10) {
-                speed = 2;
+            if(speed == 3) {
+                long nowMillis = System.currentTimeMillis();
+                if((nowMillis - createdMillis)/1000 == 10) {
+                    speed = 2;
+                }
             }
         }
         int npcIndex = gp.cChecker.checkEntity(this, gp.balloom);
@@ -159,12 +168,12 @@ public class Player extends Entity {
             }
         }
     }
-
     public void interactNPC(int i) {
         if (i != 999) {
             System.out.println("hitting");
         }
     }
+
 
     public void draw(Graphics2D g2) {
 

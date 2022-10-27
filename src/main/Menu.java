@@ -13,7 +13,7 @@ public class Menu {
     Font fip;
     public int commandNumber= 0;
     public int pcommandNumber = 0;
-
+    public int winCommandNumber = 0;
     public  Menu(GamePanel gp){
         this.gp = gp;
         try {
@@ -47,6 +47,16 @@ public class Menu {
         int x = gp.tileSize;
         int y = gp.tileSize - 10;
         g2.drawString(text,x,y);
+    }
+    public void getTime(Graphics2D g2) {
+        this.g2 = g2;
+        g2.setFont(fip);
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(30F));
+        String text = "Time: " + (302 - gp.time.timeCount);
+        int x = gp.tileSize * 5;
+        int y = gp.tileSize - 10;
+        g2.drawString(text, x, y);
     }
     public void drawLevel(Graphics2D g2) {
         this.g2 = g2;
@@ -90,6 +100,31 @@ public class Menu {
         y+=gp.tileSize *2;
         g2.drawString(text,x,y);
         if(pcommandNumber ==1) {
+            g2.drawString(">",x - gp.tileSize,y);
+        }
+    }
+    public void drawWinScreen() {
+        g2.setColor(new Color(70,120,80));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.setColor(Color.white);
+        String text = "YOU WIN";
+        int x = getXforCenter(text);
+        int y = gp.screenHeight/2 - gp.tileSize * 2;
+        g2.drawString(text,x,y);
+
+        text = "RESTART";
+        x = getXforCenter(text);
+        y+= 3 * gp.tileSize;
+        g2.drawString(text,x,y);
+        if(winCommandNumber ==0) {
+            g2.drawString(">",x - gp.tileSize,y);
+        }
+        text = "QUIT";
+        x = getXforCenter(text);
+        y+=gp.tileSize *2;
+        g2.drawString(text,x,y);
+        if(winCommandNumber ==1) {
             g2.drawString(">",x - gp.tileSize,y);
         }
 

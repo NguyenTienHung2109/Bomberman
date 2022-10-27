@@ -4,8 +4,11 @@ import Entity.AI.AI;
 import main.GamePanel;
 import org.w3c.dom.Node;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Entity {
     public int changeNum = 0;
@@ -45,7 +48,7 @@ public class Entity {
     public void setAction() {
 
     }
-    public void update() {
+    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         setAction();
 
         collisionOn = false;

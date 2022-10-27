@@ -1,7 +1,11 @@
 package main;
 import javax.security.auth.kerberos.KeyTab;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.event.KeyEvent;
 import  java.awt.event.KeyListener;
+import java.io.IOException;
+
 public class KeyHolder implements KeyListener {
 
     GamePanel gp;
@@ -39,8 +43,42 @@ public class KeyHolder implements KeyListener {
             if(code == KeyEvent.VK_ENTER) {
                 if(gp.menu.commandNumber == 0) {
                     gp.gameState = gp.playState;
+                    try {
+                        gp.playMusic(GamePanel.STAGE_START);
+                    } catch (UnsupportedAudioFileException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (LineUnavailableException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
                 if(gp.menu.commandNumber ==1) {
+                    System.exit(0);
+                }
+            }
+        }
+        //win
+        if (gp.isWin) {
+            if(code == KeyEvent.VK_W) {
+                gp.menu.winCommandNumber--;
+                if(gp.menu.winCommandNumber<0) {
+                    gp.menu.winCommandNumber = 1;
+                }
+            }
+            if(code == KeyEvent.VK_S) {
+                gp.menu.winCommandNumber++;
+                if(gp.menu.winCommandNumber>2) {
+                    gp.menu.winCommandNumber = 0;
+                }
+            }
+            if(code == KeyEvent.VK_ENTER) {
+                if(gp.menu.winCommandNumber == 0) {
+                    gp.currentLevel = 1;
+                    gp.gameState = gp.menuState;
+                    gp.currentLevel = 1;
+                }
+                if(gp.menu.winCommandNumber == 1) {
                     System.exit(0);
                 }
             }
