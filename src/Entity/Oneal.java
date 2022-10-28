@@ -121,6 +121,7 @@ public class Oneal extends Entity{
                     spriteNumDead = 4;
                 } else if (spriteNumDead == 4) {
                     spriteNumDead = 5;
+                    gp.demMonsterKilled++;
                 }
                 spriteCounter = 0;
             }
