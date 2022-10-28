@@ -43,7 +43,7 @@ Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này ch�
 - Khi các Flame xuất hiện, nếu có một đối tượng thuộc loại Brick/Wall nằm trên vị trí một trong các Flame thì độ dài Flame đó sẽ được giảm đi để sao cho Flame chỉ xuất hiện đến vị trí đối tượng Brick/Wall theo hướng xuất hiện. Lúc đó chỉ có đối tượng Brick/Wall bị ảnh hưởng bởi Flame, các đối tượng tiếp theo không bị ảnh hưởng. Còn nếu vật cản Flame là một đối tượng Bomb khác thì đối tượng **Bomb** đó cũng sẽ nổ ngay lập tức.
 ### Các chức năng
 - Menu hiển thị các trạng thái chơi
-- Người chơi di chuyển **Bomber** bằng các phím W: lên, S: xuống, A: sang trái, D: sang phải.
+- Người chơi di chuyển **Bomber** bằng các phím W: lên, S: xuống, A: sang trái, D: sang phải. Khi người chơi thu được các item sẽ nhận một sức mạnh tương ứng với item đó trong một khoảng thời gian ngắn.
 - Chức năng dừng game khi đang chơi.
 - Âm thanh khi chơi game, đặt bom, va chạm.
 - Tính điểm và thời gian chơi.
