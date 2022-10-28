@@ -54,7 +54,7 @@ public class Menu {
         g2.setColor(Color.WHITE);
         g2.setFont(g2.getFont().deriveFont(30F));
         String text = "Time: " + (302 - gp.time.timeCount);
-        int x = gp.tileSize * 5;
+        int x = gp.tileSize * 10;
         int y = gp.tileSize - 10;
         g2.drawString(text, x, y);
     }
@@ -81,16 +81,19 @@ public class Menu {
     public void drawPauseScreen() {
        // g2.setColor(new Color(70,120,80));
        // g2.fillRect(0,0, gp.screenWidth, gp.screenHeight);
-
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
+        g2.setColor(new Color(70, 120, 80));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,90F));
+        g2.setColor(Color.white);
         String text = "PAUSED";
         int x = getXforCenter(text);
-        int y = gp.screenHeight/2;
+        int y = gp.screenHeight/2 - gp.tileSize * 2;
         g2.drawString(text,x,y);
 
         text = "CONTINUE";
-        x = getXforCenter(text);
-        y+=gp.tileSize;
+        x = 3* gp.tileSize + getXforCenter(text);
+        y+=3*gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
         g2.drawString(text,x,y);
         if(pcommandNumber ==0) {
             g2.drawString(">",x - gp.tileSize,y);
@@ -105,7 +108,7 @@ public class Menu {
     }
     public void drawWinScreen() {
         g2.setColor(new Color(70,120,80));
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,90F));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
         g2.setColor(Color.white);
         String text = "YOU WIN";
@@ -114,6 +117,7 @@ public class Menu {
         g2.drawString(text,x,y);
 
         text = "RESTART";
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
         x = getXforCenter(text);
         y+= 3 * gp.tileSize;
         g2.drawString(text,x,y);
