@@ -4,7 +4,7 @@
 ***
 ## Nhóm 10
 #### Nguyễn Tiến Hùng - K66CB
-#### Phạm Hoàng - k66CD
+#### Phạm Hoàng - K66CD
 #### Nguyễn Thị Lan Nhi - K66CC
 ## Nội dung  
 [Mô tả chung](#mô-tả-chung)  
@@ -57,4 +57,4 @@ Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này ch�
     - Nhiều người cùng chơi
     - Thêm nhiều nhân vật chơi với các khả năng khác nhau như bắn **Enemy**, chạy nhanh, nhiều mạng...
 ### Điều tâm đắc
-- Sau một thời gian làm việc nhóm cùng nhau chúng em đã học hỏi thêm được rất nhiều kiến thức và tư duy lập trình OOP cùng nhiều những kiến thức bổ ích khác. Ngoài ra, chúng em cũng học được các kĩ năng khi làm việc nhóm, kĩ năng tìm kiếm thông tin,...Chúng em cảm thấy rất vui và biết ơn các thầy đã hướng dẫn và chỉ bảo chúng em để chúng em có thể hoàn thành bài tập lớn này.
+- Sau một thời gian làm việc nhóm cùng nhau chúng em đã học hỏi thêm được rất nhiều kiến thức và tư duy lập trình OOP cùng nhiều những kiến thức bổ ích khác. Ngoài ra, chúng em cũng học được các kĩ năng khi làm việc nhóm, kĩ năng tìm kiếm thông tin... Chúng em cảm thấy rất vui và biết ơn các thầy đã hướng dẫn và chỉ bảo chúng em để chúng em có thể hoàn thành bài tập lớn này.
