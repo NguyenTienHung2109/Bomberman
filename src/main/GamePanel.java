@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int bombCount = 0;
     public int bombMax = 1;
     public int bombLength = 1;
-    public int currentLevel = 1;
+    public int currentLevel = 2;
     public int demMonsterKilled = 0;
     public boolean message = true;
     public boolean start = false;
@@ -132,9 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == playState) {
             time.timeOn = true;
         }
-        if (player.isDead) {
-            time.restartTime();
-        }
+     
         if(!isWin) {
             if (gameState == playState) {
                 if (keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x) / tileSize][(player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1] != 'b') {
