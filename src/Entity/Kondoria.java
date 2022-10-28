@@ -107,7 +107,7 @@ public class Kondoria extends Entity {
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNumDead == 1) {
-                    gp.player.score += 200;
+                    gp.player.score += 250;
                     spriteNumDead = 2;
                 } else if (spriteNumDead == 2) {
                     spriteNumDead = 3;

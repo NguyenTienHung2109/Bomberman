@@ -3,7 +3,9 @@ package main;
 
 import Entity.Player;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -11,6 +13,7 @@ public class Menu {
     GamePanel gp;
     Graphics2D g2;
     Font fip;
+    BufferedImage image = null;
     public int commandNumber= 0;
     public int pcommandNumber = 0;
     public int winCommandNumber = 0;
@@ -79,54 +82,60 @@ public class Menu {
     }
 
     public void drawPauseScreen() {
-       // g2.setColor(new Color(70,120,80));
-       // g2.fillRect(0,0, gp.screenWidth, gp.screenHeight);
+
         g2.setColor(new Color(70, 120, 80));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,90F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,70F));
         g2.setColor(Color.white);
         String text = "PAUSED";
         int x = getXforCenter(text);
-        int y = gp.screenHeight/2 - gp.tileSize * 2;
+        int y = gp.tileSize * 4;
         g2.drawString(text,x,y);
 
-        text = "CONTINUE";
-        x = 3* gp.tileSize + getXforCenter(text);
-        y+=3*gp.tileSize;
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
+        text = "CONTINUE";
+        x = getXforCenter(text);
+        y+=3.5*gp.tileSize;
         g2.drawString(text,x,y);
         if(pcommandNumber ==0) {
             g2.drawString(">",x - gp.tileSize,y);
         }
         text = "QUIT";
         x = getXforCenter(text);
-        y+=gp.tileSize *2;
+        y+=gp.tileSize *3;
         g2.drawString(text,x,y);
         if(pcommandNumber ==1) {
             g2.drawString(">",x - gp.tileSize,y);
         }
     }
     public void drawWinScreen() {
-        g2.setColor(new Color(70,120,80));
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,90F));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/map/Win.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        g2.drawImage(image, 0,0, gp.screenWidth, gp.screenHeight, null);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,40F));
         g2.setColor(Color.white);
         String text = "YOU WIN";
         int x = getXforCenter(text);
         int y = gp.screenHeight/2 - gp.tileSize * 2;
+        text = "YOUR SCORE: " + gp.player.score;
+        x = getXforCenter(text);
+        y = gp.tileSize*7;
         g2.drawString(text,x,y);
 
         text = "RESTART";
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
         x = getXforCenter(text);
-        y+= 3 * gp.tileSize;
+        y+= 2* gp.tileSize;
         g2.drawString(text,x,y);
         if(winCommandNumber ==0) {
             g2.drawString(">",x - gp.tileSize,y);
         }
         text = "QUIT";
         x = getXforCenter(text);
-        y+=gp.tileSize *2;
+        y+=gp.tileSize *2.2;
         g2.drawString(text,x,y);
         if(winCommandNumber ==1) {
             g2.drawString(">",x - gp.tileSize,y);
@@ -134,32 +143,28 @@ public class Menu {
 
     }
     public void drawMenuScreen() {
-        g2.setColor(new Color(70,120,80));
-        g2.fillRect(0,0, gp.screenWidth, gp.screenHeight);
-
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,90F));
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/map/BG.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        g2.drawImage(image, 0,0, gp.screenWidth, gp.screenHeight, null);
         String text = "Bomberman";
         int x = getXforCenter(text);
         int y = gp.tileSize*3;
-        //shadow
-        g2.setColor(Color.gray);
-        g2.drawString(text, x+5, y+5);
-        //main
         g2.setColor(Color.white);
-        g2.drawString(text,x,y);
         //menu
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
-
         text = "NEW GAME";
         x = getXforCenter(text);
-        y+=gp.tileSize* 3.5;
+        y+=gp.tileSize* 4;
         g2.drawString(text,x,y);
         if(commandNumber ==0) {
             g2.drawString(">",x - gp.tileSize,y);
         }
         text = "QUIT";
         x = getXforCenter(text);
-        y+=gp.tileSize * 4;
+        y+=gp.tileSize * 3;
         g2.drawString(text,x,y);
         if(commandNumber ==1) {
             g2.drawString(">",x - gp.tileSize,y);
