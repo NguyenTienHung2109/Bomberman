@@ -45,16 +45,16 @@ public class Balloom extends Entity{
     }
     public void getBallommImage(){
             try {
-                left = ImageIO.read(getClass().getResourceAsStream("/balloom/balloom_left1.png"));
-                left1 = ImageIO.read(getClass().getResourceAsStream("/balloom/balloom_left2.png"));
-                left2 = ImageIO.read(getClass().getResourceAsStream("/balloom/balloom_left3.png"));
-                right = ImageIO.read(getClass().getResourceAsStream("/balloom/balloom_right1.png"));
-                right1 = ImageIO.read(getClass().getResourceAsStream("/balloom/balloom_right2.png"));
-                right2 = ImageIO.read(getClass().getResourceAsStream("/balloom/balloom_right3.png"));
-                dead = ImageIO.read(getClass().getResourceAsStream("/balloom/balloom_dead.png"));
-                dead1 = ImageIO.read(getClass().getResourceAsStream("/balloom/mob_dead1.png"));
-                dead2 = ImageIO.read(getClass().getResourceAsStream("/balloom/mob_dead2.png"));
-                dead3 = ImageIO.read(getClass().getResourceAsStream("/balloom/mob_dead3.png"));
+                left = ImageIO.read(getClass().getResourceAsStream("/enemy/balloom/balloom_left1.png"));
+                left1 = ImageIO.read(getClass().getResourceAsStream("/enemy/balloom/balloom_left2.png"));
+                left2 = ImageIO.read(getClass().getResourceAsStream("/enemy/balloom/balloom_left3.png"));
+                right = ImageIO.read(getClass().getResourceAsStream("/enemy/balloom/balloom_right1.png"));
+                right1 = ImageIO.read(getClass().getResourceAsStream("/enemy/balloom/balloom_right2.png"));
+                right2 = ImageIO.read(getClass().getResourceAsStream("/enemy/balloom/balloom_right3.png"));
+                dead = ImageIO.read(getClass().getResourceAsStream("/enemy/balloom/balloom_dead.png"));
+                dead1 = ImageIO.read(getClass().getResourceAsStream("/enemy/balloom/mob_dead1.png"));
+                dead2 = ImageIO.read(getClass().getResourceAsStream("/enemy/balloom/mob_dead2.png"));
+                dead3 = ImageIO.read(getClass().getResourceAsStream("/enemy/balloom/mob_dead3.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

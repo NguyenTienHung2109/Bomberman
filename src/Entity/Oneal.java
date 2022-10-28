@@ -1,8 +1,7 @@
 package Entity;
 
 import Entity.AI.AIHard;
-import Entity.AI.AILow;
-import Entity.AI.AIMedium;
+
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -28,16 +27,16 @@ public class Oneal extends Entity{
     }
     public void getOnealImage(){
         try {
-            left = ImageIO.read(getClass().getResourceAsStream("/oneal/oneal_left1.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/oneal/oneal_left2.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/oneal/oneal_left3.png"));
-            right = ImageIO.read(getClass().getResourceAsStream("/oneal/oneal_right1.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/oneal/oneal_right2.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/oneal/oneal_right3.png"));
-            dead = ImageIO.read(getClass().getResourceAsStream("/oneal/oneal_dead.png"));
-            dead1 = ImageIO.read(getClass().getResourceAsStream("/oneal/mob_dead1.png"));
-            dead2 = ImageIO.read(getClass().getResourceAsStream("/oneal/mob_dead2.png"));
-            dead3 = ImageIO.read(getClass().getResourceAsStream("/oneal/mob_dead3.png"));
+            left = ImageIO.read(getClass().getResourceAsStream("/enemy/oneal/oneal_left1.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/enemy/oneal/oneal_left2.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/enemy/oneal/oneal_left3.png"));
+            right = ImageIO.read(getClass().getResourceAsStream("/enemy/oneal/oneal_right1.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/enemy/oneal/oneal_right2.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/enemy/oneal/oneal_right3.png"));
+            dead = ImageIO.read(getClass().getResourceAsStream("/enemy/oneal/oneal_dead.png"));
+            dead1 = ImageIO.read(getClass().getResourceAsStream("/enemy/oneal/mob_dead1.png"));
+            dead2 = ImageIO.read(getClass().getResourceAsStream("/enemy/oneal/mob_dead2.png"));
+            dead3 = ImageIO.read(getClass().getResourceAsStream("/enemy/oneal/mob_dead3.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
