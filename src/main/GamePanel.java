@@ -135,9 +135,6 @@ public class GamePanel extends JPanel implements Runnable {
         if (player.isDead) {
             time.restartTime();
         }
-        if (player.worldX >= 100) {
-            isWin = true;
-        }
         if(!isWin) {
             if (gameState == playState) {
                 if (keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x) / tileSize][(player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1] != 'b') {
