@@ -32,6 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int currentLevel = 1;
     public int demMonsterKilled = 0;
     public boolean message = true;
+    public boolean start = false;
     int counter = 0;
     public boolean isWin = false;
     KeyHolder keyR = new KeyHolder(this);
@@ -60,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static int ENDING = 5;
     public static int EXPLOSION = 6;
     public static int STAGE_START = 7;
+    public boolean restart = false;
 
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyR);
@@ -81,9 +83,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         gameState = menuState;
-        time.runTime();
         try {
             playMusic(MUSIC);
+            loopMusic(MUSIC);
         } catch (UnsupportedAudioFileException e) {
             throw new RuntimeException(e);
         } catch (LineUnavailableException e) {
@@ -91,6 +93,7 @@ public class GamePanel extends JPanel implements Runnable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+            time.runTime();
     }
 
     public void startGameThread() {
@@ -126,6 +129,15 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        if (gameState == playState) {
+            time.timeOn = true;
+        }
+        if (player.isDead) {
+            time.restartTime();
+        }
+        if (player.worldX >= 100) {
+            isWin = true;
+        }
         if(!isWin) {
             if (gameState == playState) {
                 if (keyR.bombPresent && bombCount < bombMax && this.tileM.newBombMap[(player.worldX + bomb.get(bombCount).solidArea.x) / tileSize][(player.worldY + bomb.get(bombCount).solidArea.y) / tileSize - 1] != 'b') {
@@ -161,6 +173,8 @@ public class GamePanel extends JPanel implements Runnable {
             if (gameState == pauseState) {
                 menu.drawPauseScreen();
             }
+        } else {
+            time.stopTime();
         }
     }
     public void paintComponent(Graphics gr) {
@@ -246,6 +260,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public void stopMusic(int i) {
         sounds[i].stop();
+    }
+    public void loopMusic(int i) {
+        sounds[i].loop();
     }
     /*public void playSE() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         sound.setMusic("D:/Bomberman/res/sound/music_game2.wav");

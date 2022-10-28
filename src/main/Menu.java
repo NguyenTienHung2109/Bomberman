@@ -56,8 +56,8 @@ public class Menu {
         g2.setFont(fip);
         g2.setColor(Color.WHITE);
         g2.setFont(g2.getFont().deriveFont(30F));
-        String text = "Time: " + (302 - gp.time.timeCount);
-        int x = gp.tileSize * 10;
+        String text = "Time: " + gp.time.second;
+        int x = gp.tileSize * 15;
         int y = gp.tileSize - 10;
         g2.drawString(text, x, y);
     }
@@ -125,6 +125,12 @@ public class Menu {
         x = getXforCenter(text);
         y = gp.tileSize*7;
         g2.drawString(text,x,y);
+
+        text = "YOUR TIME: " + gp.time.second;
+        x = getXforCenter(text);
+        y += gp.tileSize;
+        g2.drawString(text,x,y);
+
 
         text = "RESTART";
         x = getXforCenter(text);

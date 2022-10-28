@@ -1,37 +1,36 @@
 package main;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import main.GamePanel;
+import javax.swing.*;
+import javax.swing.Timer;
+
 
 public class Time {
-
-    public GamePanel gp;
-    static int interval;
-    static Timer timer;
-    static String GAME_TIME = "300";
-    int timeCount = 0;
-
-    public void runTime() {
-        /*Scanner sc = new Scanner(System.in);
-        System.out.print("Input seconds => : ");
-        String secs = sc.nextLine();*/
-        int delay = 1000;
-        int period = 1000;
-        timer = new Timer();
-
-        interval = Integer.parseInt(GAME_TIME);
-        timer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-                //if (gp.gameState == gp.playState) {
-                timeCount++;
-                //}
+    Timer timer;
+    public boolean timeOn = false;
+    public int second = -1;
+    public void simpleTimer() {
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (timeOn == true) {
+                    second++;
+                }
             }
-        }, delay, period);
+        });
     }
-
-    private static final int setInterval() {
-        if (interval == 0)
-            timer.cancel();
-        return --interval;
+    public void runTime() {
+            simpleTimer();
+            timer.start();
+    }
+    public void restartTime() {
+        second = 0;
+        timer.start();
+    }
+    public void stopTime() {
+        timer.stop();
     }
 }

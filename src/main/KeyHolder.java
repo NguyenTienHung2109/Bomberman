@@ -44,6 +44,7 @@ public class KeyHolder implements KeyListener {
             if(code == KeyEvent.VK_ENTER) {
                 if(gp.menu.commandNumber == 0) {
                     gp.gameState = gp.playState;
+                    gp.start = true;
                     gp.tileM.loadMap(gp.currentLevel);
                     if(demSetBalloom == 0) {
                         gp.aSetter.setBalloom();
@@ -86,6 +87,7 @@ public class KeyHolder implements KeyListener {
                     gp.player.worldY = gp.tileSize*2;
                     gp.isWin = false;
                     demSetBalloom = 0;
+                    gp.time.restartTime();
                 }
                 if(gp.menu.winCommandNumber == 1) {
                     System.exit(0);
