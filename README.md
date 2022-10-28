@@ -48,6 +48,13 @@ Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này ch�
 - Âm thanh khi chơi game, đặt bom, va chạm.
 - Tính điểm và thời gian chơi.
 ## Các kỹ thuật được sử dụng
+- Xây dựng bản đồ từ tệp cấu hình
+- Di chuyển Bomber theo sự điều khiển của người chơi
+- Thuật toán tìm đường đi BFS dùng khi Enemy tìm đường tới Bomber, di chuyển ngẫu nhiên,...
+- Xử lý va chạm cho các đối tượng Bomber, Enemy, Brick, Bomb, Wall
+- Xử lý bom nổ
+- Xử lý khi Bomber sử dụng các Item và khi đi vào Portal
+- Xử lý hiệu ứng âm thanh
 ## Tổng kết
 ### Hướng phát triển
 - Thêm một số tính năng như:
